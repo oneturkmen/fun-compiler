@@ -1,0 +1,15 @@
+/* Lexical analyzer - scanner */
+
+%option outfile="program1_lex.cpp"
+%option noyywrap
+
+
+DIGIT [0-9]
+
+%%
+
+DIGIT return 1;
+
+. {
+  return -1;
+}
