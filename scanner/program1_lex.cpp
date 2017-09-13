@@ -2,10 +2,21 @@
   #include <iostream>
   #include <iomanip>
 
+  bool initial = false;
+
   int column = 1;
   int line = 1;
 
   void printDetails(int type, char* yytext, int yyleng) {
+    if (initial == false) {
+      initial = true;
+      std::cout << "Line";
+      std::cout << std::setw(10) << "Column";
+      std::cout << std::setw(10) << "Type";
+      std::cout << std::setw(10) << "Length";
+      std::cout << std::setw(10) << "Value" << std::endl;
+    }
+
     if (type == 8) return;
 
     std::cout << std::setw(8) << std::left << line;
@@ -16,7 +27,7 @@
     std::cout << std::endl;
   }
 
-#line 20 "program1_lex.cpp"
+#line 31 "program1_lex.cpp"
 
 #define  YY_INT_ALIGNED short int
 
@@ -351,7 +362,7 @@ struct yy_trans_info
 static yyconst flex_int16_t yy_accept[22] =
     {   0,
         0,    0,   12,   10,    2,    9,    1,    3,    4,    4,
-        5,   10,    5,    0,    5,    0,    8,    6,    0,    7,
+        5,    8,    5,    0,    5,    0,    8,    6,    0,    7,
         0
     } ;
 
@@ -437,7 +448,7 @@ static yyconst flex_int16_t yy_chk[52] =
 #line 1 "program1.lpp"
 /* Lexical analyzer - scanner */
 
-#line 441 "program1_lex.cpp"
+#line 452 "program1_lex.cpp"
 
 #define INITIAL 0
 
@@ -569,10 +580,10 @@ YY_DECL
 		}
 
 	{
-#line 34 "program1.lpp"
+#line 46 "program1.lpp"
 
 
-#line 576 "program1_lex.cpp"
+#line 587 "program1_lex.cpp"
 
 	while ( /*CONSTCOND*/1 )		/* loops until end-of-file is reached */
 		{
@@ -631,7 +642,7 @@ do_action:	/* This label is used only to access EOF actions. */
 
 case 1:
 YY_RULE_SETUP
-#line 36 "program1.lpp"
+#line 48 "program1.lpp"
 {
   printDetails(0, yytext, yyleng);
   ++column;
@@ -639,7 +650,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 2:
 YY_RULE_SETUP
-#line 41 "program1.lpp"
+#line 53 "program1.lpp"
 {
   printDetails(1, yytext, yyleng);
   column += 8;
@@ -647,7 +658,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 3:
 YY_RULE_SETUP
-#line 46 "program1.lpp"
+#line 58 "program1.lpp"
 {
   printDetails(2, yytext, yyleng);
   ++column;
@@ -655,7 +666,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 4:
 YY_RULE_SETUP
-#line 51 "program1.lpp"
+#line 63 "program1.lpp"
 {
   printDetails(3, yytext, yyleng);
   ++column;
@@ -663,7 +674,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 5:
 YY_RULE_SETUP
-#line 56 "program1.lpp"
+#line 68 "program1.lpp"
 {
   printDetails(4, yytext, yyleng);
   column += yyleng;
@@ -671,7 +682,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 6:
 YY_RULE_SETUP
-#line 61 "program1.lpp"
+#line 73 "program1.lpp"
 {
   printDetails(5, yytext, yyleng);
   column += yyleng;
@@ -679,7 +690,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 7:
 YY_RULE_SETUP
-#line 66 "program1.lpp"
+#line 78 "program1.lpp"
 {
   printDetails(6, yytext, yyleng);
   column += yyleng;
@@ -687,7 +698,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 8:
 YY_RULE_SETUP
-#line 71 "program1.lpp"
+#line 83 "program1.lpp"
 {
   printDetails(7, yytext, yyleng);
   column += yyleng;
@@ -696,25 +707,27 @@ YY_RULE_SETUP
 case 9:
 /* rule 9 can match eol */
 YY_RULE_SETUP
-#line 76 "program1.lpp"
+#line 88 "program1.lpp"
 {
   printDetails(8, yytext, yyleng);
   column = 1;
+  ++line;
 }
 	YY_BREAK
 case 10:
 YY_RULE_SETUP
-#line 81 "program1.lpp"
+#line 94 "program1.lpp"
 {
+  printDetails(9, yytext, yyleng);
   column += yyleng;
 }
 	YY_BREAK
 case 11:
 YY_RULE_SETUP
-#line 85 "program1.lpp"
+#line 99 "program1.lpp"
 ECHO;
 	YY_BREAK
-#line 718 "program1_lex.cpp"
+#line 731 "program1_lex.cpp"
 case YY_STATE_EOF(INITIAL):
 	yyterminate();
 
@@ -1669,7 +1682,7 @@ void yyfree (void * ptr )
 
 #define YYTABLES_NAME "yytables"
 
-#line 85 "program1.lpp"
+#line 99 "program1.lpp"
 
 
 

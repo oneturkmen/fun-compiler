@@ -7,10 +7,21 @@
   #include <iostream>
   #include <iomanip>
 
+  bool initial = false;
+
   int column = 1;
   int line = 1;
 
   void printDetails(int type, char* yytext, int yyleng) {
+    if (initial == false) {
+      initial = true;
+      std::cout << "Line";
+      std::cout << std::setw(10) << "Column";
+      std::cout << std::setw(10) << "Type";
+      std::cout << std::setw(10) << "Length";
+      std::cout << std::setw(10) << "Value" << std::endl;
+    }
+
     if (type == 8) return;
 
     std::cout << std::setw(8) << std::left << line;
@@ -24,12 +35,13 @@
 
 WSPACE    [ ]
 TAB       [ \t]
+NEWLINE   [ \n]
 PUNCT     [.,?!;"'(\)[\]]
 OPRTR     "+"|"-"|"*"|"/"|"%"|"="|"~"
 INT       [\-]?[0-9]+
 FLOAT     [\-]?[0-9]+\.[0-9]+
 SCI       [\-]?[0-9]+\.?[0-9]*[Ee][+\-]?[0-9]+
-WORD      (\_|[a-zA-Z])[_a-zA-Z0-9]+
+WORD      (\_|[a-zA-Z])[_a-zA-Z0-9]*
 
 %%
 
@@ -73,12 +85,14 @@ WORD      (\_|[a-zA-Z])[_a-zA-Z0-9]+
   column += yyleng;
 }
 
-[ \n] {
+{NEWLINE} {
   printDetails(8, yytext, yyleng);
   column = 1;
+  ++line;
 }
 
 . {
+  printDetails(9, yytext, yyleng);
   column += yyleng;
 }
 

@@ -11,13 +11,7 @@ int main () {
 
     // initialization code
 
-    while ((rtn = theScanner.yylex()) != 0) {
-      cout << "Line";
-      cout << setw(10) << "Column";
-      cout << setw(10) << "Type";
-      cout << setw(10) << "Length";
-      cout << setw(10) << "Value" << endl;
-    }
+    while ((rtn = theScanner.yylex()) != 0) { }
 
     return 0;
 }
