@@ -11,7 +11,9 @@ int main () {
 
     // initialization code
 
-    while ((rtn = theScanner.yylex()) != 0) { }
+    while ((rtn = theScanner.yylex()) != 0) {
+      // loop code
+    }
 
     return 0;
 }
