@@ -3,16 +3,83 @@
 %option outfile="program1_lex.cpp"
 %option noyywrap
 
+%top {
+  #include <iostream>
+  #include <iomanip>
+
+  int column = 1;
+  int line = 1;
+
+  void printDetails(int type, char* yytext, int yyleng) {
+    if (type == 8) return;
+
+    std::cout << std::setw(8) << std::left << line;
+    std::cout << std::setw(12) << std::left << column;
+    std::cout << std::setw(8) << std::left << type;
+    std::cout << std::setw(11) << std::left << yyleng;
+    std::cout << std::setw(10) << std::left << yytext;
+    std::cout << std::endl;
+  }
+}
+
+WSPACE    [ ]
+TAB       [ \t]
+PUNCT     [.,?!;"'(\)[\]]
+OPRTR     "+"|"-"|"*"|"/"|"%"|"="|"~"
+INT       [\-]?[0-9]+
+FLOAT     [\-]?[0-9]+\.[0-9]+
+SCI       [\-]?[0-9]+\.?[0-9]*[Ee][+\-]?[0-9]+
+WORD      (\_|[a-zA-Z])[_a-zA-Z0-9]+
+
 %%
 
-"+" { printf("PLUS\n"); }
-"-" { printf("MINUS\n"); }
-"*" { printf("TIMES\n"); }
-"/" { printf("DIVIDE\n"); }
-"|" { printf("ABS\n"); }
-[0-9]+ { printf("NUMBER %s\n", yytext); }
-\n { printf("NEWLINE\n"); }
-[ \t] { }
-. { printf("Mystery character %s\n", yytext); }
+{WSPACE} {
+  printDetails(0, yytext, yyleng);
+  ++column;
+}
+
+{TAB} {
+  printDetails(1, yytext, yyleng);
+  column += 8;
+}
+
+{PUNCT} {
+  printDetails(2, yytext, yyleng);
+  ++column;
+}
+
+{OPRTR} {
+  printDetails(3, yytext, yyleng);
+  ++column;
+}
+
+{INT} {
+  printDetails(4, yytext, yyleng);
+  column += yyleng;
+}
+
+{FLOAT} {
+  printDetails(5, yytext, yyleng);
+  column += yyleng;
+}
+
+{SCI} {
+  printDetails(6, yytext, yyleng);
+  column += yyleng;
+}
+
+{WORD} {
+  printDetails(7, yytext, yyleng);
+  column += yyleng;
+}
+
+[ \n] {
+  printDetails(8, yytext, yyleng);
+  column = 1;
+}
+
+. {
+  column += yyleng;
+}
 
 %%
