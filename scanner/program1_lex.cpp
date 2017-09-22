@@ -1,33 +1,9 @@
 #line 2 "program1_lex.cpp"
   #include <iostream>
   #include <iomanip>
+  #include "program1.h"
 
-  bool initial = false;
-
-  int column = 1;
-  int line = 1;
-
-  void printDetails(int type, char* yytext, int yyleng) {
-    if (initial == false) {
-      initial = true;
-      std::cout << "Line";
-      std::cout << std::setw(10) << "Column";
-      std::cout << std::setw(10) << "Type";
-      std::cout << std::setw(10) << "Length";
-      std::cout << std::setw(10) << "Value" << std::endl;
-    }
-
-    if (type == 8) return;
-
-    std::cout << std::setw(8) << std::left << line;
-    std::cout << std::setw(12) << std::left << column;
-    std::cout << std::setw(8) << std::left << type;
-    std::cout << std::setw(11) << std::left << yyleng;
-    std::cout << std::setw(10) << std::left << yytext;
-    std::cout << std::endl;
-  }
-
-#line 31 "program1_lex.cpp"
+#line 7 "program1_lex.cpp"
 
 #define  YY_INT_ALIGNED short int
 
@@ -359,11 +335,11 @@ struct yy_trans_info
 	flex_int32_t yy_verify;
 	flex_int32_t yy_nxt;
 	};
-static yyconst flex_int16_t yy_accept[22] =
+static yyconst flex_int16_t yy_accept[25] =
     {   0,
         0,    0,   12,   10,    2,    9,    1,    3,    4,    4,
-        5,    8,    5,    0,    5,    0,    8,    6,    0,    7,
-        0
+        4,    5,    8,    1,    5,    5,    0,    5,    0,    8,
+        6,    0,    7,    0
     } ;
 
 static yyconst YY_CHAR yy_ec[256] =
@@ -404,38 +380,38 @@ static yyconst YY_CHAR yy_meta[18] =
         1,    3,    1,    4,    4,    4,    1
     } ;
 
-static yyconst flex_uint16_t yy_base[24] =
+static yyconst flex_uint16_t yy_base[27] =
     {   0,
-        0,    0,   33,   34,   34,   34,   34,   34,   34,   20,
-        8,    0,    0,    7,    0,   19,    0,    9,   18,   17,
-       34,   22,   25
+        0,    0,   37,   38,   38,   38,   32,   38,   38,   23,
+       22,    8,    0,   29,   20,    0,    7,    0,   19,    0,
+        9,   18,   17,   38,   22,   25
     } ;
 
-static yyconst flex_int16_t yy_def[24] =
+static yyconst flex_int16_t yy_def[27] =
     {   0,
-       21,    1,   21,   21,   21,   21,   21,   21,   21,   21,
-       21,   22,   11,   21,   11,   23,   22,   21,   21,   21,
-        0,   21,   21
+       24,    1,   24,   24,   24,   24,   24,   24,   24,   24,
+       24,   24,   25,   24,   24,   12,   24,   12,   26,   25,
+       24,   24,   24,    0,   24,   24
     } ;
 
-static yyconst flex_uint16_t yy_nxt[52] =
+static yyconst flex_uint16_t yy_nxt[56] =
     {   0,
-        4,    5,    6,    7,    8,    9,    9,    9,   10,    8,
-        9,   11,    9,   12,   12,   12,    9,   14,   18,   15,
-       18,   16,   16,   16,   17,   17,   19,   19,   20,   20,
-       20,   13,   21,    3,   21,   21,   21,   21,   21,   21,
-       21,   21,   21,   21,   21,   21,   21,   21,   21,   21,
-       21
+        4,    5,    6,    7,    8,    9,    9,   10,   11,    8,
+        9,   12,    9,   13,   13,   13,    9,   17,   21,   18,
+       21,   19,   19,   19,   20,   20,   22,   22,   23,   23,
+       23,   15,   14,   16,   15,   14,   24,    3,   24,   24,
+       24,   24,   24,   24,   24,   24,   24,   24,   24,   24,
+       24,   24,   24,   24,   24
     } ;
 
-static yyconst flex_int16_t yy_chk[52] =
+static yyconst flex_int16_t yy_chk[56] =
     {   0,
         1,    1,    1,    1,    1,    1,    1,    1,    1,    1,
-        1,    1,    1,    1,    1,    1,    1,   11,   14,   11,
-       18,   14,   11,   18,   22,   22,   23,   23,   20,   19,
-       16,   10,    3,   21,   21,   21,   21,   21,   21,   21,
-       21,   21,   21,   21,   21,   21,   21,   21,   21,   21,
-       21
+        1,    1,    1,    1,    1,    1,    1,   12,   17,   12,
+       21,   17,   12,   21,   25,   25,   26,   26,   23,   22,
+       19,   15,   14,   11,   10,    7,    3,   24,   24,   24,
+       24,   24,   24,   24,   24,   24,   24,   24,   24,   24,
+       24,   24,   24,   24,   24
     } ;
 
 /* The intent behind this definition is that it'll catch
@@ -448,7 +424,7 @@ static yyconst flex_int16_t yy_chk[52] =
 #line 1 "program1.lpp"
 /* Lexical analyzer - scanner */
 
-#line 452 "program1_lex.cpp"
+#line 428 "program1_lex.cpp"
 
 #define INITIAL 0
 
@@ -580,10 +556,10 @@ YY_DECL
 		}
 
 	{
-#line 46 "program1.lpp"
+#line 23 "program1.lpp"
 
 
-#line 587 "program1_lex.cpp"
+#line 563 "program1_lex.cpp"
 
 	while ( /*CONSTCOND*/1 )		/* loops until end-of-file is reached */
 		{
@@ -610,13 +586,13 @@ yy_match:
 			while ( yy_chk[yy_base[yy_current_state] + yy_c] != yy_current_state )
 				{
 				yy_current_state = (int) yy_def[yy_current_state];
-				if ( yy_current_state >= 22 )
+				if ( yy_current_state >= 25 )
 					yy_c = yy_meta[(unsigned int) yy_c];
 				}
 			yy_current_state = yy_nxt[yy_base[yy_current_state] + (flex_int16_t) yy_c];
 			++yy_cp;
 			}
-		while ( yy_base[yy_current_state] != 34 );
+		while ( yy_base[yy_current_state] != 38 );
 
 yy_find_action:
 		yy_act = yy_accept[yy_current_state];
@@ -642,92 +618,91 @@ do_action:	/* This label is used only to access EOF actions. */
 
 case 1:
 YY_RULE_SETUP
-#line 48 "program1.lpp"
+#line 25 "program1.lpp"
 {
-  printDetails(0, yytext, yyleng);
-  ++column;
+  column += yyleng;
+  return 1;
 }
 	YY_BREAK
 case 2:
 YY_RULE_SETUP
-#line 53 "program1.lpp"
+#line 30 "program1.lpp"
 {
-  printDetails(1, yytext, yyleng);
-  column += 8;
+  column += yyleng;
+  return 2;
 }
 	YY_BREAK
 case 3:
 YY_RULE_SETUP
-#line 58 "program1.lpp"
+#line 35 "program1.lpp"
 {
-  printDetails(2, yytext, yyleng);
   ++column;
+  return 3;
 }
 	YY_BREAK
 case 4:
 YY_RULE_SETUP
-#line 63 "program1.lpp"
+#line 40 "program1.lpp"
 {
-  printDetails(3, yytext, yyleng);
   ++column;
+  return 4;
 }
 	YY_BREAK
 case 5:
 YY_RULE_SETUP
-#line 68 "program1.lpp"
+#line 45 "program1.lpp"
 {
-  printDetails(4, yytext, yyleng);
   column += yyleng;
+  return 5;
 }
 	YY_BREAK
 case 6:
 YY_RULE_SETUP
-#line 73 "program1.lpp"
+#line 50 "program1.lpp"
 {
-  printDetails(5, yytext, yyleng);
   column += yyleng;
+  return 6;
 }
 	YY_BREAK
 case 7:
 YY_RULE_SETUP
-#line 78 "program1.lpp"
+#line 55 "program1.lpp"
 {
-  printDetails(6, yytext, yyleng);
   column += yyleng;
+  return 7;
 }
 	YY_BREAK
 case 8:
 YY_RULE_SETUP
-#line 83 "program1.lpp"
+#line 60 "program1.lpp"
 {
-  printDetails(7, yytext, yyleng);
   column += yyleng;
+  return 8;
 }
 	YY_BREAK
 case 9:
 /* rule 9 can match eol */
 YY_RULE_SETUP
-#line 88 "program1.lpp"
+#line 65 "program1.lpp"
 {
-  printDetails(8, yytext, yyleng);
-  column = 1;
-  ++line;
+  column = 0;
+  return 9;
 }
 	YY_BREAK
 case 10:
 YY_RULE_SETUP
-#line 94 "program1.lpp"
+#line 70 "program1.lpp"
 {
-  printDetails(9, yytext, yyleng);
   column += yyleng;
+  return 10;
 }
 	YY_BREAK
 case 11:
 YY_RULE_SETUP
-#line 99 "program1.lpp"
+#line 75 "program1.lpp"
 ECHO;
 	YY_BREAK
-#line 731 "program1_lex.cpp"
+#line 706 "program1_lex.cpp"
 case YY_STATE_EOF(INITIAL):
 	yyterminate();
 
@@ -1140,7 +1115,7 @@ int yyFlexLexer::yy_get_next_buffer()
 		while ( yy_chk[yy_base[yy_current_state] + yy_c] != yy_current_state )
 			{
 			yy_current_state = (int) yy_def[yy_current_state];
-			if ( yy_current_state >= 22 )
+			if ( yy_current_state >= 25 )
 				yy_c = yy_meta[(unsigned int) yy_c];
 			}
 		yy_current_state = yy_nxt[yy_base[yy_current_state] + (flex_int16_t) yy_c];
@@ -1168,11 +1143,11 @@ int yyFlexLexer::yy_get_next_buffer()
 	while ( yy_chk[yy_base[yy_current_state] + yy_c] != yy_current_state )
 		{
 		yy_current_state = (int) yy_def[yy_current_state];
-		if ( yy_current_state >= 22 )
+		if ( yy_current_state >= 25 )
 			yy_c = yy_meta[(unsigned int) yy_c];
 		}
 	yy_current_state = yy_nxt[yy_base[yy_current_state] + (flex_int16_t) yy_c];
-	yy_is_jam = (yy_current_state == 21);
+	yy_is_jam = (yy_current_state == 24);
 
 		return yy_is_jam ? 0 : yy_current_state;
 }
@@ -1682,7 +1657,7 @@ void yyfree (void * ptr )
 
 #define YYTABLES_NAME "yytables"
 
-#line 99 "program1.lpp"
+#line 75 "program1.lpp"
 
 
 
