@@ -27,5 +27,7 @@ Run in order:
 ### Notes
 
 \*     : **Decaf** is the strongly-typed object-oriented language with support for inheritance and encapsulation.
+
 \*\*   : **Flex** is the lexical analyzer (.l or .lpp file extension)
+
 \*\*\* : **Bison** is the syntactic analyzer, formerly know as **yacc** (.y or .yy file extension). Compatible with **yacc**.
