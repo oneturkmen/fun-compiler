@@ -1,3 +1,5 @@
 # Output file (should be generated locally)
 *.out
 *.output
+*.~lock*
+*.docx
