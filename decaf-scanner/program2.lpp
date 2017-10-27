@@ -1,0 +1,141 @@
+/* Lexical analyzer - scanner */
+
+%option outfile="program2_lex.cpp"
+%option noyywrap
+%option c++
+
+%top {
+  #include <iostream>
+  #include <iomanip>
+  #include "program2.h"
+}
+
+%x COMMENTS_ONELINE
+%x COMMENTS_MULLINE
+%x ERR_STATE
+
+SPACETAB    [ \t]+
+NEWLINE     [\n]
+PUNCT       [.,?!;"'(\)[\]]
+OPRTR1      "+"|"%"|")"|"{"|"<"|"&&"|"-"|";"|"="|"}"|">"|"||"
+OPRTR2      "["|"!="|"<="|"!"|"/"|"("|"."|"]"|"=="|">="|"*"|","
+OPRTR       {OPRTR1}|{OPRTR2}
+INT         [+\-]?[0-9]+
+FLOAT       [\-]?[0-9]+\.[0-9]+
+SCI         [\-]?[0-9]+\.?[0-9]*[Ee]{INT}
+IDENTIFIER  [_a-zA-Z][_a-zA-Z0-9]*
+KEYWORD1    if|int|class|new|return|read
+KEYWORD2    print|while|else|this|void
+KEYWORD     {KEYWORD1}|{KEYWORD2}
+
+%%
+
+<ERR_STATE>{NEWLINE} {
+  yyless(0);
+  BEGIN(INITIAL);
+}
+
+<ERR_STATE>{SPACETAB} {
+  yyless(0);
+  BEGIN(INITIAL);
+}
+
+<ERR_STATE>{OPRTR} {
+  yyless(0);
+  BEGIN(INITIAL);
+}
+
+<ERR_STATE>[_a-zA-Z]* {
+  column += yyleng;
+  return 1000;
+}
+
+<ERR_STATE>. {
+  err_char = yytext[0];
+  column += yyleng;
+  return 1000;
+}
+
+"//" {
+  BEGIN(COMMENTS_ONELINE);
+}
+
+<COMMENTS_ONELINE>. {
+  column += yyleng;
+}
+
+<COMMENTS_ONELINE>\n {
+  yyless(0);
+  BEGIN(INITIAL);
+}
+
+"/*" {
+  column += yyleng;
+  BEGIN(COMMENTS_MULLINE);
+}
+
+<COMMENTS_MULLINE>[^*]* {
+  column += yyleng;
+}
+
+<COMMENTS_MULLINE>"*"+[^*/]* {
+  column += yyleng;
+}
+
+<COMMENTS_MULLINE>"*"+"/" {
+  column += yyleng;
+  BEGIN(INITIAL);
+}
+
+{SPACETAB} {
+  column += yyleng;
+  return 1;
+}
+
+{PUNCT} {
+  ++column;
+  return 3;
+}
+
+{OPRTR} {
+  ++column;
+  return 4;
+}
+
+{INT} {
+  column += yyleng;
+  return 5;
+}
+
+{FLOAT} {
+  column += yyleng;
+  return 6;
+}
+
+{SCI} {
+  column += yyleng;
+  return 7;
+}
+
+{KEYWORD} {
+  column += yyleng;
+  return 8;
+}
+
+{IDENTIFIER} {
+  column += yyleng;
+  return 9;
+}
+
+{NEWLINE} {
+  column = 0;
+  return 10;
+}
+
+. {
+  err_char = yytext[0];
+  ++column;
+  BEGIN(ERR_STATE);
+}
+
+%%
