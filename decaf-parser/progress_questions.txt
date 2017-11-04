@@ -1,2 +1,4 @@
-1) How to allow multiple lines?
-2) How to proceed with errors? I mean how to track which number and location?
+1) What should I do with construction declaration? two epsilons ....
+2) is it okay not to declare local_var_decl because we already have the var_decl?
+
+HAVING A REDUCE-REDUCE on STATE 82. Check online.
