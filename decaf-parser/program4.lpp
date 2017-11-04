@@ -1,0 +1,136 @@
+/**
+  Program 4, program4.lpp
+  Purpose: lexical analyzer file
+
+  @author Batyr Nuryyev
+  @date   11/01/2017
+*/
+
+%option outfile="program4_lex.cpp"
+%option noyywrap
+%option yylineno
+%option c++
+
+%top {
+  #include <iostream>
+  #include <iomanip>
+  #include <vector>
+  #include <string>
+  #include "program4.hpp"
+  #include "program4.tab.h"
+
+  int yycolumn = 1;
+
+  #define YY_USER_ACTION yylloc.first_line = yylloc.last_line = yylineno; \
+          yylloc.first_column = yycolumn; \
+          yylloc.last_column = yycolumn + yyleng - 1; \
+          yycolumn += yyleng;
+
+  int yylineno = 1;
+
+  ReportError *reporter = new ReportError;
+
+  void yyerror(const char *string, int line, int col)
+  {
+    cerr << line << "-" << col << ": " << string << endl;
+  }
+
+  void yyerror(const char *string)
+  {
+    cerr << string << endl;
+  }
+
+}
+
+%x COMMENTS_MULLINE
+
+ALL_WS        [ \t]+
+NUMBER        [0-9]+
+FLOAT         {NUMBER}\.[0-9]+
+SCI           {NUMBER}\.?[0-9]*[Ee]{NUMBER}
+NUMBER_SCI    {NUMBER}{FLOAT}?(E[+-]?{NUMBER})?
+IDENTIFIER    [_a-zA-Z][_a-zA-Z0-9]*
+START_COMMENT ("/*")
+CLOSE_COMMENT ("*/")
+SINGL_COMMENT ("//"[^\n]*)
+
+%%
+
+{SINGL_COMMENT} { }
+
+{START_COMMENT} {
+  BEGIN(COMMENTS_MULLINE);
+}
+
+<COMMENTS_MULLINE>{CLOSE_COMMENT} {
+  BEGIN(INITIAL);
+}
+
+<COMMENTS_MULLINE>\n { yycolumn++; }
+
+<COMMENTS_MULLINE><<EOF>> { }
+<COMMENTS_MULLINE>. { }
+
+[\n]+       { yycolumn = yyleng; }
+
+{ALL_WS} { /* eat whitespace */ }
+
+\.   { return DOT;       }
+","  { return COMMA;     }
+";"  { return SEMICOLON; }
+"{"  { return LC;        }
+"("  { return LP;        }
+"["  { return LS;        }
+"]"  { return RS;        }
+")"  { return RP;        }
+"}"  { return RC;        }
+
+"if"     { return IF;     }
+"else"   { return ELSE;   }
+"while"  { return WHILE;  }
+"return" { return RETURN; }
+"class"  { return CLASS;  }
+"void"   { return VOID;   }
+"print"  { return PRINT;  }
+"new"    { return NEW;    }
+"this"   { return THIS;   }
+"null"   { return NLL;    }
+"read"   { return READ;   }
+"int"    { return INT;    }
+
+{NUMBER} {
+  yylval.ttype = new Node;
+  yylval.ttype->setValNum((string)yytext);
+  return NUMBER;
+}
+
+{IDENTIFIER} {
+  yylval.ttype = new Node;
+  yylval.ttype->setValId((string)yytext);
+  return ID;
+}
+
+"="  { return ASSIGN;    }
+"==" { return EQUALS;    }
+"!=" { return NOTEQL;    }
+"<=" { return LESSGRT;   }
+">=" { return MOREGRT;   }
+">"  { return GREATER;   }
+"<"  { return LESS;      }
+"+"  { return PLUS;      }
+"-"  { return MINUS;     }
+"/"  { return DIV;       }
+"*"  { return MULT;      }
+"%"  { return REMAINDER; }
+"&&" { return ANDAND;    }
+"||" { return OROR;      }
+"!"  { return NOT;       }
+
+. {
+  cout << endl;
+  cout << yylineno << "-" << yycolumn-1;
+  cout << ": Unrecognized character => ";
+  cout << yytext << endl;
+}
+
+%%
