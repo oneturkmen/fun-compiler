@@ -1,9 +1,9 @@
 /**
-  Program 3, program3.hpp
+  Program 4, program4.hpp
   Purpose: tree and error reports class definitions
 
   @author Batyr Nuryyev
-  @date   10/27/2017
+  @date   11/01/2017
 */
 
 
@@ -160,13 +160,6 @@ class Node {
         *out << endl;
       }
 
-      if (_left) {
-        _left->print(out);
-      }
-      if (_right) {
-        _right->print(out);
-      }
-
       /**
        * So, what does the following snippet execute?
        *
@@ -186,7 +179,7 @@ class Node {
        *             /  \        /  \        /  \        /  \.
        *          NILL SMTH   NULL SMTH   NULL NULL   NULL NULL
        */
-      if (_children_assgn.size() >= 1)
+      if (!_children_assgn.empty())
       {
         auto it = _children_assgn.begin();
         while (it != _children_assgn.end())
@@ -194,14 +187,16 @@ class Node {
 
           // Print every production rule
           // Mostly expression because of NewExpression rule
-          if ((*it)->getValProd() != "") {
-            *out << (*it)->getValProd();
-            *out << endl;
+          // if ((*it)->getValProd() != "") {
+          //   *out << (*it)->getValProd();
+          //   *out << endl;
+          // }
+          if (*it) {
+            (*it)->print(out);
           }
-
           //
-          if ((*it)->_left) ((*it)->_left)->print(out);
-          if ((*it)->_right) ((*it)->_right)->print(out);
+          // if ((*it)->_left) ((*it)->_left)->print(out);
+          // if ((*it)->_right) ((*it)->_right)->print(out);
 
           ++it;
         }

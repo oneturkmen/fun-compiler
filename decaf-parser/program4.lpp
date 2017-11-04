@@ -1,12 +1,12 @@
 /**
-  Program 3, program3.lpp
+  Program 4, program4.lpp
   Purpose: lexical analyzer file
 
   @author Batyr Nuryyev
-  @date   10/27/2017
+  @date   11/01/2017
 */
 
-%option outfile="program3_lex.cpp"
+%option outfile="program4_lex.cpp"
 %option noyywrap
 %option yylineno
 %option c++
@@ -16,8 +16,8 @@
   #include <iomanip>
   #include <vector>
   #include <string>
-  #include "program3.hpp"
-  #include "program3.tab.h"
+  #include "program4.hpp"
+  #include "program4.tab.h"
 
   int yycolumn = 1;
 
@@ -44,7 +44,7 @@
 
 %x COMMENTS_MULLINE
 
-ALL_WS        [ \t\n]
+ALL_WS        [ \t]+
 NUMBER        [0-9]+
 FLOAT         {NUMBER}\.[0-9]+
 SCI           {NUMBER}\.?[0-9]*[Ee]{NUMBER}
@@ -66,10 +66,24 @@ SINGL_COMMENT ("//"[^\n]*)
   BEGIN(INITIAL);
 }
 
+<COMMENTS_MULLINE>\n { yycolumn++; }
+
 <COMMENTS_MULLINE><<EOF>> { }
 <COMMENTS_MULLINE>. { }
 
+[\n]+       { yycolumn = yyleng; }
+
 {ALL_WS} { /* eat whitespace */ }
+
+\.   { return DOT;       }
+","  { return COMMA;     }
+";"  { return SEMICOLON; }
+"{"  { return LC;        }
+"("  { return LP;        }
+"["  { return LS;        }
+"]"  { return RS;        }
+")"  { return RP;        }
+"}"  { return RC;        }
 
 "if"     { return IF;     }
 "else"   { return ELSE;   }
@@ -84,15 +98,6 @@ SINGL_COMMENT ("//"[^\n]*)
 "read"   { return READ;   }
 "int"    { return INT;    }
 
-"." { return DOT;       }
-";" { return SEMICOLON; }
-"{" { return LC;        }
-"(" { return LP;        }
-"[" { return LS;        }
-"]" { return RS;        }
-")" { return RP;        }
-"}" { return RC;        }
-
 {NUMBER} {
   yylval.ttype = new Node;
   yylval.ttype->setValNum((string)yytext);
@@ -105,6 +110,7 @@ SINGL_COMMENT ("//"[^\n]*)
   return ID;
 }
 
+"="  { return ASSIGN;    }
 "==" { return EQUALS;    }
 "!=" { return NOTEQL;    }
 "<=" { return LESSGRT;   }
@@ -121,7 +127,10 @@ SINGL_COMMENT ("//"[^\n]*)
 "!"  { return NOT;       }
 
 . {
-  return *yytext;
+  cout << endl;
+  cout << yylineno << "-" << yycolumn-1;
+  cout << ": Unrecognized character => ";
+  cout << yytext << endl;
 }
 
 %%

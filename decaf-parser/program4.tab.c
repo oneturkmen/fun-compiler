@@ -62,14 +62,14 @@
 
 
 /* Copy the first part of user declarations.  */
-#line 11 "program3.y" /* yacc.c:339  */
+#line 11 "program4.y" /* yacc.c:339  */
 
 
 #include <iostream>
 #include <vector>
 #include <typeinfo>
 #include <FlexLexer.h>
-#include "program3.hpp"
+#include "program4.hpp"
 
 using namespace std;
 
@@ -95,7 +95,7 @@ void yyerror(const char *, int, int);
 void yyerror(const char *);
 
 
-#line 99 "program3.tab.c" /* yacc.c:339  */
+#line 99 "program4.tab.c" /* yacc.c:339  */
 
 # ifndef YY_NULLPTR
 #  if defined __cplusplus && 201103L <= __cplusplus
@@ -110,13 +110,13 @@ void yyerror(const char *);
 # undef YYERROR_VERBOSE
 # define YYERROR_VERBOSE 1
 #else
-# define YYERROR_VERBOSE 0
+# define YYERROR_VERBOSE 1
 #endif
 
 /* In a future release of Bison, this section will be replaced
-   by #include "program3.tab.h".  */
-#ifndef YY_YY_PROGRAM3_TAB_H_INCLUDED
-# define YY_YY_PROGRAM3_TAB_H_INCLUDED
+   by #include "program4.tab.h".  */
+#ifndef YY_YY_PROGRAM4_TAB_H_INCLUDED
+# define YY_YY_PROGRAM4_TAB_H_INCLUDED
 /* Debug traces.  */
 #ifndef YYDEBUG
 # define YYDEBUG 0
@@ -130,42 +130,44 @@ extern int yydebug;
 # define YYTOKENTYPE
   enum yytokentype
   {
-    NLL = 258,
-    THIS = 259,
-    VOID = 260,
-    NEW = 261,
-    READ = 262,
-    PRINT = 263,
-    LC = 264,
-    LS = 265,
-    LP = 266,
-    RC = 267,
-    RP = 268,
-    RS = 269,
-    CLASS = 270,
-    IF = 271,
-    ELSE = 272,
-    WHILE = 273,
-    RETURN = 274,
-    DOT = 275,
-    SEMICOLON = 276,
-    INT = 277,
-    ID = 278,
-    NUMBER = 279,
-    EQUALS = 280,
-    NOTEQL = 281,
-    LESSGRT = 282,
-    MOREGRT = 283,
-    GREATER = 284,
-    LESS = 285,
-    PLUS = 286,
-    MINUS = 287,
-    OROR = 288,
-    MULT = 289,
-    DIV = 290,
-    REMAINDER = 291,
-    ANDAND = 292,
-    NOT = 293
+    ID = 258,
+    NUMBER = 259,
+    NLL = 260,
+    THIS = 261,
+    VOID = 262,
+    NEW = 263,
+    READ = 264,
+    PRINT = 265,
+    CLASS = 266,
+    IF = 267,
+    ELSE = 268,
+    WHILE = 269,
+    RETURN = 270,
+    INT = 271,
+    LP = 272,
+    LC = 273,
+    COMMA = 274,
+    SEMICOLON = 275,
+    RC = 276,
+    RS = 277,
+    RP = 278,
+    DOT = 279,
+    LS = 280,
+    ASSIGN = 281,
+    OROR = 282,
+    ANDAND = 283,
+    EQUALS = 284,
+    NOTEQL = 285,
+    GREATER = 286,
+    LESS = 287,
+    LESSGRT = 288,
+    MOREGRT = 289,
+    PLUS = 290,
+    MINUS = 291,
+    MULT = 292,
+    DIV = 293,
+    REMAINDER = 294,
+    NOT = 295
   };
 #endif
 
@@ -174,11 +176,11 @@ extern int yydebug;
 
 union YYSTYPE
 {
-#line 55 "program3.y" /* yacc.c:355  */
+#line 58 "program4.y" /* yacc.c:355  */
 
   Node *ttype;
 
-#line 182 "program3.tab.c" /* yacc.c:355  */
+#line 184 "program4.tab.c" /* yacc.c:355  */
 };
 
 typedef union YYSTYPE YYSTYPE;
@@ -205,17 +207,17 @@ extern YYSTYPE yylval;
 extern YYLTYPE yylloc;
 int yyparse (void);
 
-#endif /* !YY_YY_PROGRAM3_TAB_H_INCLUDED  */
+#endif /* !YY_YY_PROGRAM4_TAB_H_INCLUDED  */
 
 /* Copy the second part of user declarations.  */
 
-#line 213 "program3.tab.c" /* yacc.c:358  */
+#line 215 "program4.tab.c" /* yacc.c:358  */
 /* Unqualified %code blocks.  */
-#line 51 "program3.y" /* yacc.c:359  */
+#line 54 "program4.y" /* yacc.c:359  */
 
   #define YYLTYPE YYLTYPE
 
-#line 219 "program3.tab.c" /* yacc.c:359  */
+#line 221 "program4.tab.c" /* yacc.c:359  */
 
 #ifdef short
 # undef short
@@ -457,23 +459,23 @@ union yyalloc
 #endif /* !YYCOPY_NEEDED */
 
 /* YYFINAL -- State number of the termination state.  */
-#define YYFINAL  29
+#define YYFINAL  9
 /* YYLAST -- Last index in YYTABLE.  */
-#define YYLAST   205
+#define YYLAST   392
 
 /* YYNTOKENS -- Number of terminals.  */
-#define YYNTOKENS  39
+#define YYNTOKENS  41
 /* YYNNTS -- Number of nonterminals.  */
-#define YYNNTS  12
+#define YYNNTS  30
 /* YYNRULES -- Number of rules.  */
-#define YYNRULES  49
+#define YYNRULES  107
 /* YYNSTATES -- Number of states.  */
-#define YYNSTATES  84
+#define YYNSTATES  219
 
 /* YYTRANSLATE[YYX] -- Symbol number corresponding to YYX as returned
    by yylex, with out-of-bounds checking.  */
 #define YYUNDEFTOK  2
-#define YYMAXUTOK   293
+#define YYMAXUTOK   295
 
 #define YYTRANSLATE(YYX)                                                \
   ((unsigned int) (YYX) <= YYMAXUTOK ? yytranslate[YYX] : YYUNDEFTOK)
@@ -511,34 +513,44 @@ static const yytype_uint8 yytranslate[] =
        5,     6,     7,     8,     9,    10,    11,    12,    13,    14,
       15,    16,    17,    18,    19,    20,    21,    22,    23,    24,
       25,    26,    27,    28,    29,    30,    31,    32,    33,    34,
-      35,    36,    37,    38
+      35,    36,    37,    38,    39,    40
 };
 
 #if YYDEBUG
   /* YYRLINE[YYN] -- Source line where rule number YYN was defined.  */
 static const yytype_uint16 yyrline[] =
 {
-       0,    83,    83,    84,    92,    93,   100,   104,   111,   116,
-     120,   126,   135,   140,   145,   149,   153,   158,   163,   168,
-     173,   177,   181,   185,   189,   193,   197,   203,   209,   215,
-     221,   227,   233,   239,   247,   253,   264,   265,   272,   273,
-     281,   286,   293,   303,   308,   312,   317,   322,   330,   334
+       0,   116,   116,   117,   123,   128,   134,   139,   144,   149,
+     154,   163,   170,   176,   182,   188,   193,   198,   203,   208,
+     212,   217,   218,   226,   230,   234,   239,   247,   251,   255,
+     264,   268,   276,   280,   287,   298,   302,   307,   313,   319,
+     325,   332,   343,   344,   354,   355,   363,   368,   372,   377,
+     386,   392,   397,   402,   410,   411,   419,   428,   432,   440,
+     444,   450,   456,   461,   467,   472,   481,   486,   490,   495,
+     505,   509,   517,   518,   526,   527,   537,   538,   547,   552,
+     556,   560,   566,   570,   575,   580,   585,   590,   596,   602,
+     608,   614,   620,   626,   632,   638,   644,   650,   656,   662,
+     668,   676,   681,   687,   693,   698,   707,   708
 };
 #endif
 
-#if YYDEBUG || YYERROR_VERBOSE || 0
+#if YYDEBUG || YYERROR_VERBOSE || 1
 /* YYTNAME[SYMBOL-NUM] -- String name of the symbol SYMBOL-NUM.
    First, the terminals, then, starting at YYNTOKENS, nonterminals.  */
 static const char *const yytname[] =
 {
-  "$end", "error", "$undefined", "NLL", "THIS", "VOID", "NEW", "READ",
-  "PRINT", "LC", "LS", "LP", "RC", "RP", "RS", "CLASS", "IF", "ELSE",
-  "WHILE", "RETURN", "DOT", "SEMICOLON", "INT", "ID", "NUMBER", "EQUALS",
-  "NOTEQL", "LESSGRT", "MOREGRT", "GREATER", "LESS", "PLUS", "MINUS",
-  "OROR", "MULT", "DIV", "REMAINDER", "ANDAND", "NOT", "$accept", "start",
-  "assignment", "element", "name", "expression", "new_expression",
-  "exprsn_in_brackets", "empty_exp_in_brackets", "var_decl", "type",
-  "simple_type", YY_NULLPTR
+  "$end", "error", "$undefined", "ID", "NUMBER", "NLL", "THIS", "VOID",
+  "NEW", "READ", "PRINT", "CLASS", "IF", "ELSE", "WHILE", "RETURN", "INT",
+  "LP", "LC", "COMMA", "SEMICOLON", "RC", "RS", "RP", "DOT", "LS",
+  "ASSIGN", "OROR", "ANDAND", "EQUALS", "NOTEQL", "GREATER", "LESS",
+  "LESSGRT", "MOREGRT", "PLUS", "MINUS", "MULT", "DIV", "REMAINDER", "NOT",
+  "$accept", "start", "program", "class_decl", "class_body",
+  "var_declmore", "multi_brackets", "var_decl", "type_other", "type",
+  "constructor_declmore", "constructor_decl", "method_declmore",
+  "method_decl", "parameter_list", "mult_parameters", "parameter", "block",
+  "local_var_declmore", "local_var_decl", "statements", "statement",
+  "name_other", "name", "arg_lists", "arg_list", "optional_expression",
+  "expression", "new_expression", "exprsn_in_brackets", YY_NULLPTR
 };
 #endif
 
@@ -550,33 +562,47 @@ static const yytype_uint16 yytoknum[] =
        0,   256,   257,   258,   259,   260,   261,   262,   263,   264,
      265,   266,   267,   268,   269,   270,   271,   272,   273,   274,
      275,   276,   277,   278,   279,   280,   281,   282,   283,   284,
-     285,   286,   287,   288,   289,   290,   291,   292,   293
+     285,   286,   287,   288,   289,   290,   291,   292,   293,   294,
+     295
 };
 # endif
 
-#define YYPACT_NINF -27
+#define YYPACT_NINF -128
 
 #define yypact_value_is_default(Yystate) \
-  (!!((Yystate) == (-27)))
+  (!!((Yystate) == (-128)))
 
-#define YYTABLE_NINF -4
+#define YYTABLE_NINF -31
 
 #define yytable_value_is_error(Yytable_value) \
-  0
+  (!!((Yytable_value) == (-31)))
 
   /* YYPACT[STATE-NUM] -- Index in YYTABLE of the portion describing
      STATE-NUM.  */
 static const yytype_int16 yypact[] =
 {
-      40,    -7,   -27,   -27,   -16,    -3,   117,   -27,   -27,   -27,
-     117,   117,   117,    10,    73,   -27,    39,   168,   -27,   -27,
-      44,   -27,    12,     0,    37,   131,    78,    78,   -27,   -27,
-     -27,   117,    29,   117,   117,   117,   117,   117,   117,   117,
-     117,   117,   117,   117,   117,   117,   -12,    41,    47,   -27,
-      43,    48,   -27,   -27,   -13,   -27,    54,    54,    54,    54,
-      54,    54,    78,    78,    78,   -27,   -27,   -27,   -27,   -27,
-     -27,   -27,   -27,   -27,   -27,   -27,    95,   -27,   -27,    50,
-     155,    51,   -27,   -27
+      49,    39,   147,    46,   194,  -128,    33,    34,   143,  -128,
+    -128,   140,   140,   140,   140,    31,    83,    55,    84,   140,
+    -128,   183,  -128,   330,  -128,   104,   136,    40,   -11,    90,
+      89,    73,   150,    -7,    74,  -128,  -128,   183,   330,    37,
+      75,  -128,   330,   106,  -128,  -128,  -128,  -128,  -128,    90,
+    -128,   109,   113,   164,  -128,  -128,    87,   167,    90,    90,
+    -128,   135,   330,   174,   114,   176,   115,   184,  -128,   117,
+    -128,   120,   188,   196,    90,  -128,  -128,   199,   200,    90,
+    -128,   204,   216,   188,  -128,  -128,   182,  -128,    90,   207,
+     188,   188,   228,  -128,   121,  -128,   233,   235,   124,  -128,
+    -128,  -128,   243,   250,  -128,   198,  -128,   148,  -128,   -13,
+     -10,  -128,   188,  -128,  -128,   188,    79,   124,   124,   244,
+    -128,  -128,   133,   253,   124,   124,   124,   124,   254,   266,
+     320,  -128,   265,   269,  -128,  -128,   214,  -128,  -128,   287,
+     124,   124,   124,  -128,  -128,  -128,   209,   268,   320,   276,
+     124,   277,  -128,   270,   293,   172,   172,  -128,   124,  -128,
+     124,   124,   124,   124,   124,   124,   124,   124,   124,   124,
+     124,   124,   124,  -128,  -128,  -128,  -128,   227,   272,   145,
+    -128,   278,   298,   282,   124,   294,   294,  -128,  -128,   295,
+     333,   333,   344,   344,   353,   353,   353,   353,   172,   172,
+    -128,  -128,  -128,  -128,   281,  -128,  -128,   124,  -128,   311,
+      86,   310,   310,  -128,  -128,   320,  -128,   245,  -128
 };
 
   /* YYDEFACT[STATE-NUM] -- Default reduction number in state STATE-NUM.
@@ -584,117 +610,195 @@ static const yytype_int16 yypact[] =
      means the default is an error.  */
 static const yytype_uint8 yydefact[] =
 {
-       0,    49,    14,     8,     0,     0,     0,    48,     9,    13,
-       0,     0,     0,     0,     0,     5,    12,     7,    16,     6,
-       0,    43,     0,    36,     0,     0,    17,    18,    19,     1,
-       4,     0,     0,     0,     0,     0,     0,     0,     0,     0,
-       0,     0,     0,     0,     0,     0,     0,     0,     0,    45,
-       0,    38,    15,    33,     0,    10,    20,    21,    22,    23,
-      24,    25,    26,    27,    28,    29,    30,    31,    32,    46,
-      42,    47,    44,    41,    40,    34,     0,    35,    11,    38,
-       0,     0,    39,    37
+       0,     0,     0,     0,     0,     4,     0,     0,     0,     1,
+       5,    18,    18,    18,    18,     0,     0,     0,     0,    16,
+      20,    17,    33,    15,    36,     0,     0,     0,     0,    42,
+       0,     0,     0,     0,     0,     7,    19,    12,    13,     0,
+       0,    32,    14,     0,    35,     8,     9,    10,     6,    42,
+      23,     0,     0,     0,    44,    21,     0,     0,    42,    42,
+      24,     0,    11,     0,     0,     0,     0,     0,    46,     0,
+      47,     0,     0,    43,    42,    25,    22,     0,     0,    42,
+      26,     0,     0,     0,    48,    49,     0,    34,     0,     0,
+       0,     0,     0,    38,    70,    66,     0,     0,    76,    27,
+      59,    53,    31,     0,    65,     0,    54,     0,    57,    71,
+       0,    45,     0,    39,    37,     0,     0,    74,     0,    70,
+      79,    80,     0,     0,     0,     0,     0,     0,    78,     0,
+      77,    83,     0,     0,    51,    55,     0,    52,    58,     0,
+       0,    74,     0,    41,    40,    28,     0,     0,    72,     0,
+       0,   106,   106,     0,     0,    84,    85,    86,    74,    64,
+       0,     0,     0,     0,     0,     0,     0,     0,     0,     0,
+       0,     0,     0,    29,    56,    50,    68,     0,     0,     0,
+      67,     0,    75,     0,    74,   105,   104,    82,   100,     0,
+      95,    99,    87,    88,    91,    92,    89,    90,    93,    94,
+      96,    97,    98,    69,     0,    60,    62,     0,    63,     0,
+       0,   103,   102,    81,    61,    73,   101,     0,   107
 };
 
   /* YYPGOTO[NTERM-NUM].  */
-static const yytype_int8 yypgoto[] =
+static const yytype_int16 yypgoto[] =
 {
-     -27,   -27,   -27,    52,   -27,    -6,   -27,   -27,   -26,   -27,
-     -27,   -27
+    -128,  -128,  -128,   332,   213,  -128,   -15,   319,  -128,  -128,
+     321,    60,   116,    -3,   -41,  -128,   251,   -68,  -128,   236,
+     237,  -104,  -128,   -81,  -128,  -127,  -128,   -97,  -128,   191
 };
 
   /* YYDEFGOTO[NTERM-NUM].  */
-static const yytype_int8 yydefgoto[] =
+static const yytype_int16 yydefgoto[] =
 {
-      -1,    13,    14,    15,    16,    17,    18,    51,    77,    19,
-      20,    21
+      -1,     3,     4,     5,    18,    19,    64,    20,   102,   103,
+      21,    22,    23,    24,    53,    73,    54,   104,   105,   106,
+     107,   108,   109,   128,   182,   147,   129,   148,   131,   185
 };
 
   /* YYTABLE[YYPACT[STATE-NUM]] -- What to do in state STATE-NUM.  If
      positive, shift that token.  If negative, reduce the rule whose
      number is the opposite.  If YYTABLE_NINF, syntax error.  */
-static const yytype_int8 yytable[] =
+static const yytype_int16 yytable[] =
 {
-      25,    78,    69,    22,    26,    27,    28,    23,    24,    70,
-      29,    50,    33,    34,    35,    36,    37,    38,    39,    40,
-      41,    42,    43,    44,    45,    54,    49,    56,    57,    58,
-      59,    60,    61,    62,    63,    64,    65,    66,    67,    68,
-      -2,     1,    71,     2,     3,    46,     4,     5,    73,    31,
-      52,     6,    55,    82,    47,    72,    75,     0,    76,    32,
-      81,     0,     7,     8,     9,    79,    30,    48,    74,     0,
-      80,    10,    11,    -3,     1,     0,     2,     3,    12,     4,
-       5,     0,     0,     0,     6,    39,    40,    41,    42,    43,
-      44,    45,     0,     0,     0,     7,     8,     9,     2,     3,
-       0,     4,     5,     0,    10,    11,     6,     0,     0,    79,
-       0,    12,    42,    43,    44,    45,     0,     0,     8,     9,
-       2,     3,     0,     4,     5,     0,    10,    11,     6,     0,
-       0,     0,     0,    12,     0,     0,     0,     0,     0,     0,
-       8,     9,     0,     0,    53,     0,     0,     0,    10,    11,
-       0,     0,     0,     0,     0,    12,    33,    34,    35,    36,
-      37,    38,    39,    40,    41,    42,    43,    44,    45,    83,
-       0,     0,     0,     0,     0,     0,     0,     0,     0,     0,
-      33,    34,    35,    36,    37,    38,    39,    40,    41,    42,
-      43,    44,    45,    33,    34,    35,    36,    37,    38,    39,
-      40,    41,    42,    43,    44,    45
+      31,   130,    34,   138,    87,   110,    49,   141,    67,    50,
+      59,   139,   140,    60,   178,    93,   142,    77,    78,   146,
+      44,   149,   113,   114,   110,    66,   110,   154,   155,   156,
+     157,   189,   138,    89,    28,    44,    69,    71,    92,    44,
+      63,    47,     6,   177,   143,   179,     9,   144,    29,    -2,
+       1,    11,    12,   146,    29,   110,    30,   209,    33,    44,
+       2,    48,    30,   190,   191,   192,   193,   194,   195,   196,
+     197,   198,   199,   200,   201,   202,    56,    61,    65,   208,
+      30,    41,   119,   120,   121,    95,    32,   122,   123,   119,
+     120,   121,    95,    51,   122,   123,   124,    41,    57,    57,
+      30,   145,   110,   124,    74,    35,    52,    75,    55,    63,
+     215,    55,    68,   217,   125,   126,    70,    81,    82,   127,
+      84,   125,   126,    85,   -30,    45,   127,   119,   120,   121,
+      95,    30,   122,   123,    30,    38,   151,    42,    30,    57,
+      57,   124,    57,    15,    13,    57,   116,    16,     7,   152,
+       8,   119,    79,    62,    95,    80,    17,    46,    96,   125,
+     126,    14,    97,    98,   127,   205,    86,    58,   100,   137,
+     211,   212,   160,   161,   162,   163,   164,   165,   166,   167,
+     168,   169,   170,   171,   172,    94,    39,    72,    95,    76,
+      16,    49,    96,    59,    -3,     1,    97,    98,    99,    40,
+      86,    94,   100,   101,    95,     2,    86,    83,    96,   170,
+     171,   172,    97,    98,    99,    88,    86,   119,   100,   134,
+      95,    74,    90,    91,    96,    25,    26,    27,    97,    98,
+     112,   180,    86,    79,   100,   175,   160,   161,   162,   163,
+     164,   165,   166,   167,   168,   169,   170,   171,   172,   203,
+     117,   115,   118,   133,   160,   161,   162,   163,   164,   165,
+     166,   167,   168,   169,   170,   171,   172,   218,   132,   150,
+     153,   158,   160,   161,   162,   163,   164,   165,   166,   167,
+     168,   169,   170,   171,   172,   119,   159,   173,    95,   174,
+     176,   181,    96,   187,   184,   204,    97,    98,   206,   183,
+      86,   214,   100,   160,   161,   162,   163,   164,   165,   166,
+     167,   168,   169,   170,   171,   172,   188,   207,   213,   210,
+     160,   161,   162,   163,   164,   165,   166,   167,   168,   169,
+     170,   171,   172,    43,   216,    57,    10,    16,    36,   111,
+      37,   135,   136,   186,     0,     0,    40,   160,   161,   162,
+     163,   164,   165,   166,   167,   168,   169,   170,   171,   172,
+     -31,   -31,   162,   163,   164,   165,   166,   167,   168,   169,
+     170,   171,   172,   -31,   -31,   164,   165,   166,   167,   168,
+     169,   170,   171,   172,   -31,   -31,   -31,   -31,   168,   169,
+     170,   171,   172
 };
 
-static const yytype_int8 yycheck[] =
+static const yytype_int16 yycheck[] =
 {
-       6,    14,    14,    10,    10,    11,    12,    23,    11,    21,
-       0,    11,    25,    26,    27,    28,    29,    30,    31,    32,
-      33,    34,    35,    36,    37,    31,    14,    33,    34,    35,
-      36,    37,    38,    39,    40,    41,    42,    43,    44,    45,
-       0,     1,     1,     3,     4,     1,     6,     7,     1,    10,
-      13,    11,    23,    79,    10,    14,    13,    -1,    10,    20,
-      10,    -1,    22,    23,    24,    14,    14,    23,    21,    -1,
-      76,    31,    32,     0,     1,    -1,     3,     4,    38,     6,
-       7,    -1,    -1,    -1,    11,    31,    32,    33,    34,    35,
-      36,    37,    -1,    -1,    -1,    22,    23,    24,     3,     4,
-      -1,     6,     7,    -1,    31,    32,    11,    -1,    -1,    14,
-      -1,    38,    34,    35,    36,    37,    -1,    -1,    23,    24,
-       3,     4,    -1,     6,     7,    -1,    31,    32,    11,    -1,
-      -1,    -1,    -1,    38,    -1,    -1,    -1,    -1,    -1,    -1,
-      23,    24,    -1,    -1,    13,    -1,    -1,    -1,    31,    32,
-      -1,    -1,    -1,    -1,    -1,    38,    25,    26,    27,    28,
-      29,    30,    31,    32,    33,    34,    35,    36,    37,    14,
-      -1,    -1,    -1,    -1,    -1,    -1,    -1,    -1,    -1,    -1,
-      25,    26,    27,    28,    29,    30,    31,    32,    33,    34,
-      35,    36,    37,    25,    26,    27,    28,    29,    30,    31,
-      32,    33,    34,    35,    36,    37
+      15,    98,    17,   107,    72,    86,    17,    17,    49,    20,
+      17,    24,    25,    20,   141,    83,    26,    58,    59,   116,
+      23,   118,    90,    91,   105,    40,   107,   124,   125,   126,
+     127,   158,   136,    74,     3,    38,    51,    52,    79,    42,
+       3,     1,     3,   140,   112,   142,     0,   115,    17,     0,
+       1,    18,    18,   150,    17,   136,    25,   184,     3,    62,
+      11,    21,    25,   160,   161,   162,   163,   164,   165,   166,
+     167,   168,   169,   170,   171,   172,     3,     3,     3,   183,
+      25,    21,     3,     4,     5,     6,     3,     8,     9,     3,
+       4,     5,     6,     3,     8,     9,    17,    37,    25,    25,
+      25,    22,   183,    17,    17,    21,    16,    20,    22,     3,
+     207,    22,     3,   210,    35,    36,     3,     3,     3,    40,
+       3,    35,    36,     3,     3,    21,    40,     3,     4,     5,
+       6,    25,     8,     9,    25,    19,     3,    21,    25,    25,
+      25,    17,    25,     3,     1,    25,    25,     7,     1,    16,
+       3,     3,    17,    37,     6,    20,    16,    21,    10,    35,
+      36,    18,    14,    15,    40,    20,    18,    17,    20,    21,
+     185,   186,    27,    28,    29,    30,    31,    32,    33,    34,
+      35,    36,    37,    38,    39,     3,     3,    23,     6,    22,
+       7,    17,    10,    17,     0,     1,    14,    15,    16,    16,
+      18,     3,    20,    21,     6,    11,    18,    23,    10,    37,
+      38,    39,    14,    15,    16,    19,    18,     3,    20,    21,
+       6,    17,    23,    23,    10,    12,    13,    14,    14,    15,
+      23,    22,    18,    17,    20,    21,    27,    28,    29,    30,
+      31,    32,    33,    34,    35,    36,    37,    38,    39,    22,
+      17,    23,    17,     3,    27,    28,    29,    30,    31,    32,
+      33,    34,    35,    36,    37,    38,    39,    22,    25,    25,
+      17,    17,    27,    28,    29,    30,    31,    32,    33,    34,
+      35,    36,    37,    38,    39,     3,    20,    22,     6,    20,
+       3,    23,    10,    23,    17,    23,    14,    15,    20,    23,
+      18,    20,    20,    27,    28,    29,    30,    31,    32,    33,
+      34,    35,    36,    37,    38,    39,    23,    19,    23,    25,
+      27,    28,    29,    30,    31,    32,    33,    34,    35,    36,
+      37,    38,    39,     3,    23,    25,     4,     7,    19,    88,
+      19,   105,   105,   152,    -1,    -1,    16,    27,    28,    29,
+      30,    31,    32,    33,    34,    35,    36,    37,    38,    39,
+      27,    28,    29,    30,    31,    32,    33,    34,    35,    36,
+      37,    38,    39,    29,    30,    31,    32,    33,    34,    35,
+      36,    37,    38,    39,    31,    32,    33,    34,    35,    36,
+      37,    38,    39
 };
 
   /* YYSTOS[STATE-NUM] -- The (internal number of the) accessing
      symbol of state STATE-NUM.  */
 static const yytype_uint8 yystos[] =
 {
-       0,     1,     3,     4,     6,     7,    11,    22,    23,    24,
-      31,    32,    38,    40,    41,    42,    43,    44,    45,    48,
-      49,    50,    10,    23,    11,    44,    44,    44,    44,     0,
-      42,    10,    20,    25,    26,    27,    28,    29,    30,    31,
-      32,    33,    34,    35,    36,    37,     1,    10,    23,    14,
-      11,    46,    13,    13,    44,    23,    44,    44,    44,    44,
-      44,    44,    44,    44,    44,    44,    44,    44,    44,    14,
-      21,     1,    14,     1,    21,    13,    10,    47,    14,    14,
-      44,    10,    47,    14
+       0,     1,    11,    42,    43,    44,     3,     1,     3,     0,
+      44,    18,    18,     1,    18,     3,     7,    16,    45,    46,
+      48,    51,    52,    53,    54,    45,    45,    45,     3,    17,
+      25,    47,     3,     3,    47,    21,    48,    51,    53,     3,
+      16,    52,    53,     3,    54,    21,    21,     1,    21,    17,
+      20,     3,    16,    55,    57,    22,     3,    25,    17,    17,
+      20,     3,    53,     3,    47,     3,    47,    55,     3,    47,
+       3,    47,    23,    56,    17,    20,    22,    55,    55,    17,
+      20,     3,     3,    23,     3,     3,    18,    58,    19,    55,
+      23,    23,    55,    58,     3,     6,    10,    14,    15,    16,
+      20,    21,    49,    50,    58,    59,    60,    61,    62,    63,
+      64,    57,    23,    58,    58,    23,    25,    17,    17,     3,
+       4,     5,     8,     9,    17,    35,    36,    40,    64,    67,
+      68,    69,    25,     3,    21,    60,    61,    21,    62,    24,
+      25,    17,    26,    58,    58,    22,    68,    66,    68,    68,
+      25,     3,    16,    17,    68,    68,    68,    68,    17,    20,
+      27,    28,    29,    30,    31,    32,    33,    34,    35,    36,
+      37,    38,    39,    22,    20,    21,     3,    68,    66,    68,
+      22,    23,    65,    23,    17,    70,    70,    23,    23,    66,
+      68,    68,    68,    68,    68,    68,    68,    68,    68,    68,
+      68,    68,    68,    22,    23,    20,    20,    19,    62,    66,
+      25,    47,    47,    23,    20,    68,    23,    68,    22
 };
 
   /* YYR1[YYN] -- Symbol number of symbol that rule YYN derives.  */
 static const yytype_uint8 yyr1[] =
 {
-       0,    39,    40,    40,    41,    41,    42,    42,    43,    43,
-      43,    43,    44,    44,    44,    44,    44,    44,    44,    44,
-      44,    44,    44,    44,    44,    44,    44,    44,    44,    44,
-      44,    44,    44,    44,    45,    45,    46,    46,    47,    47,
-      48,    48,    48,    49,    49,    49,    49,    49,    50,    50
+       0,    41,    42,    42,    43,    43,    44,    44,    44,    44,
+      44,    45,    45,    45,    45,    45,    45,    45,    45,    46,
+      46,    47,    47,    48,    48,    48,    48,    49,    49,    49,
+      50,    50,    51,    51,    52,    53,    53,    54,    54,    54,
+      54,    54,    55,    55,    56,    56,    57,    57,    57,    57,
+      58,    58,    58,    58,    59,    59,    60,    61,    61,    62,
+      62,    62,    62,    62,    62,    62,    63,    63,    63,    63,
+      64,    64,    65,    65,    66,    66,    67,    67,    68,    68,
+      68,    68,    68,    68,    68,    68,    68,    68,    68,    68,
+      68,    68,    68,    68,    68,    68,    68,    68,    68,    68,
+      68,    69,    69,    69,    69,    69,    70,    70
 };
 
   /* YYR2[YYN] -- Number of symbols on the right hand side of rule YYN.  */
 static const yytype_uint8 yyr2[] =
 {
-       0,     2,     0,     1,     2,     1,     1,     1,     1,     1,
-       3,     4,     1,     1,     1,     3,     1,     2,     2,     2,
+       0,     2,     0,     1,     1,     2,     5,     5,     5,     5,
+       5,     3,     2,     2,     2,     1,     1,     1,     0,     2,
+       1,     2,     3,     3,     3,     4,     4,     1,     3,     3,
+       1,     1,     2,     1,     5,     2,     1,     6,     6,     6,
+       7,     7,     0,     2,     0,     3,     2,     2,     3,     3,
+       4,     3,     3,     2,     1,     2,     3,     1,     2,     1,
+       4,     5,     5,     5,     3,     1,     1,     4,     3,     4,
+       1,     1,     0,     3,     0,     2,     0,     1,     1,     1,
+       1,     4,     3,     1,     2,     2,     2,     3,     3,     3,
        3,     3,     3,     3,     3,     3,     3,     3,     3,     3,
-       3,     3,     3,     3,     4,     4,     0,     4,     0,     3,
-       3,     3,     3,     1,     3,     3,     3,     3,     1,     1
+       3,     5,     4,     4,     3,     3,     0,     4
 };
 
 
@@ -1464,459 +1568,1021 @@ yyreduce:
   switch (yyn)
     {
         case 3:
-#line 84 "program3.y" /* yacc.c:1646  */
+#line 117 "program4.y" /* yacc.c:1646  */
     {
-                 tree = (yyvsp[0].ttype);
-               }
-#line 1472 "program3.tab.c" /* yacc.c:1646  */
+              tree = (yyvsp[0].ttype);
+            }
+#line 1576 "program4.tab.c" /* yacc.c:1646  */
+    break;
+
+  case 4:
+#line 123 "program4.y" /* yacc.c:1646  */
+    {
+               (yyval.ttype) = new Node;
+               (yyval.ttype)->pushNonTerminal((yyvsp[0].ttype));
+               (yyval.ttype)->setValProd("<Program> --> <ClassDeclaration>+");
+             }
+#line 1586 "program4.tab.c" /* yacc.c:1646  */
     break;
 
   case 5:
-#line 93 "program3.y" /* yacc.c:1646  */
+#line 128 "program4.y" /* yacc.c:1646  */
     {
-              (yyval.ttype) = new Node;
-              (yyval.ttype)->setLeft((yyvsp[0].ttype));
-            }
-#line 1481 "program3.tab.c" /* yacc.c:1646  */
+                         (yyval.ttype) = (yyvsp[-1].ttype);
+                         (yyval.ttype)->pushNonTerminal((yyvsp[0].ttype));
+                       }
+#line 1595 "program4.tab.c" /* yacc.c:1646  */
     break;
 
   case 6:
-#line 100 "program3.y" /* yacc.c:1646  */
+#line 134 "program4.y" /* yacc.c:1646  */
     {
-             (yyval.ttype) = new Node;
-             (yyval.ttype)->setLeft((yyvsp[0].ttype));
-           }
-#line 1490 "program3.tab.c" /* yacc.c:1646  */
+    (yyval.ttype) = new Node;
+    (yyval.ttype)->pushNonTerminal((yyvsp[-1].ttype));
+    (yyval.ttype)->setValProd("\n<ClassDeclaration> --> class identifier <ClassBody>");
+  }
+#line 1605 "program4.tab.c" /* yacc.c:1646  */
     break;
 
   case 7:
-#line 104 "program3.y" /* yacc.c:1646  */
+#line 139 "program4.y" /* yacc.c:1646  */
     {
-                 (yyval.ttype) = new Node;
-                 (yyval.ttype)->setLeft((yyvsp[0].ttype));
-               }
-#line 1499 "program3.tab.c" /* yacc.c:1646  */
+    yyerrok;
+    yyerror("Parse error on class", (yylsp[-4]).first_line, (yylsp[-4]).first_column);
+    yyclearin;
+  }
+#line 1615 "program4.tab.c" /* yacc.c:1646  */
     break;
 
   case 8:
-#line 111 "program3.y" /* yacc.c:1646  */
+#line 144 "program4.y" /* yacc.c:1646  */
     {
-         (yyval.ttype) = new Node;
-         (yyval.ttype)->setValKeyw("this");
-         (yyval.ttype)->setValProd("<Name> --> this");
-       }
-#line 1509 "program3.tab.c" /* yacc.c:1646  */
+    yyerrok;
+    yyerror("Parse error on identifier", (yylsp[-3]).first_line, (yylsp[-3]).first_column);
+    yyclearin;
+  }
+#line 1625 "program4.tab.c" /* yacc.c:1646  */
     break;
 
   case 9:
-#line 116 "program3.y" /* yacc.c:1646  */
+#line 149 "program4.y" /* yacc.c:1646  */
     {
-         (yyval.ttype) = new Node;
-         (yyval.ttype)->setValProd("<Name> --> identifier");
-       }
-#line 1518 "program3.tab.c" /* yacc.c:1646  */
+    yyerrok;
+    yyerror("Parse error on [", (yylsp[-2]).first_line, (yylsp[-2]).first_column);
+    yyclearin;
+  }
+#line 1635 "program4.tab.c" /* yacc.c:1646  */
     break;
 
   case 10:
-#line 120 "program3.y" /* yacc.c:1646  */
+#line 154 "program4.y" /* yacc.c:1646  */
     {
-                  (yyval.ttype) = new Node;
-                  (yyval.ttype)->setLeft((yyvsp[-2].ttype));
-                  (yyval.ttype)->setValId((yyvsp[0].ttype)->getValId());
-                  (yyval.ttype)->setValProd("<Name> --> <Name> . identifier");
-                }
-#line 1529 "program3.tab.c" /* yacc.c:1646  */
+    yyerrok;
+    yyerror("Parse error on ]", (yylsp[0]).first_line, (yylsp[0]).first_column);
+    yyclearin;
+  }
+#line 1645 "program4.tab.c" /* yacc.c:1646  */
     break;
 
   case 11:
-#line 126 "program3.y" /* yacc.c:1646  */
+#line 163 "program4.y" /* yacc.c:1646  */
     {
-                            (yyval.ttype) = new Node;
-                            (yyval.ttype)->setLeft((yyvsp[-3].ttype));
-                            (yyval.ttype)->setRight((yyvsp[-1].ttype));
-                            (yyval.ttype)->setValProd("<Name> --> <Name> [ <Expression> ]");
-                          }
-#line 1540 "program3.tab.c" /* yacc.c:1646  */
+    (yyval.ttype) = new Node;
+    (yyval.ttype)->pushNonTerminal((yyvsp[-2].ttype));
+    (yyval.ttype)->pushNonTerminal((yyvsp[-1].ttype));
+    (yyval.ttype)->pushNonTerminal((yyvsp[0].ttype));
+    (yyval.ttype)->setValProd("<ClassBody> --> { <VarDeclaration>+ <ConstructorDeclaration>+ <MethodDeclaration>+ }");
+  }
+#line 1657 "program4.tab.c" /* yacc.c:1646  */
     break;
 
   case 12:
-#line 135 "program3.y" /* yacc.c:1646  */
+#line 170 "program4.y" /* yacc.c:1646  */
     {
-         (yyval.ttype) = new Node;
-         (yyval.ttype)->setLeft((yyvsp[0].ttype));
-         (yyval.ttype)->setValProd("<Expression> --> <Name>");
-       }
-#line 1550 "program3.tab.c" /* yacc.c:1646  */
+    (yyval.ttype) = new Node;
+    (yyval.ttype)->pushNonTerminal((yyvsp[-1].ttype));
+    (yyval.ttype)->pushNonTerminal((yyvsp[0].ttype));
+    (yyval.ttype)->setValProd("<ClassBody> --> { <VarDeclaration>+ <ConstructorDeclaration>+ }");
+  }
+#line 1668 "program4.tab.c" /* yacc.c:1646  */
     break;
 
   case 13:
-#line 140 "program3.y" /* yacc.c:1646  */
+#line 176 "program4.y" /* yacc.c:1646  */
     {
-             (yyval.ttype) = new Node;
-             //$$->setValNum($1->getValNum());
-             (yyval.ttype)->setValProd("<Expression> --> number");
-           }
-#line 1560 "program3.tab.c" /* yacc.c:1646  */
+    (yyval.ttype) = new Node;
+    (yyval.ttype)->pushNonTerminal((yyvsp[-1].ttype));
+    (yyval.ttype)->pushNonTerminal((yyvsp[0].ttype));
+    (yyval.ttype)->setValProd("<ClassBody> --> { <VarDeclaration>+ <MethodDeclaration>+ }");
+  }
+#line 1679 "program4.tab.c" /* yacc.c:1646  */
     break;
 
   case 14:
-#line 145 "program3.y" /* yacc.c:1646  */
+#line 182 "program4.y" /* yacc.c:1646  */
     {
-          (yyval.ttype) = new Node;
-          (yyval.ttype)->setValProd("<Expression> --> null");
-        }
-#line 1569 "program3.tab.c" /* yacc.c:1646  */
+    (yyval.ttype) = new Node;
+    (yyval.ttype)->pushNonTerminal((yyvsp[-1].ttype));
+    (yyval.ttype)->pushNonTerminal((yyvsp[0].ttype));
+    (yyval.ttype)->setValProd("<ClassBody> --> { <ConstructorDeclaration>+ <MethodDeclaration>+ }");
+  }
+#line 1690 "program4.tab.c" /* yacc.c:1646  */
     break;
 
   case 15:
-#line 149 "program3.y" /* yacc.c:1646  */
+#line 188 "program4.y" /* yacc.c:1646  */
     {
-                 (yyval.ttype) = new Node;
-                 (yyval.ttype)->setValProd("<Expression> --> read ( )");
-               }
-#line 1578 "program3.tab.c" /* yacc.c:1646  */
+    (yyval.ttype) = new Node;
+    (yyval.ttype)->pushNonTerminal((yyvsp[0].ttype));
+    (yyval.ttype)->setValProd("<ClassBody> --> { <MethodDeclaration>+ }");
+  }
+#line 1700 "program4.tab.c" /* yacc.c:1646  */
     break;
 
   case 16:
-#line 153 "program3.y" /* yacc.c:1646  */
+#line 193 "program4.y" /* yacc.c:1646  */
     {
-                     (yyval.ttype) = new Node;
-                     (yyval.ttype)->setLeft((yyvsp[0].ttype));
-                     (yyval.ttype)->setValProd("<Expression> --> <NewExpression>");
-                   }
-#line 1588 "program3.tab.c" /* yacc.c:1646  */
+    (yyval.ttype) = new Node;
+    (yyval.ttype)->pushNonTerminal((yyvsp[0].ttype));
+    (yyval.ttype)->setValProd("<ClassBody> --> { <VarDeclaration>+ }");
+  }
+#line 1710 "program4.tab.c" /* yacc.c:1646  */
     break;
 
   case 17:
-#line 158 "program3.y" /* yacc.c:1646  */
+#line 198 "program4.y" /* yacc.c:1646  */
     {
-                      (yyval.ttype) = new Node;
-                      (yyval.ttype)->setRight((yyvsp[0].ttype));
-                      (yyval.ttype)->setValProd("<Expression> --> + <Expression>");
-                    }
-#line 1598 "program3.tab.c" /* yacc.c:1646  */
+    (yyval.ttype) = new Node;
+    (yyval.ttype)->pushNonTerminal((yyvsp[0].ttype));
+    (yyval.ttype)->setValProd("<ClassBody> --> { <ConstructorDeclaration>+ }");
+  }
+#line 1720 "program4.tab.c" /* yacc.c:1646  */
     break;
 
   case 18:
-#line 163 "program3.y" /* yacc.c:1646  */
-    {
-                       (yyval.ttype) = new Node;
-                       (yyval.ttype)->setRight((yyvsp[0].ttype));
-                       (yyval.ttype)->setValProd("<Expression> --> - <Expression>");
-                     }
-#line 1608 "program3.tab.c" /* yacc.c:1646  */
+#line 203 "program4.y" /* yacc.c:1646  */
+    { (yyval.ttype) = new Node; }
+#line 1726 "program4.tab.c" /* yacc.c:1646  */
     break;
 
   case 19:
-#line 168 "program3.y" /* yacc.c:1646  */
+#line 208 "program4.y" /* yacc.c:1646  */
     {
-                     (yyval.ttype) = new Node;
-                     (yyval.ttype)->setRight((yyvsp[0].ttype));
-                     (yyval.ttype)->setValProd("<Expression> --> ! <Expression>");
-                   }
-#line 1618 "program3.tab.c" /* yacc.c:1646  */
+    (yyval.ttype) = (yyvsp[-1].ttype);
+    (yyval.ttype)->pushNonTerminal((yyvsp[0].ttype));
+  }
+#line 1735 "program4.tab.c" /* yacc.c:1646  */
     break;
 
   case 20:
-#line 173 "program3.y" /* yacc.c:1646  */
-    {
-                                   (yyval.ttype) = new Node;
-                                   (yyval.ttype)->setValProd("<Expression> --> <Expression> == <Expression>");
-                                 }
-#line 1627 "program3.tab.c" /* yacc.c:1646  */
+#line 212 "program4.y" /* yacc.c:1646  */
+    { (yyval.ttype) = new Node; (yyval.ttype)->pushNonTerminal((yyvsp[0].ttype)); }
+#line 1741 "program4.tab.c" /* yacc.c:1646  */
     break;
 
   case 21:
-#line 177 "program3.y" /* yacc.c:1646  */
-    {
-                                   (yyval.ttype) = new Node;
-                                   (yyval.ttype)->setValProd("<Expression> --> <Expression> != <Expression>");
-                                 }
-#line 1636 "program3.tab.c" /* yacc.c:1646  */
+#line 217 "program4.y" /* yacc.c:1646  */
+    { (yyval.ttype) = new Node; (yyval.ttype)->setValProd("<[]>* --> []"); }
+#line 1747 "program4.tab.c" /* yacc.c:1646  */
     break;
 
   case 22:
-#line 181 "program3.y" /* yacc.c:1646  */
+#line 218 "program4.y" /* yacc.c:1646  */
     {
-                                    (yyval.ttype) = new Node;
-                                    (yyval.ttype)->setValProd("<Expression> --> <Expression> <= <Expression>");
-                                  }
-#line 1645 "program3.tab.c" /* yacc.c:1646  */
+    (yyval.ttype) = new Node;
+    (yyval.ttype)->pushNonTerminal((yyvsp[-2].ttype));
+    (yyval.ttype)->setValProd("<[]>* --> []");
+  }
+#line 1757 "program4.tab.c" /* yacc.c:1646  */
     break;
 
   case 23:
-#line 185 "program3.y" /* yacc.c:1646  */
+#line 226 "program4.y" /* yacc.c:1646  */
     {
-                                    (yyval.ttype) = new Node;
-                                    (yyval.ttype)->setValProd("<Expression> --> <Expression> >= <Expression>");
-                                  }
-#line 1654 "program3.tab.c" /* yacc.c:1646  */
+    (yyval.ttype) = new Node;
+    (yyval.ttype)->setValProd("<VarDeclaration> --> identifier identifier ;");
+  }
+#line 1766 "program4.tab.c" /* yacc.c:1646  */
     break;
 
   case 24:
-#line 189 "program3.y" /* yacc.c:1646  */
+#line 230 "program4.y" /* yacc.c:1646  */
     {
-                                    (yyval.ttype) = new Node;
-                                    (yyval.ttype)->setValProd("<Expression> --> <Expression> > <Expression>");
-                                  }
-#line 1663 "program3.tab.c" /* yacc.c:1646  */
+    (yyval.ttype) = new Node;
+    (yyval.ttype)->setValProd("<VarDeclaration> --> int identifier ;");
+  }
+#line 1775 "program4.tab.c" /* yacc.c:1646  */
     break;
 
   case 25:
-#line 193 "program3.y" /* yacc.c:1646  */
+#line 234 "program4.y" /* yacc.c:1646  */
     {
-                                 (yyval.ttype) = new Node;
-                                 (yyval.ttype)->setValProd("<Expression> --> <Expression> < <Expression>");
-                               }
-#line 1672 "program3.tab.c" /* yacc.c:1646  */
+    (yyval.ttype) = new Node;
+    (yyval.ttype)->setValProd("<VarDeclaration> --> identifier <[]>* identifier ;");
+    (yyval.ttype)->pushNonTerminal((yyvsp[-2].ttype));
+  }
+#line 1785 "program4.tab.c" /* yacc.c:1646  */
     break;
 
   case 26:
-#line 197 "program3.y" /* yacc.c:1646  */
+#line 239 "program4.y" /* yacc.c:1646  */
     {
-                                 (yyval.ttype) = new Node;
-                                 (yyval.ttype)->setLeft((yyvsp[-2].ttype));
-                                 (yyval.ttype)->setRight((yyvsp[0].ttype));
-                                 (yyval.ttype)->setValProd("<Expression> --> <Expression> + <Expression>");
-                               }
-#line 1683 "program3.tab.c" /* yacc.c:1646  */
+    (yyval.ttype)->pushNonTerminal((yyvsp[-2].ttype));
+    (yyval.ttype)->setValProd("<VarDeclaration> --> int <[]>* identifier ;");
+  }
+#line 1794 "program4.tab.c" /* yacc.c:1646  */
     break;
 
   case 27:
-#line 203 "program3.y" /* yacc.c:1646  */
+#line 247 "program4.y" /* yacc.c:1646  */
     {
-                                  (yyval.ttype) = new Node;
-                                  (yyval.ttype)->setLeft((yyvsp[-2].ttype));
-                                  (yyval.ttype)->setRight((yyvsp[0].ttype));
-                                  (yyval.ttype)->setValProd("<Expression> --> <Expression> - <Expression>");
-                               }
-#line 1694 "program3.tab.c" /* yacc.c:1646  */
+    (yyval.ttype) = new Node;
+    (yyval.ttype)->setValProd("<Type> --> int");
+  }
+#line 1803 "program4.tab.c" /* yacc.c:1646  */
     break;
 
   case 28:
-#line 209 "program3.y" /* yacc.c:1646  */
+#line 251 "program4.y" /* yacc.c:1646  */
     {
-                                 (yyval.ttype) = new Node;
-                                 (yyval.ttype)->setLeft((yyvsp[-2].ttype));
-                                 (yyval.ttype)->setRight((yyvsp[0].ttype));
-                                 (yyval.ttype)->setValProd("<Expression> --> <Expression> || <Expression>");
-                               }
-#line 1705 "program3.tab.c" /* yacc.c:1646  */
+    (yyval.ttype) = new Node;
+    (yyval.ttype)->setValProd("<Type> --> identifier []");
+  }
+#line 1812 "program4.tab.c" /* yacc.c:1646  */
     break;
 
   case 29:
-#line 215 "program3.y" /* yacc.c:1646  */
+#line 255 "program4.y" /* yacc.c:1646  */
     {
-                                 (yyval.ttype) = new Node;
-                                 (yyval.ttype)->setLeft((yyvsp[-2].ttype));
-                                 (yyval.ttype)->setRight((yyvsp[0].ttype));
-                                 (yyval.ttype)->setValProd("<Expression> --> <Expression> * <Expression>");
-                               }
-#line 1716 "program3.tab.c" /* yacc.c:1646  */
+    (yyval.ttype) = new Node;
+    (yyval.ttype)->pushNonTerminal((yyvsp[-2].ttype));
+    (yyval.ttype)->setValProd("<Type> --> <Type> [ ]");
+  }
+#line 1822 "program4.tab.c" /* yacc.c:1646  */
     break;
 
   case 30:
-#line 221 "program3.y" /* yacc.c:1646  */
+#line 264 "program4.y" /* yacc.c:1646  */
     {
-                                (yyval.ttype) = new Node;
-                                (yyval.ttype)->setLeft((yyvsp[-2].ttype));
-                                (yyval.ttype)->setRight((yyvsp[0].ttype));
-                                (yyval.ttype)->setValProd("<Expression> --> <Expression> / <Expression>");
-                              }
-#line 1727 "program3.tab.c" /* yacc.c:1646  */
+    (yyval.ttype) = new Node;
+    (yyval.ttype)->setValProd("<Type> --> identifier");
+  }
+#line 1831 "program4.tab.c" /* yacc.c:1646  */
     break;
 
   case 31:
-#line 227 "program3.y" /* yacc.c:1646  */
+#line 268 "program4.y" /* yacc.c:1646  */
     {
-                                       (yyval.ttype) = new Node;
-                                       (yyval.ttype)->setLeft((yyvsp[-2].ttype));
-                                       (yyval.ttype)->setRight((yyvsp[0].ttype));
-                                       (yyval.ttype)->setValProd("<Expression> --> <Expression> % <Expression>");
-                                     }
-#line 1738 "program3.tab.c" /* yacc.c:1646  */
+    (yyval.ttype) = new Node;
+    (yyval.ttype)->pushNonTerminal((yyvsp[0].ttype));
+  }
+#line 1840 "program4.tab.c" /* yacc.c:1646  */
     break;
 
   case 32:
-#line 233 "program3.y" /* yacc.c:1646  */
+#line 276 "program4.y" /* yacc.c:1646  */
     {
-                                   (yyval.ttype) = new Node;
-                                   (yyval.ttype)->setLeft((yyvsp[-2].ttype));
-                                   (yyval.ttype)->setRight((yyvsp[0].ttype));
-                                   (yyval.ttype)->setValProd("<Expression> --> <Expression> && <Expression>");
-                                 }
-#line 1749 "program3.tab.c" /* yacc.c:1646  */
+    (yyval.ttype) = (yyvsp[-1].ttype);
+    (yyval.ttype)->pushNonTerminal((yyvsp[0].ttype));
+  }
+#line 1849 "program4.tab.c" /* yacc.c:1646  */
     break;
 
   case 33:
-#line 239 "program3.y" /* yacc.c:1646  */
+#line 280 "program4.y" /* yacc.c:1646  */
     {
-                       (yyval.ttype) = new Node;
-                       (yyval.ttype)->setLeft((yyvsp[-1].ttype));
-                       (yyval.ttype)->setValProd("<Expression> --> ( <Expression> )");
-                     }
-#line 1759 "program3.tab.c" /* yacc.c:1646  */
+    (yyval.ttype) = new Node;
+    (yyval.ttype)->pushNonTerminal((yyvsp[0].ttype));
+  }
+#line 1858 "program4.tab.c" /* yacc.c:1646  */
     break;
 
   case 34:
-#line 247 "program3.y" /* yacc.c:1646  */
+#line 287 "program4.y" /* yacc.c:1646  */
     {
-                 (yyval.ttype) = new Node;
-                 (yyval.ttype)->setValProd("<NewExpression> --> new identifier ( )");
-                 (yyval.ttype)->setValId((yyvsp[-2].ttype)->getValId());
-                 (yyval.ttype)->setValKeyw("new");
-               }
-#line 1770 "program3.tab.c" /* yacc.c:1646  */
+    (yyval.ttype) = new Node;
+    (yyval.ttype)->setValProd("<ConstructorDeclaration> --> identifier ( <ParameterList> ) <Block>");
+    (yyval.ttype)->pushNonTerminal((yyvsp[-4].ttype));
+    (yyval.ttype)->pushNonTerminal((yyvsp[-2].ttype));
+    (yyval.ttype)->pushNonTerminal((yyvsp[0].ttype));
+  }
+#line 1870 "program4.tab.c" /* yacc.c:1646  */
     break;
 
   case 35:
-#line 253 "program3.y" /* yacc.c:1646  */
+#line 298 "program4.y" /* yacc.c:1646  */
     {
-                            (yyval.ttype) = new Node;
-                            (yyval.ttype)->setLeft((yyvsp[-1].ttype));
-                            (yyval.ttype)->setRight((yyvsp[0].ttype));
-                            (yyval.ttype)->setValId((yyvsp[-2].ttype)->getValId());
-                            (yyval.ttype)->setValKeyw("new");
-                            (yyval.ttype)->setValProd("<NewExpression> --> new identifier <[ Expression ]>* <[ ]>*");
-                          }
-#line 1783 "program3.tab.c" /* yacc.c:1646  */
+    (yyval.ttype) = (yyvsp[-1].ttype);
+    (yyval.ttype)->pushNonTerminal((yyvsp[0].ttype));
+  }
+#line 1879 "program4.tab.c" /* yacc.c:1646  */
     break;
 
   case 36:
-#line 264 "program3.y" /* yacc.c:1646  */
-    { (yyval.ttype) = new Node; }
-#line 1789 "program3.tab.c" /* yacc.c:1646  */
+#line 302 "program4.y" /* yacc.c:1646  */
+    { (yyval.ttype) = new Node; (yyval.ttype)->pushNonTerminal((yyvsp[0].ttype)); }
+#line 1885 "program4.tab.c" /* yacc.c:1646  */
     break;
 
   case 37:
-#line 265 "program3.y" /* yacc.c:1646  */
+#line 307 "program4.y" /* yacc.c:1646  */
     {
-                                          (yyval.ttype) = (yyvsp[-3].ttype);
-                                          (yyval.ttype)->pushNonTerminal((yyvsp[-1].ttype));
-                                        }
-#line 1798 "program3.tab.c" /* yacc.c:1646  */
+    (yyval.ttype) = new Node;
+    (yyval.ttype)->setValProd("<MethodDeclaration> --> int identifier ( <ParameterList> ) <Block>");
+    (yyval.ttype)->pushNonTerminal((yyvsp[-2].ttype));
+    (yyval.ttype)->pushNonTerminal((yyvsp[0].ttype));
+  }
+#line 1896 "program4.tab.c" /* yacc.c:1646  */
     break;
 
   case 38:
-#line 272 "program3.y" /* yacc.c:1646  */
-    { (yyval.ttype) = new Node; }
-#line 1804 "program3.tab.c" /* yacc.c:1646  */
+#line 313 "program4.y" /* yacc.c:1646  */
+    {
+    (yyval.ttype) = new Node;
+    (yyval.ttype)->setValProd("<MethodDeclaration> --> identifier identifier ( <ParameterList> ) <Block>");
+    (yyval.ttype)->pushNonTerminal((yyvsp[-2].ttype));
+    (yyval.ttype)->pushNonTerminal((yyvsp[0].ttype));
+  }
+#line 1907 "program4.tab.c" /* yacc.c:1646  */
     break;
 
   case 39:
-#line 273 "program3.y" /* yacc.c:1646  */
+#line 319 "program4.y" /* yacc.c:1646  */
     {
-                                  (yyval.ttype) = new Node;
-                                  (yyval.ttype)->setValProd("<NewExpression> --> <[ ]>");
-                                  (yyval.ttype)->pushNonTerminal((yyvsp[0].ttype));
-                                }
-#line 1814 "program3.tab.c" /* yacc.c:1646  */
+    (yyval.ttype) = new Node;
+    (yyval.ttype)->setValProd("<MethodDeclaration> --> void identifier ( <ParameterList> ) <Block>");
+    (yyval.ttype)->pushNonTerminal((yyvsp[-2].ttype));
+    (yyval.ttype)->pushNonTerminal((yyvsp[0].ttype));
+  }
+#line 1918 "program4.tab.c" /* yacc.c:1646  */
     break;
 
   case 40:
-#line 281 "program3.y" /* yacc.c:1646  */
+#line 325 "program4.y" /* yacc.c:1646  */
     {
-                      (yyval.ttype) = new Node;
-                      (yyval.ttype)->setLeft((yyvsp[-2].ttype));
-                      (yyval.ttype)->setValProd("<VarDec> --> <Type> identifier ;");
-                    }
-#line 1824 "program3.tab.c" /* yacc.c:1646  */
+    (yyval.ttype) = new Node;
+    (yyval.ttype)->setValProd("<MethodDeclaration> --> int <[]>* identifier ( <ParameterList> ) <Block>");
+    (yyval.ttype)->pushNonTerminal((yyvsp[-5].ttype));
+    (yyval.ttype)->pushNonTerminal((yyvsp[-2].ttype));
+    (yyval.ttype)->pushNonTerminal((yyvsp[0].ttype));
+  }
+#line 1930 "program4.tab.c" /* yacc.c:1646  */
     break;
 
   case 41:
-#line 286 "program3.y" /* yacc.c:1646  */
+#line 332 "program4.y" /* yacc.c:1646  */
     {
-                    yyerrok;
-                    yyerror("Invalid character! Expected semicolon ...",
-                            (yylsp[0]).first_line,
-                            (yylsp[0]).first_column);
-                    yyclearin;
-                  }
-#line 1836 "program3.tab.c" /* yacc.c:1646  */
+    (yyval.ttype) = new Node;
+    (yyval.ttype)->setValProd("<MethodDeclaration> --> identifier <[]>* identifier ( <ParameterList> ) <Block>");
+    (yyval.ttype)->pushNonTerminal((yyvsp[-5].ttype));
+    (yyval.ttype)->pushNonTerminal((yyvsp[-2].ttype));
+    (yyval.ttype)->pushNonTerminal((yyvsp[0].ttype));
+  }
+#line 1942 "program4.tab.c" /* yacc.c:1646  */
     break;
 
   case 42:
-#line 293 "program3.y" /* yacc.c:1646  */
-    {
-                           yyerrok;
-                           yyerror("parse error on identifier",
-                                    (yylsp[-1]).first_line,
-                                    (yylsp[-1]).first_column);
-                           yyclearin;
-                         }
-#line 1848 "program3.tab.c" /* yacc.c:1646  */
+#line 343 "program4.y" /* yacc.c:1646  */
+    { (yyval.ttype) = new Node; }
+#line 1948 "program4.tab.c" /* yacc.c:1646  */
     break;
 
   case 43:
-#line 303 "program3.y" /* yacc.c:1646  */
+#line 344 "program4.y" /* yacc.c:1646  */
     {
-                (yyval.ttype) = new Node;
-                (yyval.ttype)->setLeft((yyvsp[0].ttype));
-                (yyval.ttype)->setValProd("<Type> --> <SimpleType>");
-              }
-#line 1858 "program3.tab.c" /* yacc.c:1646  */
+    (yyval.ttype) = new Node;
+    (yyval.ttype)->setValProd("<ParameterList> --> <Parameter> <, <Parameter> >*");
+    (yyval.ttype)->pushNonTerminal((yyvsp[-1].ttype));
+    (yyval.ttype)->pushNonTerminal((yyvsp[0].ttype));
+  }
+#line 1959 "program4.tab.c" /* yacc.c:1646  */
     break;
 
   case 44:
-#line 308 "program3.y" /* yacc.c:1646  */
-    {
-                 (yyval.ttype) = new Node;
-                 (yyval.ttype)->setValProd("<Type> --> <Type> [ ]");
-               }
-#line 1867 "program3.tab.c" /* yacc.c:1646  */
+#line 354 "program4.y" /* yacc.c:1646  */
+    { (yyval.ttype) = new Node; }
+#line 1965 "program4.tab.c" /* yacc.c:1646  */
     break;
 
   case 45:
-#line 312 "program3.y" /* yacc.c:1646  */
+#line 355 "program4.y" /* yacc.c:1646  */
     {
-                  yyerrok;
-                  yyerror("Parse error on type", (yylsp[-2]).first_line, (yylsp[-2]).first_column);
-                  yyclearin;
-                }
-#line 1877 "program3.tab.c" /* yacc.c:1646  */
+    (yyval.ttype) = (yyvsp[-2].ttype);
+    (yyval.ttype)->pushNonTerminal((yyvsp[0].ttype));
+  }
+#line 1974 "program4.tab.c" /* yacc.c:1646  */
     break;
 
   case 46:
-#line 317 "program3.y" /* yacc.c:1646  */
+#line 363 "program4.y" /* yacc.c:1646  */
     {
-                    yyerrok;
-                    yyerror("Missing [ character", (yylsp[-2]).first_line, (yylsp[-2]).first_column);
-                    yyclearin;
-                  }
-#line 1887 "program3.tab.c" /* yacc.c:1646  */
+    (yyval.ttype) = new Node;
+    (yyval.ttype)->setValProd("<Parameter> --> identifier identifier");
+    (yyval.ttype)->pushNonTerminal((yyvsp[-1].ttype));
+  }
+#line 1984 "program4.tab.c" /* yacc.c:1646  */
     break;
 
   case 47:
-#line 322 "program3.y" /* yacc.c:1646  */
+#line 368 "program4.y" /* yacc.c:1646  */
     {
-                    yyerrok;
-                    yyerror("Missing ] character");
-                    yyclearin;
-                  }
-#line 1897 "program3.tab.c" /* yacc.c:1646  */
+    (yyval.ttype) = new Node;
+    (yyval.ttype)->setValProd("<Parameter> --> int identifier");
+  }
+#line 1993 "program4.tab.c" /* yacc.c:1646  */
     break;
 
   case 48:
-#line 330 "program3.y" /* yacc.c:1646  */
+#line 372 "program4.y" /* yacc.c:1646  */
     {
-        (yyval.ttype) = new Node;
-        (yyval.ttype)->setValKeyw("int");
-      }
-#line 1906 "program3.tab.c" /* yacc.c:1646  */
+    (yyval.ttype) = new Node;
+    (yyval.ttype)->setValProd("<Parameter> --> identifier <[]>* identifier");
+    (yyval.ttype)->pushNonTerminal((yyvsp[-1].ttype));
+  }
+#line 2003 "program4.tab.c" /* yacc.c:1646  */
     break;
 
   case 49:
-#line 334 "program3.y" /* yacc.c:1646  */
+#line 377 "program4.y" /* yacc.c:1646  */
     {
-            yyerrok;
-            yyerror("Invalid simple type!");
-            yyclearin;
-          }
-#line 1916 "program3.tab.c" /* yacc.c:1646  */
+    (yyval.ttype) = new Node;
+    (yyval.ttype)->setValProd("<Parameter> --> int <[]>* identifier");
+    (yyval.ttype)->pushNonTerminal((yyvsp[-1].ttype));
+  }
+#line 2013 "program4.tab.c" /* yacc.c:1646  */
+    break;
+
+  case 50:
+#line 386 "program4.y" /* yacc.c:1646  */
+    {
+    (yyval.ttype) = new Node;
+    (yyval.ttype)->setValProd("<Block> --> { <LocalVarDeclaration>* <Statement>* }");
+    (yyval.ttype)->pushNonTerminal((yyvsp[-2].ttype));
+    (yyval.ttype)->pushNonTerminal((yyvsp[-1].ttype));
+  }
+#line 2024 "program4.tab.c" /* yacc.c:1646  */
+    break;
+
+  case 51:
+#line 392 "program4.y" /* yacc.c:1646  */
+    {
+    (yyval.ttype) = new Node;
+    (yyval.ttype)->setValProd("<Block> --> { <LocalVarDeclaration>* <Statement>* }");
+    (yyval.ttype)->pushNonTerminal((yyvsp[-1].ttype));
+  }
+#line 2034 "program4.tab.c" /* yacc.c:1646  */
+    break;
+
+  case 52:
+#line 397 "program4.y" /* yacc.c:1646  */
+    {
+    (yyval.ttype) = new Node;
+    (yyval.ttype)->setValProd("<Block> --> { <LocalVarDeclaration>* <Statement>* }");
+    (yyval.ttype)->pushNonTerminal((yyvsp[-1].ttype));
+  }
+#line 2044 "program4.tab.c" /* yacc.c:1646  */
+    break;
+
+  case 53:
+#line 402 "program4.y" /* yacc.c:1646  */
+    {
+    (yyval.ttype) = new Node;
+    (yyval.ttype)->setValProd("<Block> --> { <LocalVarDeclaration>* <Statement>* }");
+  }
+#line 2053 "program4.tab.c" /* yacc.c:1646  */
+    break;
+
+  case 54:
+#line 410 "program4.y" /* yacc.c:1646  */
+    { (yyval.ttype) = new Node; (yyval.ttype)->pushNonTerminal((yyvsp[0].ttype)); }
+#line 2059 "program4.tab.c" /* yacc.c:1646  */
+    break;
+
+  case 55:
+#line 411 "program4.y" /* yacc.c:1646  */
+    {
+    (yyval.ttype) = (yyvsp[-1].ttype);
+    (yyval.ttype)->pushNonTerminal((yyvsp[0].ttype));
+  }
+#line 2068 "program4.tab.c" /* yacc.c:1646  */
+    break;
+
+  case 56:
+#line 419 "program4.y" /* yacc.c:1646  */
+    {
+    (yyval.ttype) = new Node;
+    (yyval.ttype)->pushNonTerminal((yyvsp[-2].ttype));
+    (yyval.ttype)->setValProd("<LocalVarDeclaration> --> <Type> identifier ;");
+  }
+#line 2078 "program4.tab.c" /* yacc.c:1646  */
+    break;
+
+  case 57:
+#line 428 "program4.y" /* yacc.c:1646  */
+    {
+    (yyval.ttype) = new Node;
+    (yyval.ttype)->pushNonTerminal((yyvsp[0].ttype));
+  }
+#line 2087 "program4.tab.c" /* yacc.c:1646  */
+    break;
+
+  case 58:
+#line 432 "program4.y" /* yacc.c:1646  */
+    {
+    (yyval.ttype) = (yyvsp[-1].ttype);
+    (yyval.ttype)->pushNonTerminal((yyvsp[0].ttype));
+  }
+#line 2096 "program4.tab.c" /* yacc.c:1646  */
+    break;
+
+  case 59:
+#line 440 "program4.y" /* yacc.c:1646  */
+    {
+    (yyval.ttype) = new Node;
+    (yyval.ttype)->setValProd("<Statement> --> ;");
+  }
+#line 2105 "program4.tab.c" /* yacc.c:1646  */
+    break;
+
+  case 60:
+#line 444 "program4.y" /* yacc.c:1646  */
+    {
+    (yyval.ttype) = new Node;
+    (yyval.ttype)->setValProd("<Statement> --> <Name> = <Expression> ;");
+    (yyval.ttype)->pushNonTerminal((yyvsp[-3].ttype));
+    (yyval.ttype)->pushNonTerminal((yyvsp[-1].ttype));
+  }
+#line 2116 "program4.tab.c" /* yacc.c:1646  */
+    break;
+
+  case 61:
+#line 450 "program4.y" /* yacc.c:1646  */
+    {
+    (yyval.ttype) = new Node;
+    (yyval.ttype)->setValProd("<Statement> --> <Name> ( <ArgList> ) ;");
+    (yyval.ttype)->pushNonTerminal((yyvsp[-4].ttype));
+    (yyval.ttype)->pushNonTerminal((yyvsp[-2].ttype));
+  }
+#line 2127 "program4.tab.c" /* yacc.c:1646  */
+    break;
+
+  case 62:
+#line 456 "program4.y" /* yacc.c:1646  */
+    {
+    (yyval.ttype) = new Node;
+    (yyval.ttype)->setValProd("<Statement> --> print ( <ArgList> ) ;");
+    (yyval.ttype)->pushNonTerminal((yyvsp[-2].ttype));
+  }
+#line 2137 "program4.tab.c" /* yacc.c:1646  */
+    break;
+
+  case 63:
+#line 461 "program4.y" /* yacc.c:1646  */
+    {
+    (yyval.ttype) = new Node;
+    (yyval.ttype)->setValProd("<Statement> --> while ( <Expression> ) <Statement>");
+    (yyval.ttype)->pushNonTerminal((yyvsp[-2].ttype));
+    (yyval.ttype)->pushNonTerminal((yyvsp[0].ttype));
+  }
+#line 2148 "program4.tab.c" /* yacc.c:1646  */
+    break;
+
+  case 64:
+#line 467 "program4.y" /* yacc.c:1646  */
+    {
+    (yyval.ttype) = new Node;
+    (yyval.ttype)->setValProd("<Statement> --> return <OptionalExpression> ;");
+    (yyval.ttype)->pushNonTerminal((yyvsp[-1].ttype));
+  }
+#line 2158 "program4.tab.c" /* yacc.c:1646  */
+    break;
+
+  case 65:
+#line 472 "program4.y" /* yacc.c:1646  */
+    {
+    (yyval.ttype) = new Node;
+    (yyval.ttype)->setValProd("<Statement> --> <Block>");
+    (yyval.ttype)->pushNonTerminal((yyvsp[0].ttype));
+  }
+#line 2168 "program4.tab.c" /* yacc.c:1646  */
+    break;
+
+  case 66:
+#line 481 "program4.y" /* yacc.c:1646  */
+    {
+    (yyval.ttype) = new Node;
+    (yyval.ttype)->setValKeyw("this");
+    (yyval.ttype)->setValProd("<Name> --> this");
+  }
+#line 2178 "program4.tab.c" /* yacc.c:1646  */
+    break;
+
+  case 67:
+#line 486 "program4.y" /* yacc.c:1646  */
+    {
+    (yyval.ttype) = new Node;
+    (yyval.ttype)->setValProd("<Name> --> identifier [ <Expression> ]");
+  }
+#line 2187 "program4.tab.c" /* yacc.c:1646  */
+    break;
+
+  case 68:
+#line 490 "program4.y" /* yacc.c:1646  */
+    {
+    (yyval.ttype) = new Node;
+    (yyval.ttype)->pushNonTerminal((yyvsp[-2].ttype));
+    (yyval.ttype)->setValProd("<Name> --> <Name> . identifier");
+  }
+#line 2197 "program4.tab.c" /* yacc.c:1646  */
+    break;
+
+  case 69:
+#line 495 "program4.y" /* yacc.c:1646  */
+    {
+    (yyval.ttype) = new Node;
+    (yyval.ttype)->pushNonTerminal((yyvsp[-3].ttype));
+    (yyval.ttype)->pushNonTerminal((yyvsp[-1].ttype));
+    (yyval.ttype)->setValProd("<Name> --> <Name> [ <Expression> ]");
+  }
+#line 2208 "program4.tab.c" /* yacc.c:1646  */
+    break;
+
+  case 70:
+#line 505 "program4.y" /* yacc.c:1646  */
+    {
+    (yyval.ttype) = new Node;
+    (yyval.ttype)->setValProd("<Name> --> identifier");
+  }
+#line 2217 "program4.tab.c" /* yacc.c:1646  */
+    break;
+
+  case 71:
+#line 509 "program4.y" /* yacc.c:1646  */
+    {
+    (yyval.ttype) = new Node;
+    (yyval.ttype)->pushNonTerminal((yyvsp[0].ttype));
+  }
+#line 2226 "program4.tab.c" /* yacc.c:1646  */
+    break;
+
+  case 72:
+#line 517 "program4.y" /* yacc.c:1646  */
+    { (yyval.ttype) = new Node; }
+#line 2232 "program4.tab.c" /* yacc.c:1646  */
+    break;
+
+  case 73:
+#line 518 "program4.y" /* yacc.c:1646  */
+    {
+    (yyval.ttype) = (yyvsp[-2].ttype);
+    (yyval.ttype)->pushNonTerminal((yyvsp[0].ttype));
+  }
+#line 2241 "program4.tab.c" /* yacc.c:1646  */
+    break;
+
+  case 74:
+#line 526 "program4.y" /* yacc.c:1646  */
+    { (yyval.ttype) = new Node; }
+#line 2247 "program4.tab.c" /* yacc.c:1646  */
+    break;
+
+  case 75:
+#line 527 "program4.y" /* yacc.c:1646  */
+    {
+    (yyval.ttype) = new Node;
+    (yyval.ttype)->setValProd("<ArgList> --> <Expression> <,<Expression> >*");
+    (yyval.ttype)->pushNonTerminal((yyvsp[-1].ttype));
+    (yyval.ttype)->pushNonTerminal((yyvsp[0].ttype));
+  }
+#line 2258 "program4.tab.c" /* yacc.c:1646  */
+    break;
+
+  case 76:
+#line 537 "program4.y" /* yacc.c:1646  */
+    { (yyval.ttype) = new Node; (yyval.ttype)->setValProd("<OptionalExpression> --> epsilon"); }
+#line 2264 "program4.tab.c" /* yacc.c:1646  */
+    break;
+
+  case 77:
+#line 538 "program4.y" /* yacc.c:1646  */
+    {
+    (yyval.ttype) = new Node;
+    (yyval.ttype)->pushNonTerminal((yyvsp[0].ttype));
+    (yyval.ttype)->setValProd("<OptionalExpression> --> <Expression>");
+  }
+#line 2274 "program4.tab.c" /* yacc.c:1646  */
+    break;
+
+  case 78:
+#line 547 "program4.y" /* yacc.c:1646  */
+    {
+    (yyval.ttype) = new Node;
+    (yyval.ttype)->pushNonTerminal((yyvsp[0].ttype));
+    (yyval.ttype)->setValProd("<Expression> --> <Name>");
+  }
+#line 2284 "program4.tab.c" /* yacc.c:1646  */
+    break;
+
+  case 79:
+#line 552 "program4.y" /* yacc.c:1646  */
+    {
+    (yyval.ttype) = new Node;
+    (yyval.ttype)->setValProd("<Expression> --> number");
+  }
+#line 2293 "program4.tab.c" /* yacc.c:1646  */
+    break;
+
+  case 80:
+#line 556 "program4.y" /* yacc.c:1646  */
+    {
+    (yyval.ttype) = new Node;
+    (yyval.ttype)->setValProd("<Expression> --> null");
+  }
+#line 2302 "program4.tab.c" /* yacc.c:1646  */
+    break;
+
+  case 81:
+#line 560 "program4.y" /* yacc.c:1646  */
+    {
+    (yyval.ttype) = new Node;
+    (yyval.ttype)->setValProd("<Expression> --> <Name> ( <ArgList> )");
+    (yyval.ttype)->pushNonTerminal((yyvsp[-3].ttype));
+    (yyval.ttype)->pushNonTerminal((yyvsp[-1].ttype));
+  }
+#line 2313 "program4.tab.c" /* yacc.c:1646  */
+    break;
+
+  case 82:
+#line 566 "program4.y" /* yacc.c:1646  */
+    {
+    (yyval.ttype) = new Node;
+    (yyval.ttype)->setValProd("<Expression> --> read ( )");
+  }
+#line 2322 "program4.tab.c" /* yacc.c:1646  */
+    break;
+
+  case 83:
+#line 570 "program4.y" /* yacc.c:1646  */
+    {
+    (yyval.ttype) = new Node;
+    (yyval.ttype)->pushNonTerminal((yyvsp[0].ttype));
+    (yyval.ttype)->setValProd("<Expression> --> <NewExpression>");
+  }
+#line 2332 "program4.tab.c" /* yacc.c:1646  */
+    break;
+
+  case 84:
+#line 575 "program4.y" /* yacc.c:1646  */
+    {
+    (yyval.ttype) = new Node;
+    (yyval.ttype)->pushNonTerminal((yyvsp[0].ttype));
+    (yyval.ttype)->setValProd("<Expression> --> + <Expression>");
+  }
+#line 2342 "program4.tab.c" /* yacc.c:1646  */
+    break;
+
+  case 85:
+#line 580 "program4.y" /* yacc.c:1646  */
+    {
+    (yyval.ttype) = new Node;
+    (yyval.ttype)->pushNonTerminal((yyvsp[0].ttype));
+    (yyval.ttype)->setValProd("<Expression> --> - <Expression>");
+  }
+#line 2352 "program4.tab.c" /* yacc.c:1646  */
+    break;
+
+  case 86:
+#line 585 "program4.y" /* yacc.c:1646  */
+    {
+    (yyval.ttype) = new Node;
+    (yyval.ttype)->pushNonTerminal((yyvsp[0].ttype));
+    (yyval.ttype)->setValProd("<Expression> --> ! <Expression>");
+  }
+#line 2362 "program4.tab.c" /* yacc.c:1646  */
+    break;
+
+  case 87:
+#line 590 "program4.y" /* yacc.c:1646  */
+    {
+    (yyval.ttype) = new Node;
+    (yyval.ttype)->pushNonTerminal((yyvsp[-2].ttype));
+    (yyval.ttype)->pushNonTerminal((yyvsp[0].ttype));
+    (yyval.ttype)->setValProd("<Expression> --> <Expression> == <Expression>");
+  }
+#line 2373 "program4.tab.c" /* yacc.c:1646  */
+    break;
+
+  case 88:
+#line 596 "program4.y" /* yacc.c:1646  */
+    {
+    (yyval.ttype) = new Node;
+    (yyval.ttype)->pushNonTerminal((yyvsp[-2].ttype));
+    (yyval.ttype)->pushNonTerminal((yyvsp[0].ttype));
+    (yyval.ttype)->setValProd("<Expression> --> <Expression> != <Expression>");
+  }
+#line 2384 "program4.tab.c" /* yacc.c:1646  */
+    break;
+
+  case 89:
+#line 602 "program4.y" /* yacc.c:1646  */
+    {
+    (yyval.ttype) = new Node;
+    (yyval.ttype)->pushNonTerminal((yyvsp[-2].ttype));
+    (yyval.ttype)->pushNonTerminal((yyvsp[0].ttype));
+    (yyval.ttype)->setValProd("<Expression> --> <Expression> <= <Expression>");
+  }
+#line 2395 "program4.tab.c" /* yacc.c:1646  */
+    break;
+
+  case 90:
+#line 608 "program4.y" /* yacc.c:1646  */
+    {
+    (yyval.ttype) = new Node;
+    (yyval.ttype)->pushNonTerminal((yyvsp[-2].ttype));
+    (yyval.ttype)->pushNonTerminal((yyvsp[0].ttype));
+    (yyval.ttype)->setValProd("<Expression> --> <Expression> >= <Expression>");
+  }
+#line 2406 "program4.tab.c" /* yacc.c:1646  */
+    break;
+
+  case 91:
+#line 614 "program4.y" /* yacc.c:1646  */
+    {
+    (yyval.ttype) = new Node;
+    (yyval.ttype)->pushNonTerminal((yyvsp[-2].ttype));
+    (yyval.ttype)->pushNonTerminal((yyvsp[0].ttype));
+    (yyval.ttype)->setValProd("<Expression> --> <Expression> > <Expression>");
+  }
+#line 2417 "program4.tab.c" /* yacc.c:1646  */
+    break;
+
+  case 92:
+#line 620 "program4.y" /* yacc.c:1646  */
+    {
+    (yyval.ttype) = new Node;
+    (yyval.ttype)->pushNonTerminal((yyvsp[-2].ttype));
+    (yyval.ttype)->pushNonTerminal((yyvsp[0].ttype));
+    (yyval.ttype)->setValProd("<Expression> --> <Expression> < <Expression>");
+  }
+#line 2428 "program4.tab.c" /* yacc.c:1646  */
+    break;
+
+  case 93:
+#line 626 "program4.y" /* yacc.c:1646  */
+    {
+    (yyval.ttype) = new Node;
+    (yyval.ttype)->pushNonTerminal((yyvsp[-2].ttype));
+    (yyval.ttype)->pushNonTerminal((yyvsp[0].ttype));
+    (yyval.ttype)->setValProd("<Expression> --> <Expression> + <Expression>");
+  }
+#line 2439 "program4.tab.c" /* yacc.c:1646  */
+    break;
+
+  case 94:
+#line 632 "program4.y" /* yacc.c:1646  */
+    {
+    (yyval.ttype) = new Node;
+    (yyval.ttype)->pushNonTerminal((yyvsp[-2].ttype));
+    (yyval.ttype)->pushNonTerminal((yyvsp[0].ttype));
+    (yyval.ttype)->setValProd("<Expression> --> <Expression> - <Expression>");
+  }
+#line 2450 "program4.tab.c" /* yacc.c:1646  */
+    break;
+
+  case 95:
+#line 638 "program4.y" /* yacc.c:1646  */
+    {
+    (yyval.ttype) = new Node;
+    (yyval.ttype)->pushNonTerminal((yyvsp[-2].ttype));
+    (yyval.ttype)->pushNonTerminal((yyvsp[0].ttype));
+    (yyval.ttype)->setValProd("<Expression> --> <Expression> || <Expression>");
+  }
+#line 2461 "program4.tab.c" /* yacc.c:1646  */
+    break;
+
+  case 96:
+#line 644 "program4.y" /* yacc.c:1646  */
+    {
+    (yyval.ttype) = new Node;
+    (yyval.ttype)->pushNonTerminal((yyvsp[-2].ttype));
+    (yyval.ttype)->pushNonTerminal((yyvsp[0].ttype));
+    (yyval.ttype)->setValProd("<Expression> --> <Expression> * <Expression>");
+  }
+#line 2472 "program4.tab.c" /* yacc.c:1646  */
+    break;
+
+  case 97:
+#line 650 "program4.y" /* yacc.c:1646  */
+    {
+    (yyval.ttype) = new Node;
+    (yyval.ttype)->pushNonTerminal((yyvsp[-2].ttype));
+    (yyval.ttype)->pushNonTerminal((yyvsp[0].ttype));
+    (yyval.ttype)->setValProd("<Expression> --> <Expression> / <Expression>");
+  }
+#line 2483 "program4.tab.c" /* yacc.c:1646  */
+    break;
+
+  case 98:
+#line 656 "program4.y" /* yacc.c:1646  */
+    {
+    (yyval.ttype) = new Node;
+    (yyval.ttype)->pushNonTerminal((yyvsp[-2].ttype));
+    (yyval.ttype)->pushNonTerminal((yyvsp[0].ttype));
+    (yyval.ttype)->setValProd("<Expression> --> <Expression> % <Expression>");
+  }
+#line 2494 "program4.tab.c" /* yacc.c:1646  */
+    break;
+
+  case 99:
+#line 662 "program4.y" /* yacc.c:1646  */
+    {
+    (yyval.ttype) = new Node;
+    (yyval.ttype)->pushNonTerminal((yyvsp[-2].ttype));
+    (yyval.ttype)->pushNonTerminal((yyvsp[0].ttype));
+    (yyval.ttype)->setValProd("<Expression> --> <Expression> && <Expression>");
+  }
+#line 2505 "program4.tab.c" /* yacc.c:1646  */
+    break;
+
+  case 100:
+#line 668 "program4.y" /* yacc.c:1646  */
+    {
+    (yyval.ttype) = new Node;
+    (yyval.ttype)->pushNonTerminal((yyvsp[-1].ttype));
+    (yyval.ttype)->setValProd("<Expression> --> ( <Expression> )");
+  }
+#line 2515 "program4.tab.c" /* yacc.c:1646  */
+    break;
+
+  case 101:
+#line 676 "program4.y" /* yacc.c:1646  */
+    {
+    (yyval.ttype) = new Node;
+    (yyval.ttype)->pushNonTerminal((yyvsp[-1].ttype));
+    (yyval.ttype)->setValProd("<NewExpression> --> new identifier ( <ArgList> )");
+  }
+#line 2525 "program4.tab.c" /* yacc.c:1646  */
+    break;
+
+  case 102:
+#line 681 "program4.y" /* yacc.c:1646  */
+    {
+    (yyval.ttype) = new Node;
+    (yyval.ttype)->pushNonTerminal((yyvsp[-1].ttype));
+    (yyval.ttype)->pushNonTerminal((yyvsp[0].ttype));
+    (yyval.ttype)->setValProd("<NewExpression> --> new int <[ Expression ]>* <[ ]>+");
+  }
+#line 2536 "program4.tab.c" /* yacc.c:1646  */
+    break;
+
+  case 103:
+#line 687 "program4.y" /* yacc.c:1646  */
+    {
+    (yyval.ttype) = new Node;
+    (yyval.ttype)->pushNonTerminal((yyvsp[-1].ttype));
+    (yyval.ttype)->pushNonTerminal((yyvsp[0].ttype));
+    (yyval.ttype)->setValProd("<NewExpression> --> new identifier <[ Expression ]>* <[ ]>*");
+  }
+#line 2547 "program4.tab.c" /* yacc.c:1646  */
+    break;
+
+  case 104:
+#line 693 "program4.y" /* yacc.c:1646  */
+    {
+    (yyval.ttype) = new Node;
+    (yyval.ttype)->pushNonTerminal((yyvsp[0].ttype));
+    (yyval.ttype)->setValProd("<NewExpression> --> new int <[ Expression ]>*");
+  }
+#line 2557 "program4.tab.c" /* yacc.c:1646  */
+    break;
+
+  case 105:
+#line 698 "program4.y" /* yacc.c:1646  */
+    {
+    (yyval.ttype) = new Node;
+    (yyval.ttype)->pushNonTerminal((yyvsp[0].ttype));
+    (yyval.ttype)->setValProd("<NewExpression> --> new identifier <[ Expression ]>*");
+  }
+#line 2567 "program4.tab.c" /* yacc.c:1646  */
+    break;
+
+  case 106:
+#line 707 "program4.y" /* yacc.c:1646  */
+    { (yyval.ttype) = new Node; }
+#line 2573 "program4.tab.c" /* yacc.c:1646  */
+    break;
+
+  case 107:
+#line 708 "program4.y" /* yacc.c:1646  */
+    {
+    (yyval.ttype) = (yyvsp[-3].ttype);
+    (yyval.ttype)->pushNonTerminal((yyvsp[-1].ttype));
+  }
+#line 2582 "program4.tab.c" /* yacc.c:1646  */
     break;
 
 
-#line 1920 "program3.tab.c" /* yacc.c:1646  */
+#line 2586 "program4.tab.c" /* yacc.c:1646  */
       default: break;
     }
   /* User semantic actions sometimes alter yychar, and that requires
@@ -2151,5 +2817,5 @@ yyreturn:
 #endif
   return yyresult;
 }
-#line 341 "program3.y" /* yacc.c:1906  */
+#line 714 "program4.y" /* yacc.c:1906  */
 

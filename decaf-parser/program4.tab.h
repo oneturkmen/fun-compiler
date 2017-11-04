@@ -30,8 +30,8 @@
    This special exception was added by the Free Software Foundation in
    version 2.2 of Bison.  */
 
-#ifndef YY_YY_PROGRAM3_TAB_H_INCLUDED
-# define YY_YY_PROGRAM3_TAB_H_INCLUDED
+#ifndef YY_YY_PROGRAM4_TAB_H_INCLUDED
+# define YY_YY_PROGRAM4_TAB_H_INCLUDED
 /* Debug traces.  */
 #ifndef YYDEBUG
 # define YYDEBUG 0
@@ -45,42 +45,44 @@ extern int yydebug;
 # define YYTOKENTYPE
   enum yytokentype
   {
-    NLL = 258,
-    THIS = 259,
-    VOID = 260,
-    NEW = 261,
-    READ = 262,
-    PRINT = 263,
-    LC = 264,
-    LS = 265,
-    LP = 266,
-    RC = 267,
-    RP = 268,
-    RS = 269,
-    CLASS = 270,
-    IF = 271,
-    ELSE = 272,
-    WHILE = 273,
-    RETURN = 274,
-    DOT = 275,
-    SEMICOLON = 276,
-    INT = 277,
-    ID = 278,
-    NUMBER = 279,
-    EQUALS = 280,
-    NOTEQL = 281,
-    LESSGRT = 282,
-    MOREGRT = 283,
-    GREATER = 284,
-    LESS = 285,
-    PLUS = 286,
-    MINUS = 287,
-    OROR = 288,
-    MULT = 289,
-    DIV = 290,
-    REMAINDER = 291,
-    ANDAND = 292,
-    NOT = 293
+    ID = 258,
+    NUMBER = 259,
+    NLL = 260,
+    THIS = 261,
+    VOID = 262,
+    NEW = 263,
+    READ = 264,
+    PRINT = 265,
+    CLASS = 266,
+    IF = 267,
+    ELSE = 268,
+    WHILE = 269,
+    RETURN = 270,
+    INT = 271,
+    LP = 272,
+    LC = 273,
+    COMMA = 274,
+    SEMICOLON = 275,
+    RC = 276,
+    RS = 277,
+    RP = 278,
+    DOT = 279,
+    LS = 280,
+    ASSIGN = 281,
+    OROR = 282,
+    ANDAND = 283,
+    EQUALS = 284,
+    NOTEQL = 285,
+    GREATER = 286,
+    LESS = 287,
+    LESSGRT = 288,
+    MOREGRT = 289,
+    PLUS = 290,
+    MINUS = 291,
+    MULT = 292,
+    DIV = 293,
+    REMAINDER = 294,
+    NOT = 295
   };
 #endif
 
@@ -89,11 +91,11 @@ extern int yydebug;
 
 union YYSTYPE
 {
-#line 55 "program3.y" /* yacc.c:1909  */
+#line 58 "program4.y" /* yacc.c:1909  */
 
   Node *ttype;
 
-#line 97 "program3.tab.h" /* yacc.c:1909  */
+#line 99 "program4.tab.h" /* yacc.c:1909  */
 };
 
 typedef union YYSTYPE YYSTYPE;
@@ -120,4 +122,4 @@ extern YYSTYPE yylval;
 extern YYLTYPE yylloc;
 int yyparse (void);
 
-#endif /* !YY_YY_PROGRAM3_TAB_H_INCLUDED  */
+#endif /* !YY_YY_PROGRAM4_TAB_H_INCLUDED  */
