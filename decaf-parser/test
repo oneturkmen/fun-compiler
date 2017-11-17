@@ -1,10 +1,44 @@
-class abc { some1 [] abc; john doe; abc() { int c; { abc = new int[1][2][3][]; { abcd(this,this); } } } }
+//class abc { some1 [] abc; john doe; abc() { int c; { abc = new int[1][2][3][]; { abcd(this,this); } } } }
 //5555
-class foo { abc() { ohmygod = 1 + 2; } }
-class cll { suka [][][] foo(int arg1, int arg2) { some2 var; some3 [][][] xerox; } }
-class sup { sup(int s, int p) { sukya [] blyat; } }
-class test4 { void lolk() { } }
-class test5 { int c; }
+//class foo { abc() { ohmygod = 1 + 2; } }
+//class cll { suka [][][] foo(int arg1, int arg2) { some2 var; some3 [][][] xerox; } }
+//class sup { sup(int s, int p) { sukya [] blyat; } }
+//class test4 { void lolk() { } }
+//class test5 { int c; }
+class foo {
+
+  int a;
+  int b;
+
+  foo()
+  {
+     int a;
+     this.a = 5;
+  }
+  int boo(int a)
+  {
+    b=a;
+    return 1;
+  }
+
+}
+
+class goo {
+  int x;
+
+  foo c;
+
+  int main()
+  {
+    foo f;
+
+    if( x > 5) print(x);
+    else print(y);
+    
+    return 0;
+  }
+}
+
 /* 3 + 4 * s / h */
 /* read() */
 /* new int [3][4][g][][] */

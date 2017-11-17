@@ -13,8 +13,97 @@
 #include <iostream>
 #include <vector>
 #include <string>
+#include <unordered_map>
 
 using namespace std;
+
+
+// FIXME : just a draft - to be edited.
+class SymbolTable {  
+  public:
+    // { Name -> Type } mapping
+    unordered_map <string, string> symbol_table;
+    string associated_type;
+    SymbolTable *prev;
+
+
+    SymbolTable() { }
+
+    ~SymbolTable() { }
+
+    // initialize a prev symbol table
+    SymbolTable(SymbolTable *parent)
+    {
+      prev = parent;
+    }
+
+    // insert a variable/method declar
+    bool insert(string name, string type)
+    {
+      auto found = symbol_table.find(name);
+
+      cout << "Processing insertion into ST ..." << endl;
+
+      if (found != symbol_table.end())
+      {
+        cerr << "Element is already in the system ..." << endl;
+        return 0;
+      }
+      else
+      {
+
+        cout << "Insertion successful!" << endl;
+
+        symbol_table.insert({name, type});
+        return 1;
+      }
+    }
+
+    // FIXME
+    // lookup a value of a key in the table
+    string lookup(string key)
+    {
+      auto value = symbol_table.find(key);
+
+      cout << "Processing lookup ..." << endl;
+
+      if (value != symbol_table.end())
+      {
+        cout << "Found: " << value->second << endl;
+      }
+      else
+      {
+        if (prev != NULL) {
+
+          cout << "Checking parent symbol table ..." << endl;
+
+          return prev->lookup(key);
+        }
+        else {
+          cerr << "Element not found ..." << endl;
+          return "";
+        }
+      }
+    }
+
+    // other custom function
+    void setType(string type)
+    {
+      associated_type = type;
+    }
+
+    string getType()
+    {
+      return associated_type;
+    }
+
+    SymbolTable *getParent()
+    {
+      return prev;
+    }
+
+
+};
 
 
 struct ReportSyntaxError {
@@ -61,10 +150,15 @@ class Node {
     string _iden;
     string _numb;
     string _keyw;
+    string _type;
+    string _structure_type;
     Node *_left;
     Node *_right;
+    SymbolTable *symbol_table;
     // Vector for several expressions in NewExpression pattern
     vector <Node*> _children_assgn;
+
+    // - - - - - - - - - - - - - - - - - - - - - - - - -
 
     // Initialization constructors
     Node()
@@ -80,19 +174,14 @@ class Node {
     { }
 
     // Custom class methods
-    void setLeft(Node *left)
-    {
-      _left = left;
-    }
-
-    void setRight(Node *right)
-    {
-      _right = right;
-    }
-
     void setValOp(string oper)
     {
       _oper = oper;
+    }
+
+    void setValType(string type)
+    {
+      _type = type;
     }
 
     void setValNum(string numb)
@@ -121,14 +210,34 @@ class Node {
       return;
     }
 
+    void setStructureType(string structype)
+    {
+      _structure_type = structype;
+    }
+
+    void setSymbolTableAddress(SymbolTable *st)
+    {
+      symbol_table = st;
+    }
+
     void setError()
     {
       _error = true;
     }
 
+    string getStructureType()
+    {
+      return _structure_type;
+    }
+
     string getValProd()
     {
       return _prod;
+    }
+
+    string getValType()
+    {
+      return _type;
     }
 
     string getValId()

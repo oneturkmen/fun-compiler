@@ -61,7 +61,7 @@ void yyerror(const char *);
 
 %token <ttype> ID NUMBER
 %token NLL THIS VOID NEW READ PRINT
-%token CLASS IF ELSE WHILE RETURN
+%token CLASS IF WHILE RETURN
 %token INT
 %token LP LC COMMA SEMICOLON RC RS RP
 %token DOT LS
@@ -92,6 +92,7 @@ void yyerror(const char *);
 
 %type <ttype> statements
 %type <ttype> statement
+%type <ttype> conditional_statement
 
 %type <ttype> type_other
 %type <ttype> type
@@ -107,6 +108,7 @@ void yyerror(const char *);
 %left PLUS MINUS    /* shift-reduce errors are solved by this */
 %left MULT DIV REMAINDER
 
+%right "then" ELSE
 %precedence NOT     /* exponentiation */
 
 
@@ -123,6 +125,7 @@ program:
   class_decl {
                $$ = new Node;
                $$->pushNonTerminal($1);
+               $$->setStructureType("class_decl");
                $$->setValProd("<Program> --> <ClassDeclaration>+");
              }
   | program class_decl {
@@ -134,6 +137,7 @@ class_decl:
   CLASS ID LC class_body RC {
     $$ = new Node;
     $$->pushNonTerminal($4);
+    $$->setValId($2->getValId());
     $$->setValProd("\n<ClassDeclaration> --> class identifier <ClassBody>");
   }
   | error ID LC class_body RC {
@@ -225,6 +229,7 @@ multi_brackets:
 
 var_decl: ID ID SEMICOLON {
     $$ = new Node;
+    $$->setValId($2->getValId());
     $$->setValProd("<VarDeclaration> --> identifier identifier ;");
   }
   | INT ID SEMICOLON {
@@ -453,6 +458,11 @@ statement:
     $$->pushNonTerminal($1);
     $$->pushNonTerminal($3);
   }
+  | conditional_statement {
+    $$ = new Node;
+    $$->setValProd("<Statement> --> <ConditionalStatement>");
+    $$->pushNonTerminal($1);
+  }
   | PRINT LP arg_list RP SEMICOLON {
     $$ = new Node;
     $$->setValProd("<Statement> --> print ( <ArgList> ) ;");
@@ -473,6 +483,20 @@ statement:
     $$ = new Node;
     $$->setValProd("<Statement> --> <Block>");
     $$->pushNonTerminal($1);
+  }
+  ;
+
+
+conditional_statement:
+  IF LP expression RP statement %prec "then" {
+    $$ = new Node;
+    $$->setValProd("<ConditionalStatement> --> if ( <Expression> ) <Statement>");
+    $$->pushNonTerminal($3);
+    $$->pushNonTerminal($5);
+  }
+  | IF LP expression RP statement ELSE statement {
+    $$ = new Node;
+    $$->setValProd("<ConditionalStatement> --> if ( <Expression> ) <Statement> else <Statement>");
   }
   ;
 
