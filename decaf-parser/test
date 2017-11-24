@@ -1,11 +1,20 @@
+/* Checking the custom types */
+//class rt { int b; int d; rt mah_method() { int x; int d; return 1; }}
+//class test2 { test2 a; test2 b; test2() { }}
+//class test3 { rt a; rt init(test2 a, test2 b, rt c) { return 1+4; }}
+//class ohboi { int b; int d; ohboi mah_method() { return 1; }}
+class A { B b; }
+class B { E g; }
+class E { int e; }
+class C { int d; A f; C() { d = func(f.b.g.e); } int func(int a) { return 1; } }
 //class abc { some1 [] abc; john doe; abc() { int c; { abc = new int[1][2][3][]; { abcd(this,this); } } } }
 //5555
 //class foo { abc() { ohmygod = 1 + 2; } }
-//class cll { suka [][][] foo(int arg1, int arg2) { some2 var; some3 [][][] xerox; } }
-//class sup { sup(int s, int p) { sukya [] blyat; } }
+//class cll { randomtype foo(int arg1, int arg2, int arg4) { some2 var; some3 [][][] xerox; } }
+//class sup { sup(int s, int p) { hectic [] declared; } }
 //class test4 { void lolk() { } }
 //class test5 { int c; }
-class foo {
+/*class foo {
 
   int a;
   int b;
@@ -34,11 +43,11 @@ class goo {
 
     if( x > 5) print(x);
     else print(y);
-    
+
     return 0;
   }
 }
-
+*/
 /* 3 + 4 * s / h */
 /* read() */
 /* new int [3][4][g][][] */

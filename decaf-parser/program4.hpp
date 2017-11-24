@@ -17,14 +17,19 @@
 
 using namespace std;
 
+typedef unordered_map <string, string> map_s_to_s;
 
 // FIXME : just a draft - to be edited.
-class SymbolTable {  
+class SymbolTable {
   public:
     // { Name -> Type } mapping
-    unordered_map <string, string> symbol_table;
-    string associated_type;
+    unordered_map <string, string> in_symbol_table;
+    string scope_type;
+    string scope_name;
+    bool if_printed = 0;
     SymbolTable *prev;
+    vector < SymbolTable* > classes_sts;
+    int num_of_statement_blocks = 0;
 
 
     SymbolTable() { }
@@ -40,61 +45,154 @@ class SymbolTable {
     // insert a variable/method declar
     bool insert(string name, string type)
     {
-      auto found = symbol_table.find(name);
+      if (type == "statement_block") ++num_of_statement_blocks;
 
-      cout << "Processing insertion into ST ..." << endl;
+      in_symbol_table.insert({name, type});
 
-      if (found != symbol_table.end())
-      {
-        cerr << "Element is already in the system ..." << endl;
-        return 0;
-      }
-      else
-      {
+      cout << "Insertion successful!" << endl;
 
-        cout << "Insertion successful!" << endl;
-
-        symbol_table.insert({name, type});
-        return 1;
-      }
+      return 1;
     }
 
     // FIXME
     // lookup a value of a key in the table
     string lookup(string key)
     {
-      auto value = symbol_table.find(key);
+      auto value = in_symbol_table.find(key);
 
       cout << "Processing lookup ..." << endl;
 
-      if (value != symbol_table.end())
+      if (value != in_symbol_table.end())
       {
         cout << "Found: " << value->second << endl;
+        return value->second;
       }
       else
       {
-        if (prev != NULL) {
+        return "";
+      }
+    }
 
-          cout << "Checking parent symbol table ..." << endl;
+    string deepLookup(string key)
+    {
+      auto value = in_symbol_table.find(key);
 
-          return prev->lookup(key);
+      cout << "Processing deep lookup ..." << endl;
+
+      if (value != in_symbol_table.end())
+      {
+        cout << "Found: " << value->second << endl;
+        return value->second;
+      }
+      else
+      {
+        if (prev != NULL)
+        {
+          return prev->deepLookup(key);
         }
-        else {
-          cerr << "Element not found ..." << endl;
+        else
+        {
+          cout << prev << endl;
           return "";
         }
       }
     }
 
-    // other custom function
-    void setType(string type)
+    // TODO : Do I really need it?
+    // string deepLookup(string key, string target_scope_type)
+    // {
+    //   if (target_scope_type == scope_type)
+    //   {
+    //     string x = c->lookup(string("var_decl_") + key);
+    //   }
+    //   else if (prev == NULL)
+    //   {
+    //     return "";
+    //   }
+    //   else
+    //   {
+    //     prev->deepLookup(key, target_scope_type);
+    //   }
+    // }
+    SymbolTable* getCurrentClass()
     {
-      associated_type = type;
+      if (scope_type == "class_decl")
+      {
+        return this;
+      }
+      else if (prev == NULL)
+      {
+        cout << "Something went wrong with finding a class ..." << endl;
+        return NULL;
+      }
+      else
+      {
+        return prev->getCurrentClass();
+      }
     }
 
-    string getType()
+
+    string globalClassLookup(string class_id, string target_entry)
     {
-      return associated_type;
+      if (scope_name == "global" && scope_type == "program")
+      {
+        cout << "<<<<<<<<<<< PIZDEC >>>>>>>>>>>>>" << endl;
+        for (auto c : classes_sts)
+        {
+          string x = c->lookup(string("var_decl_") + target_entry);
+          if (x != "") return x;
+        }
+        return "";
+      }
+      else
+      {
+        return prev->globalClassLookup(class_id, target_entry);
+      }
+    }
+
+    // FIXME: DOES NOT PRESERVE THE ORDER IN WHICH ELEMENTS ARE INSERTED
+    void dumpSymbolTable()
+    {
+      auto it = this->in_symbol_table.begin();
+
+      for (; it != this->in_symbol_table.end(); ++it)
+      {
+        cout << it->first << " " << it->second << endl;
+      }
+
+      if_printed = 1;
+    }
+
+    // other custom function
+    void setScopeDefinition(string name, string type)
+    {
+      scope_name = name;
+      scope_type = type;
+    }
+
+    void setScopeType(string type)
+    {
+      scope_type = type;
+    }
+
+    void setScopeName(string name)
+    {
+      scope_name = name;
+    }
+
+    string getScopeName()
+    {
+      return scope_name;
+    }
+
+    string getScopeType()
+    {
+      return scope_type;
+    }
+
+    int getNumStmBlocks()
+    {
+      return num_of_statement_blocks;
     }
 
     SymbolTable *getParent()
@@ -146,14 +244,15 @@ class Node {
   public:
     string _prod = "";
     bool   _error = false;
-    string _oper;
-    string _iden;
-    string _numb;
-    string _keyw;
-    string _type;
-    string _structure_type;
-    Node *_left;
-    Node *_right;
+    bool   _is_scope = false;
+    string _unary_op = "";
+    string _oper = "";
+    string _iden = "";
+    string _numb = "";
+    string _keyw = "";
+    string _type = "";
+    string _structure_type = "";
+    string _return_type = "";
     SymbolTable *symbol_table;
     // Vector for several expressions in NewExpression pattern
     vector <Node*> _children_assgn;
@@ -163,9 +262,6 @@ class Node {
     // Initialization constructors
     Node()
     { }
-
-    Node(Node *left, Node *right)
-      : _left(left), _right(right) { }
 
     Node(string prod)
       : _prod(prod) { }
@@ -204,6 +300,21 @@ class Node {
       _keyw = keyw;
     }
 
+    void setNodeScopeType()
+    {
+      _is_scope = true;
+    }
+
+    void setReturnType(string return_type)
+    {
+      _return_type = return_type;
+    }
+
+    void setUnaryOperator(string op)
+    {
+      _unary_op = op;
+    }
+
     void pushNonTerminal(Node *n)
     {
       _children_assgn.push_back(n);
@@ -225,9 +336,24 @@ class Node {
       _error = true;
     }
 
+    bool isItScope()
+    {
+      return _is_scope;
+    }
+
+    string getUnaryOperator()
+    {
+      return _unary_op;
+    }
+
     string getStructureType()
     {
       return _structure_type;
+    }
+
+    string getReturnType()
+    {
+      return _return_type;
     }
 
     string getValProd()
@@ -293,20 +419,9 @@ class Node {
         auto it = _children_assgn.begin();
         while (it != _children_assgn.end())
         {
-
-          // Print every production rule
-          // Mostly expression because of NewExpression rule
-          // if ((*it)->getValProd() != "") {
-          //   *out << (*it)->getValProd();
-          //   *out << endl;
-          // }
           if (*it) {
             (*it)->print(out);
           }
-          //
-          // if ((*it)->_left) ((*it)->_left)->print(out);
-          // if ((*it)->_right) ((*it)->_right)->print(out);
-
           ++it;
         }
       }
