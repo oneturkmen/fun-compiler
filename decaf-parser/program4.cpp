@@ -95,22 +95,39 @@ void checkTypeTree(Node *root)
     /* <stmt> --> <name> = <expression> */
     /* type (name) == type (expression) */
     cout << "Processing <statement_assignment>" << endl;
-    if (root->_children_assgn[0]->getValType() == "" &&
-        root->_children_assgn[1]->getValType() == "")
+    if (root->_children_assgn[0]->getValType() == "")
     {
-      cout << "  Neither <name> and <expression> have types ..." << endl;
       checkTypeTree(root->_children_assgn[0]);
+    }
+    if (root->_children_assgn[1]->getValType() == "")
+    {
       checkTypeTree(root->_children_assgn[1]);
     }
 
     auto lvalue = root->_children_assgn[0]->getValType();
     auto rvalue = root->_children_assgn[1]->getValType();
 
-    if (lvalue != rvalue)
+    // FIXME: what is this? i think not necessary
+    // if (lvalue.substr(0,3) != "int")
+    // {
+    //   lvalue = root->symbol_table->globalClassLookup(
+    //                                   lvalue, string("var_decl_")+root->_children_assgn[0]->getValId()
+    //                                  );
+    // }
+
+    if (lvalue.substr(0,3) != "int" && lvalue != "" && rvalue == "null")
+    {
+      cout << "okay class null" << endl;
+    }
+    else if (lvalue != rvalue)
     {
       cout << "ERR: type mismatch in statement assignment" << endl;
       cout << "ERR: lvalue -> " << lvalue << endl;
       cout << "ERR: rvalue -> " << rvalue << endl;
+    }
+    else if (lvalue == "" && rvalue == "")
+    {
+      cout << "ERR: both rvalue and lvalue are not assigned type" << endl;
     }
 
     // FIXME: GOTTA VALIDATE AND CHECK TYPES HERE ...
@@ -187,7 +204,7 @@ void checkTypeTree(Node *root)
       }
       else
       {
-        string custom_decl_type = current_symbol_table->globalClassLookup(target_class, second);
+        string custom_decl_type = current_symbol_table->globalClassLookup(target_class, string("var_decl_")+second);
 
         if (custom_decl_type == "")
         {
@@ -229,7 +246,7 @@ void checkTypeTree(Node *root)
     }
     else
     {
-      string custom_decl_type = current_symbol_table->globalClassLookup(first->getValType(), second);
+      string custom_decl_type = current_symbol_table->globalClassLookup(first->getValType(), string("var_decl_")+second);
 
       if (custom_decl_type == "")
       {
@@ -247,7 +264,7 @@ void checkTypeTree(Node *root)
     cout << "Processing <name_lsexprs_other>" << endl;
     int numb_of_brackets = static_cast<int>(root->_children_assgn.size());
 
-    auto type_of_id  = root->symbol_table->lookup(string("local_var_decl_") + root->getValId());
+    auto type_of_id  = root->symbol_table->deepLookup(string("local_var_decl_") + root->getValId());
     auto type_of_id2 = root->symbol_table->deepLookup(string("var_decl_") + root->getValId());
 
     string target_type   = type_of_id == "" ? type_of_id2 : type_of_id;
@@ -319,6 +336,12 @@ void checkTypeTree(Node *root)
     string function_arglist_type;
     string function_return_type;
 
+    if (fun_def_type == "")
+    {
+      cout << string("ERR: function <") + name_of_method + "> not declared" << endl;
+      return;
+    }
+
     for (int i = 0; i < static_cast<int>(fun_def_type.size()-1); ++i)
     {
       if (fun_def_type[i] == '-')
@@ -340,9 +363,6 @@ void checkTypeTree(Node *root)
       arguments_type_rvalue.append(string(argument->getValType()) + " x ");
     }
     arguments_type_rvalue = arguments_type_rvalue.substr(0, arguments_type_rvalue.size()-3);
-    cout << arguments_type_rvalue << endl;
-    cout << function_arglist_type << endl;
-    cout << function_return_type << endl;
 
     arguments_type_rvalue = arguments_type_rvalue == "" ? "void" : arguments_type_rvalue;
 
@@ -362,6 +382,8 @@ void checkTypeTree(Node *root)
   else if (current_node_structure == "expression_newexpression")
   {
     cout << "Processing <expression_newexpression>" << endl;
+    checkTypeTree(root->_children_assgn[0]);
+    root->setValType(root->_children_assgn[0]->getValType());
   }
   else if (current_node_structure == "expression_unary")
   {
@@ -386,6 +408,142 @@ void checkTypeTree(Node *root)
   else if (current_node_structure == "expression_leftrightpar")
   {
     cout << "Processing <expression_leftrightpar>" << endl;
+  }
+  else if (current_node_structure == "new_expression_constructor")
+  {
+    cout << "Processing <new_expression_constructor>" << endl;
+
+    auto id   = root->getValId();
+    auto call_args = root->getValType();
+
+    auto constructor_type = root->symbol_table->globalClassLookup(id, string("constructor_decl_") + id);
+    string constructor_args;
+    string constructor_class;
+
+    cout << "ID " << id << endl;
+    cout << "ARGS " << call_args << endl;
+
+    for (int i = 0; i < static_cast<int>(constructor_type.size()-1); ++i)
+    {
+      if (constructor_type[i] == '-')
+      {
+        constructor_args = constructor_type.substr(i+2, constructor_type.size()-i+1);
+        constructor_class = constructor_type.substr(0, i-2);
+        break;
+      }
+    }
+
+    if (constructor_args != call_args)
+    {
+      cout << string("ERR: invalid constructor call of class <") +constructor_class+">" << endl;
+    }
+    else
+    {
+      root->setValType(constructor_class);
+    }
+
+  }
+  else if (current_node_structure == "new_expression_twobrackets")
+  {
+    cout << "Processing <new_expression_twobrackets>" << endl;
+
+    auto exprs_in_brackets = root->_children_assgn[0]->_children_assgn;
+    int number_of_brackets = static_cast<int>(exprs_in_brackets.size());
+
+    auto multi_brackets    = root->_children_assgn[1]->getValType();
+    auto current_node_type = root->getValType();
+
+    for (auto child : exprs_in_brackets)
+    {
+      if (child->getStructureType() != "expression_number" &&
+          child->getStructureType() != "expression_null")
+      {
+        checkTypeTree(child);
+
+        if (child->getValType() != "int")
+        {
+          cout << string("ERR: must have <int> when accessing array") << endl;
+        }
+      }
+    }
+
+    if (current_node_type != "int")
+    {
+      auto type_of_id  = root->symbol_table->deepLookup(string("local_var_decl_") + root->getValType());
+      auto type_of_id2 = root->symbol_table->deepLookup(string("var_decl_") + root->getValType());
+      current_node_type= type_of_id == "" ? type_of_id2 : type_of_id;
+
+      root->setValType(current_node_type);
+    }
+    else
+    {
+      string final_type = "";
+      final_type = "int";
+
+      if (number_of_brackets >= 1 || multi_brackets != "")
+      {
+        final_type.append(" ");
+
+        for (int i = 0; i < number_of_brackets; ++i)
+        {
+          final_type.append("[]");
+        }
+
+        final_type.append(multi_brackets);
+      }
+
+
+      root->setValType(final_type);
+    }
+
+  }
+  else if (current_node_structure == "new_expression_brackets")
+  {
+    cout << "Processing <new_expression_brackets>" << endl;
+
+    auto exprs_in_brackets = root->_children_assgn[0]->_children_assgn;
+    int number_of_brackets = static_cast<int>(exprs_in_brackets.size());
+
+    auto current_node_type = root->getValType();
+
+    for (auto child : exprs_in_brackets)
+    {
+      if (child->getStructureType() != "expression_number" &&
+          child->getStructureType() != "expression_null")
+      {
+        checkTypeTree(child);
+
+        if (child->getValType() != "int")
+        {
+          cout << string("ERR: must have <int> when accessing array") << endl;
+        }
+      }
+    }
+
+    if (current_node_type != "int")
+    {
+      auto type_of_id  = root->symbol_table->deepLookup(string("local_var_decl_") + root->getValType());
+      auto type_of_id2 = root->symbol_table->deepLookup(string("var_decl_") + root->getValType());
+      current_node_type= type_of_id == "" ? type_of_id2 : type_of_id;
+
+      root->setValType(current_node_type);
+    }
+    else
+    {
+      string final_type = "int";
+
+      if (number_of_brackets >= 1)
+      {
+        final_type.append(" ");
+
+        for (int i = 0; i < number_of_brackets; ++i)
+        {
+          final_type.append("[]");
+        }
+      }
+      root->setValType(final_type);
+    }
+
   }
 
 }

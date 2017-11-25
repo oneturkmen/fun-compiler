@@ -137,9 +137,13 @@ class SymbolTable {
       if (scope_name == "global" && scope_type == "program")
       {
         cout << "<<<<<<<<<<< PIZDEC >>>>>>>>>>>>>" << endl;
+        string x = "";
         for (auto c : classes_sts)
         {
-          string x = c->lookup(string("var_decl_") + target_entry);
+          if (class_id == c->getScopeName())
+          {
+            x = c->lookup(target_entry);
+          }
           if (x != "") return x;
         }
         return "";
@@ -277,7 +281,7 @@ class Node {
 
     void setValType(string type)
     {
-      _type = type;
+      this->_type = type;
     }
 
     void setValNum(string numb)
@@ -287,7 +291,7 @@ class Node {
 
     void setValId(string iden)
     {
-      _iden = iden;
+      this->_iden = iden;
     }
 
     void setValProd(string prod)
@@ -363,12 +367,12 @@ class Node {
 
     string getValType()
     {
-      return _type;
+      return this->_type;
     }
 
     string getValId()
     {
-      return _iden;
+      return this->_iden;
     }
 
     string getValNum()

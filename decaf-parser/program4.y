@@ -328,7 +328,7 @@ constructor_decl: ID LP parameter_list RP block {
     $$->setValProd("<ConstructorDeclaration> --> identifier ( <ParameterList> ) <Block>");
     $$->setStructureType("constructor_decl");
     $$->setValId($1->getValId());
-    $$->setValType(string("constructor_decl ") + $3->getValType());
+    $$->setValType(string($1->getValId()) + " <- " + $3->getValType());
     $$->pushNonTerminal($3);
     $$->pushNonTerminal($5);
   }
@@ -384,7 +384,7 @@ method_decl:
     $$ = new Node;
     $$->setValProd("<MethodDeclaration> --> int <[]>* identifier ( <ParameterList> ) <Block>");
     $$->setStructureType("method_decl");
-    $$->setValType(string("int") + " " + $2->getValType() + " " + $5->getValType());
+    $$->setValType(string("int") + " " + $2->getValType() + " <- " + $5->getValType());
     $$->setValId($3->getValId());
     $$->pushNonTerminal($2);
     $$->pushNonTerminal($5);
@@ -394,8 +394,7 @@ method_decl:
     $$ = new Node;
     $$->setValProd("<MethodDeclaration> --> identifier <[]>* identifier ( <ParameterList> ) <Block>");
     $$->setStructureType("method_decl");
-    $$->setValType(string($1->getValId()) + " " + $2->getValType() + " " + $5->getValType());
-    $$->setReturnType("void");
+    $$->setValType(string($1->getValId()) + " " + $2->getValType() + " <- " + $5->getValType());
     $$->setValId($3->getValId());
     $$->pushNonTerminal($2);
     $$->pushNonTerminal($5);
@@ -873,10 +872,12 @@ expression:
 new_expression:
   NEW ID LP arg_list RP {
     $$ = new Node;
-    $$->pushNonTerminal($4);
+    //$$->pushNonTerminal($2);
+    //$$->pushNonTerminal($4);
+    $$->setValId($2->getValId());
+    $$->setValType($4->getValType());
     $$->setValProd("<NewExpression> --> new identifier ( <ArgList> )");
-    $$->setValType($2->getValId());
-    $$->setStructureType("new_expression");
+    $$->setStructureType("new_expression_constructor");
   }
   | NEW INT exprsn_in_brackets multi_brackets { // FIXME: do something here as well
     $$ = new Node;
@@ -884,7 +885,7 @@ new_expression:
     $$->pushNonTerminal($4);
     $$->setValType("int");
     $$->setValProd("<NewExpression> --> new int <[ Expression ]>* <[ ]>+");
-    $$->setStructureType("new_expression");
+    $$->setStructureType("new_expression_twobrackets");
   }
   | NEW ID exprsn_in_brackets multi_brackets {
     $$ = new Node;
@@ -892,21 +893,21 @@ new_expression:
     $$->pushNonTerminal($4);
     $$->setValType($2->getValId());
     $$->setValProd("<NewExpression> --> new identifier <[ Expression ]>* <[ ]>*");
-    $$->setStructureType("new_expression");
+    $$->setStructureType("new_expression_twobrackets");
   }
   | NEW INT exprsn_in_brackets {
     $$ = new Node;
     $$->pushNonTerminal($3);
     $$->setValType("int");
     $$->setValProd("<NewExpression> --> new int <[ Expression ]>*");
-    $$->setStructureType("new_expression");
+    $$->setStructureType("new_expression_brackets");
   }
   | NEW ID exprsn_in_brackets {
     $$ = new Node;
     $$->pushNonTerminal($3);
     $$->setValType($2->getValId());
     $$->setValProd("<NewExpression> --> new identifier <[ Expression ]>*");
-    $$->setStructureType("new_expression");
+    $$->setStructureType("new_expression_brackets");
   }
   ;
 
