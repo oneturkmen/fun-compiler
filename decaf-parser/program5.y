@@ -1,9 +1,9 @@
 /**
-  Program 4, program4.y
+  Program 5, program5.y
   Purpose: syntax analyzer (parser) file
 
   @author Batyr Nuryyev
-  @date   11/01/2017
+  @date   11/26/2017
 */
 
 
@@ -14,7 +14,7 @@
 #include <vector>
 #include <typeinfo>
 #include <FlexLexer.h>
-#include "program4.hpp"
+#include "program5.hpp"
 
 using namespace std;
 
@@ -540,6 +540,7 @@ statement:
     $$ = new Node;
     $$->setValProd("<Statement> --> <Name> = <Expression> ;");
     $$->setStructureType("statement_assignment");
+    $$->setLocation(@1.first_line, @1.first_column);
     $$->pushNonTerminal($1);
     $$->pushNonTerminal($3);
   }
@@ -547,6 +548,7 @@ statement:
     $$ = new Node;
     $$->setValProd("<Statement> --> <Name> ( <ArgList> ) ;");
     $$->setStructureType("statement_methodcall");
+    $$->setLocation(@1.first_line, @1.first_column);
     $$->pushNonTerminal($1);
     $$->pushNonTerminal($3);
   }
@@ -554,18 +556,21 @@ statement:
     $$ = new Node;
     $$->setValProd("<Statement> --> <ConditionalStatement>");
     $$->setStructureType("statement_conditionalstmt");
+    $$->setLocation(@1.first_line, @1.first_column);
     $$->pushNonTerminal($1);
   }
   | PRINT LP arg_list RP SEMICOLON {
     $$ = new Node;
     $$->setValProd("<Statement> --> print ( <ArgList> ) ;");
     $$->setStructureType("statement_print");
+    $$->setLocation(@1.first_line, @1.first_column);
     $$->pushNonTerminal($3);
   }
   | WHILE LP expression RP statement {
     $$ = new Node;
     $$->setValProd("<Statement> --> while ( <Expression> ) <Statement>");
     $$->setStructureType("statement_while");
+    $$->setLocation(@1.first_line, @1.first_column);
     $$->pushNonTerminal($3);
     $$->pushNonTerminal($5);
   }
@@ -573,6 +578,7 @@ statement:
     $$ = new Node;
     $$->setValProd("<Statement> --> return <OptionalExpression> ;");
     $$->setStructureType("statement_return");
+    $$->setLocation(@1.first_line, @1.first_column);
     $$->pushNonTerminal($2);
   }
   | block {
@@ -616,12 +622,14 @@ name_other:
     $$->setValProd("<Name> --> identifier [ <Expression> ]");
     $$->pushNonTerminal($3);
     $$->setValId($1->getValId());
+    $$->setLocation(@3.first_line, @3.first_column);
     $$->setStructureType("name_lsexprs_other");
   }
   | ID DOT ID {
     $$ = new Node;
     $$->pushNonTerminal($1);
     $$->pushNonTerminal($3);
+    $$->setLocation(@1.first_line, @1.first_column);
     $$->setStructureType("name_iddotid");
   }
   | name_other DOT ID {
@@ -629,12 +637,14 @@ name_other:
     $$->pushNonTerminal($1);
     $$->pushNonTerminal($3);
     $$->setValProd("<Name> --> <Name> . identifier");
+    $$->setLocation(@1.first_line, @1.first_column);
     $$->setStructureType("name_dotid");
   }
   | name_other LS expression RS {
     $$ = $1;
     $$->pushNonTerminal($3);
     $$->setValProd("<Name> --> <Name> [ <Expression> ]");
+    $$->setLocation(@1.first_line, @1.first_column);
     $$->setStructureType("name_lsexprs_other");
   }
   ;
@@ -645,6 +655,7 @@ name:
     $$ = new Node;
     $$->setValProd("<Name> --> identifier");
     $$->setValId($1->getValId());
+    $$->setLocation(@1.first_line, @1.first_column);
     $$->setStructureType("name_id");
   }
   | name_other {
@@ -677,6 +688,7 @@ arg_list:
     $$->setValProd("<ArgList> --> <Expression> <,<Expression> >*");
     $$->setStructureType("arg_list");
     $$->setValType(string($1->getValType()) + $2->getValType());
+    $$->setLocation(@1.first_line, @1.first_column);
     $$->pushNonTerminal($1);
   }
   ;
@@ -702,6 +714,7 @@ expression:
     $$ = new Node;
     $$->pushNonTerminal($1);
     $$->setValProd("<Expression> --> <Name>");
+    $$->setLocation(@1.first_line, @1.first_column);
     $$->setStructureType("expression_name");
   }
   | NUMBER {
@@ -721,18 +734,21 @@ expression:
     $$->setValProd("<Expression> --> <Name> ( <ArgList> )");
     $$->pushNonTerminal($1);
     $$->pushNonTerminal($3);
+    $$->setLocation(@1.first_line, @1.first_column);
     $$->setStructureType("expression_methodcall");
   }
   | READ LP RP {
     $$ = new Node;
     $$->setValProd("<Expression> --> read ( )");
     $$->setStructureType("expression_read");
+    $$->setLocation(@1.first_line, @1.first_column);
     $$->setValType("read");
   }
   | new_expression {
     $$ = new Node;
     $$->pushNonTerminal($1);
     $$->setValProd("<Expression> --> <NewExpression>");
+    $$->setLocation(@1.first_line, @1.first_column);
     $$->setStructureType("expression_newexpression");
   }
   | PLUS expression {
@@ -740,6 +756,7 @@ expression:
     $$->pushNonTerminal($2);
     $$->setValProd("<Expression> --> + <Expression>");
     $$->setUnaryOperator("+");
+    $$->setLocation(@1.first_line, @1.first_column);
     $$->setStructureType("expression_unary");
   }
   | MINUS expression {
@@ -747,12 +764,14 @@ expression:
     $$->pushNonTerminal($2);
     $$->setValProd("<Expression> --> - <Expression>");
     $$->setUnaryOperator("-");
+    $$->setLocation(@1.first_line, @1.first_column);
     $$->setStructureType("expression_unary");
   }
   | NOT expression {
     $$ = new Node;
     $$->pushNonTerminal($2);
     $$->setValProd("<Expression> --> ! <Expression>");
+    $$->setLocation(@1.first_line, @1.first_column);
     $$->setUnaryOperator("!");
     $$->setStructureType("expression_unary_rel");
   }
@@ -762,7 +781,8 @@ expression:
     $$->pushNonTerminal($3);
     $$->setValProd("<Expression> --> <Expression> == <Expression>");
     $$->setValOp("==");
-    $$->setStructureType("expression_binary_rel");
+    $$->setLocation(@1.first_line, @1.first_column);
+    $$->setStructureType("expression_binary");
   }
   | expression NOTEQL expression {
     $$ = new Node;
@@ -770,7 +790,8 @@ expression:
     $$->pushNonTerminal($3);
     $$->setValOp("!=");
     $$->setValProd("<Expression> --> <Expression> != <Expression>");
-    $$->setStructureType("expression_binary_rel");
+    $$->setLocation(@1.first_line, @1.first_column);
+    $$->setStructureType("expression_binary");
   }
   | expression LESSGRT expression {
     $$ = new Node;
@@ -778,7 +799,8 @@ expression:
     $$->pushNonTerminal($3);
     $$->setValOp("<=");
     $$->setValProd("<Expression> --> <Expression> <= <Expression>");
-    $$->setStructureType("expression_binary_rel");
+    $$->setLocation(@1.first_line, @1.first_column);
+    $$->setStructureType("expression_binary");
   }
   | expression MOREGRT expression {
     $$ = new Node;
@@ -786,7 +808,8 @@ expression:
     $$->pushNonTerminal($3);
     $$->setValOp(">=");
     $$->setValProd("<Expression> --> <Expression> >= <Expression>");
-    $$->setStructureType("expression_binary_rel");
+    $$->setLocation(@1.first_line, @1.first_column);
+    $$->setStructureType("expression_binary");
   }
   | expression GREATER expression {
     $$ = new Node;
@@ -794,7 +817,8 @@ expression:
     $$->pushNonTerminal($3);
     $$->setValOp(">");
     $$->setValProd("<Expression> --> <Expression> > <Expression>");
-    $$->setStructureType("expression_binary_rel");
+    $$->setLocation(@1.first_line, @1.first_column);
+    $$->setStructureType("expression_binary");
   }
   | expression LESS expression {
     $$ = new Node;
@@ -802,7 +826,8 @@ expression:
     $$->pushNonTerminal($3);
     $$->setValOp("<");
     $$->setValProd("<Expression> --> <Expression> < <Expression>");
-    $$->setStructureType("expression_binary_rel");
+    $$->setLocation(@1.first_line, @1.first_column);
+    $$->setStructureType("expression_binary");
   }
   | expression PLUS expression {
     $$ = new Node;
@@ -810,7 +835,8 @@ expression:
     $$->pushNonTerminal($3);
     $$->setValOp("+");
     $$->setValProd("<Expression> --> <Expression> + <Expression>");
-    $$->setStructureType("expression_binary_a");
+    $$->setStructureType("expression_binary");
+    $$->setLocation(@1.first_line, @1.first_column);
   }
   | expression MINUS expression {
     $$ = new Node;
@@ -818,7 +844,8 @@ expression:
     $$->pushNonTerminal($3);
     $$->setValOp("-");
     $$->setValProd("<Expression> --> <Expression> - <Expression>");
-    $$->setStructureType("expression_binary_a");
+    $$->setLocation(@1.first_line, @1.first_column);
+    $$->setStructureType("expression_binary");
   }
   | expression OROR expression {
     $$ = new Node;
@@ -826,7 +853,8 @@ expression:
     $$->pushNonTerminal($3);
     $$->setValOp("||");
     $$->setValProd("<Expression> --> <Expression> || <Expression>");
-    $$->setStructureType("expression_binary_log");
+    $$->setLocation(@1.first_line, @1.first_column);
+    $$->setStructureType("expression_binary");
   }
   | expression MULT expression {
     $$ = new Node;
@@ -834,7 +862,8 @@ expression:
     $$->pushNonTerminal($3);
     $$->setValOp("*");
     $$->setValProd("<Expression> --> <Expression> * <Expression>");
-    $$->setStructureType("expression_binary_a");
+    $$->setLocation(@1.first_line, @1.first_column);
+    $$->setStructureType("expression_binary");
   }
   | expression DIV expression {
     $$ = new Node;
@@ -842,7 +871,8 @@ expression:
     $$->pushNonTerminal($3);
     $$->setValOp("/");
     $$->setValProd("<Expression> --> <Expression> / <Expression>");
-    $$->setStructureType("expression_binary_a");
+    $$->setLocation(@1.first_line, @1.first_column);
+    $$->setStructureType("expression_binary");
   }
   | expression REMAINDER expression  {
     $$ = new Node;
@@ -850,7 +880,8 @@ expression:
     $$->pushNonTerminal($3);
     $$->setValOp("%");
     $$->setValProd("<Expression> --> <Expression> % <Expression>");
-    $$->setStructureType("expression_binary_a");
+    $$->setLocation(@1.first_line, @1.first_column);
+    $$->setStructureType("expression_binary");
   }
   | expression ANDAND expression {
     $$ = new Node;
@@ -858,12 +889,14 @@ expression:
     $$->pushNonTerminal($3);
     $$->setValOp("&&");
     $$->setValProd("<Expression> --> <Expression> && <Expression>");
-    $$->setStructureType("expression_binary_log");
+    $$->setLocation(@1.first_line, @1.first_column);
+    $$->setStructureType("expression_binary");
   }
   | LP expression RP {
     $$ = new Node;
     $$->pushNonTerminal($2);
     $$->setValProd("<Expression> --> ( <Expression> )");
+    $$->setLocation(@1.first_line, @1.first_column);
     $$->setStructureType("expression_leftrightpar");
   }
   ;
@@ -877,6 +910,7 @@ new_expression:
     $$->setValId($2->getValId());
     $$->setValType($4->getValType());
     $$->setValProd("<NewExpression> --> new identifier ( <ArgList> )");
+    $$->setLocation(@1.first_line, @1.first_column);
     $$->setStructureType("new_expression_constructor");
   }
   | NEW INT exprsn_in_brackets multi_brackets { // FIXME: do something here as well
@@ -885,6 +919,7 @@ new_expression:
     $$->pushNonTerminal($4);
     $$->setValType("int");
     $$->setValProd("<NewExpression> --> new int <[ Expression ]>* <[ ]>+");
+    $$->setLocation(@1.first_line, @1.first_column);
     $$->setStructureType("new_expression_twobrackets");
   }
   | NEW ID exprsn_in_brackets multi_brackets {
@@ -893,6 +928,7 @@ new_expression:
     $$->pushNonTerminal($4);
     $$->setValType($2->getValId());
     $$->setValProd("<NewExpression> --> new identifier <[ Expression ]>* <[ ]>*");
+    $$->setLocation(@1.first_line, @1.first_column);
     $$->setStructureType("new_expression_twobrackets");
   }
   | NEW INT exprsn_in_brackets {
@@ -900,6 +936,7 @@ new_expression:
     $$->pushNonTerminal($3);
     $$->setValType("int");
     $$->setValProd("<NewExpression> --> new int <[ Expression ]>*");
+    $$->setLocation(@1.first_line, @1.first_column);
     $$->setStructureType("new_expression_brackets");
   }
   | NEW ID exprsn_in_brackets {
@@ -907,6 +944,7 @@ new_expression:
     $$->pushNonTerminal($3);
     $$->setValType($2->getValId());
     $$->setValProd("<NewExpression> --> new identifier <[ Expression ]>*");
+    $$->setLocation(@1.first_line, @1.first_column);
     $$->setStructureType("new_expression_brackets");
   }
   ;

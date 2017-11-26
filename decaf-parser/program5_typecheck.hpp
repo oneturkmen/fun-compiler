@@ -1,172 +1,308 @@
 /**
-  Program 4, program4.cpp
-  Purpose: driver (main) file
+  Program 5, program5_typecheck.hpp
+  Purpose: two stages of type checking
 
   @author Batyr Nuryyev
-  @date   11/01/2017
+  @date   11/26/2017
 */
-#include <iostream>
+
+
+#ifndef  TP_CHECK_CPP
+#define TP_CHECK_CPP
+
+#include "program5.hpp"
+#include <vector>
 #include <string>
-#include <iomanip>
 #include <map>
-#include "program4.hpp"
-#include "program4.tab.h"
-#include <FlexLexer.h>
-using namespace std;
 
-/* -- -- -- -- -- -- -- -- */
-yyFlexLexer scanner;
-Node *tree;
-
-/* -- -- -- MAIN -- -- -- */
-
-
-void checkTypeTree(Node *root)
+// SECOND STAGE
+void checkTypeTree(Node *root, vector <string> &errors)
 {
   auto current_node_structure = root->getStructureType();
   auto current_symbol_table   = root->symbol_table;
 
   if (current_node_structure == "program") {
-    cout << "Processing PROGRAM --> <CLASS>* " << endl;
     for (auto c : root->_children_assgn)
     {
-      checkTypeTree(c);
+      checkTypeTree(c, errors);
     }
   }
   else if (current_node_structure == "class_decl")
   {
-    cout << "Processing CLASS --> class ID { <CLASS_BODY> } " << endl;
-    checkTypeTree(root->_children_assgn[0]);
+    checkTypeTree(root->_children_assgn[0], errors);
   }
   else if (current_node_structure == "class_body")
   {
     /* No need to process <var_decl> -> already done in the first phase */
-    cout << "Processing CLASS_BODY --> <VAR_DECL>* <CONSTRUCTOR_DECL>* <METHOD_DECL>*" << endl;
     for (auto c : root->_children_assgn)
     {
-      checkTypeTree(c);
+      checkTypeTree(c, errors);
     }
   }
   else if (current_node_structure == "constructor_declmore")
   {
-    cout << "Processing <constructor_declmore> --> <constructor_decl>*" << endl;
     for (auto c : root->_children_assgn)
     {
-      checkTypeTree(c);
+      checkTypeTree(c, errors);
     }
   }
   else if (current_node_structure == "method_declmore")
   {
-    cout << "Processing <method_declmore> --> <method_decl>*" << endl;
     for (auto c : root->_children_assgn)
     {
-      checkTypeTree(c);
+      checkTypeTree(c, errors);
     }
   }
   else if (current_node_structure == "constructor_decl")
   {
-    cout << "Processing <constructor_decl> --> ID ( <parameter_list> ) <block>" << endl;
-    checkTypeTree(root->_children_assgn[1]); // type check only <block>; parameter_list already processed
+    checkTypeTree(root->_children_assgn[1], errors); // type check only <block>; parameter_list already processed
   }
   else if (current_node_structure == "method_decl")
   {
-    cout << "Processing <method_decl> --> type ID LP <parameter_list> RP <block>" << endl;
-    checkTypeTree(root->_children_assgn[1]); // type check only <block>; parameter_list already processed
+    checkTypeTree(root->_children_assgn[1], errors); // type check only <block>; parameter_list already processed
   }
   else if (current_node_structure == "block")
   {
     /* No need to process <local_var_decl> -> already done in the first phase */
-    cout << "Processing <block> --> { <local_var_declmore> <statements> }" << endl;
     for (auto c : root->_children_assgn)
     {
-      checkTypeTree(c);
+      checkTypeTree(c, errors);
     }
   }
   else if (current_node_structure == "statements")
   {
-    cout << "Processing <statements> --> <statement>*" << endl;
     for (auto c : root->_children_assgn)
     {
-      checkTypeTree(c);
+      checkTypeTree(c, errors);
     }
   }
   else if (current_node_structure == "statement_assignment")
   {
     /* <stmt> --> <name> = <expression> */
     /* type (name) == type (expression) */
-    cout << "Processing <statement_assignment>" << endl;
     if (root->_children_assgn[0]->getValType() == "")
     {
-      checkTypeTree(root->_children_assgn[0]);
+      checkTypeTree(root->_children_assgn[0], errors);
     }
     if (root->_children_assgn[1]->getValType() == "")
     {
-      checkTypeTree(root->_children_assgn[1]);
+      checkTypeTree(root->_children_assgn[1], errors);
     }
 
     auto lvalue = root->_children_assgn[0]->getValType();
     auto rvalue = root->_children_assgn[1]->getValType();
 
-    // FIXME: what is this? i think not necessary
-    // if (lvalue.substr(0,3) != "int")
-    // {
-    //   lvalue = root->symbol_table->globalClassLookup(
-    //                                   lvalue, string("var_decl_")+root->_children_assgn[0]->getValId()
-    //                                  );
-    // }
-
     if (lvalue.substr(0,3) != "int" && lvalue != "" && rvalue == "null")
     {
-      cout << "okay class null" << endl;
+      // do nothing ... I mean "null" can be assigned to any class type
     }
     else if (lvalue != rvalue)
     {
-      cout << "ERR: type mismatch in statement assignment" << endl;
-      cout << "ERR: lvalue -> " << lvalue << endl;
-      cout << "ERR: rvalue -> " << rvalue << endl;
+      errors.push_back(string("ERR: ") +
+                       to_string(root->getLine()) + ":" +
+                       to_string(root->getColumn()) +
+                       " --> <" + lvalue + "> and <" + rvalue + "> mismatch");
     }
     else if (lvalue == "" && rvalue == "")
     {
-      cout << "ERR: both rvalue and lvalue are not assigned type" << endl;
+      errors.push_back(string("ERR: ") +
+                       to_string(root->getLine()) + ":" +
+                       to_string(root->getColumn()) +
+                       " --> both rvalue and lvalue are not assigned type");
     }
-
-    // FIXME: GOTTA VALIDATE AND CHECK TYPES HERE ...
-    /* if ... */
   }
   else if (current_node_structure == "statement_methodcall")
   {
-    cout << "Processing <statement_methodcall>" << endl;
+    auto name_of_method = root->_children_assgn[0]->getValId();
+    auto arguments_list = root->_children_assgn[1]->_children_assgn;
+
+    //string fun_def_type = current_symbol_table->deepLookup(string("method_decl_") + name_of_method);
+    string function_arglist_type;
+    string function_return_type;
+
+    if (name_of_method == "")
+    {
+      checkTypeTree(root->_children_assgn[0], errors);
+      name_of_method = root->_children_assgn[0]->getValId();
+    }
+
+    if (name_of_method == "")
+    {
+      errors.push_back(string("ERR: ") +
+                       to_string(root->getLine()) + ":" +
+                       to_string(root->getColumn()) +
+                       " --> function <" + name_of_method + "> not declared");
+      return;
+    }
+
+    string function_type = root->_children_assgn[0]->getValType();
+
+    for (int i = 0; i < static_cast<int>(function_type.size()-1); ++i)
+    {
+      if (function_type[i] == '-')
+      {
+        function_arglist_type = function_type.substr(i+2, function_type.size()-i+1);
+        function_return_type  = function_type.substr(0, i-2);
+        break;
+      }
+    }
+
+    string arguments_type_rvalue = "";
+
+    for (auto argument : arguments_list)
+    {
+      if (argument->getStructureType() != "expression_number")
+      {
+        checkTypeTree(argument, errors);
+      }
+      arguments_type_rvalue.append(string(argument->getValType()) + " x ");
+    }
+    arguments_type_rvalue = arguments_type_rvalue.substr(0, arguments_type_rvalue.size()-3);
+
+    arguments_type_rvalue = arguments_type_rvalue == "" ? "void" : arguments_type_rvalue;
+
+    if (function_arglist_type != arguments_type_rvalue)
+    {
+      errors.push_back(string("ERR: ") +
+                       to_string(root->getLine()) + ":" +
+                       to_string(root->getColumn()) +
+                       " --> not enough arguments for <" + name_of_method + ">");
+    }
+
   }
   else if (current_node_structure == "statement_conditionalstmt")
   {
-    cout << "Processing <statement_conditionalstmt>" << endl;
+    checkTypeTree(root->_children_assgn[0], errors);
   }
   else if (current_node_structure == "statement_print")
   {
-    cout << "Processing <statement_print>" << endl;
+    for (auto argument : root->_children_assgn[0]->_children_assgn)
+    {
+      if (argument->getStructureType() != "expression_number")
+      {
+        checkTypeTree(argument, errors);
+      }
+    }
   }
   else if (current_node_structure == "statement_while")
   {
-    cout << "Processing <statement_while>" << endl;
+    auto expression = root->_children_assgn[0];
+
+    if (expression->getStructureType() != "expression_number")
+    {
+      checkTypeTree(expression, errors);
+    }
+
+    if (expression->getValType() != "int")
+    {
+      cout << "ERR: " << endl;
+      errors.push_back(string("ERR: ") +
+                       to_string(root->getLine()) + ":" +
+                       to_string(root->getColumn()) +
+                       " --> in <while> statement, expression must be type of <int>");
+    }
+
+    checkTypeTree(root->_children_assgn[1], errors);
   }
   else if (current_node_structure == "statement_return")
   { // validate return_type and method type
-    cout << "Processing <statement_return>" << endl;
+    // 1. get current method! scope
+    // 2. get its type (e.g. int <- int x A x B)
+    // 3. compare!
+    checkTypeTree(root->_children_assgn[0], errors);
+
+    auto method_scope = root->symbol_table->getCurrentMethodType();
+
+    if (method_scope == "")
+    {
+      errors.push_back(string("ERR: ") +
+                       to_string(root->getLine()) + ":" +
+                       to_string(root->getColumn()) +
+                       " --> <return> can only be used in the <method> scope");
+    }
+    else
+    {
+      for (int i = 0; i < static_cast<int>(method_scope.size()); ++i)
+      {
+        if (method_scope[i] == '<')
+        {
+          method_scope = method_scope.substr(0, i-1);
+          break;
+        }
+      }
+
+      auto return_type = root->_children_assgn[0]->getValType();
+
+      if (return_type != method_scope)
+      {
+        errors.push_back(string("ERR: ") +
+                         to_string(root->getLine()) + ":" +
+                         to_string(root->getColumn()) +
+                         " --> <return> and <method> types differ");
+      }
+    }
+  }
+  else if (current_node_structure == "optional_expression")
+  {
+    if (root->_children_assgn.size() >= 1)
+    {
+      if (root->_children_assgn[0]->getStructureType() == "expression_number")
+      {
+        root->setValType("int");
+      }
+      else
+      {
+        checkTypeTree(root->_children_assgn[0], errors);
+        root->setValType(root->_children_assgn[0]->getValType());
+      }
+    }
+    else
+    {
+      root->setValType("void");
+    }
   }
   else if (current_node_structure == "statement_block")
   {
-    cout << "Processing <statement_block>" << endl;
+    checkTypeTree(root->_children_assgn[0], errors);
+  }
+  else if (current_node_structure == "conditional_statement")
+  {
+    // 1. check if exp.type == number
+    // 2. if not, err
+    // 3. if ok, type check the statement
+    auto condition = root->_children_assgn[0];
+
+    if (condition->getStructureType() != "expression_number")
+    {
+      checkTypeTree(condition, errors);
+    }
+
+    if (condition->getValType() != "int")
+    {
+      errors.push_back(string("ERR: ") +
+                       to_string(root->getLine()) + ":" +
+                       to_string(root->getColumn()) +
+                       " --> in conditional statement, expression must be of type <int>");
+    }
+
+    for (auto it = root->_children_assgn.begin() + 1;
+         it != root->_children_assgn.end(); ++it)
+    {
+      checkTypeTree(*it, errors);
+    }
   }
   // Here comes <name>
   else if (current_node_structure == "name_id")
   {
-    cout << "Processing <name_id>" << endl;
     auto found_var_decl       = current_symbol_table->deepLookup("var_decl_" + root->getValId());
     auto found_local_var_decl = current_symbol_table->deepLookup("local_var_decl_" + root->getValId());
 
     if (found_var_decl == "" && found_local_var_decl == "")
     {
-      cout << string("ERR: Variable <") +  root->getValId() + "> not declared" << endl;
+      errors.push_back(string("ERR: ") +
+                       to_string(root->getLine()) + ":" +
+                       to_string(root->getColumn()) +
+                       " --> variable <" + root->getValId() + "> not declared");
     }
     else
     {
@@ -175,11 +311,12 @@ void checkTypeTree(Node *root)
   }
   else if (current_node_structure == "name_this")
   {
-    cout << "Processing <name_this>" << endl;
+    // Do nothing ...
+    auto type_of_this = root->symbol_table->getCurrentClass()->getScopeName();
+    root->setValType(type_of_this);
   }
   else if (current_node_structure == "name_iddotid")
   {
-    cout << "Processing <name_iddotid>" << endl;
     auto first  = root->_children_assgn[0]->getValId();
     auto second = root->_children_assgn[1]->getValId();
 
@@ -188,7 +325,10 @@ void checkTypeTree(Node *root)
 
     if (found_var_decl == "" && found_local_var_decl == "")
     {
-      cout << string("ERR: <") + first + "> not declared" << endl;
+      errors.push_back(string("ERR: ") +
+                       to_string(root->getLine()) + ":" +
+                       to_string(root->getColumn()) +
+                       " --> <" + first + "> not declared");
     }
     else
     {
@@ -200,83 +340,108 @@ void checkTypeTree(Node *root)
 
       if (if_class_exists == "")
       {
-        cout << string("ERR: custom class <") + second + "> not declared" << endl;
+        errors.push_back(string("ERR: ") +
+                         to_string(root->getLine()) + ":" +
+                         to_string(root->getColumn()) +
+                         " --> custom class <" + second + "> not declared");
       }
       else
       {
         string custom_decl_type = current_symbol_table->globalClassLookup(target_class, string("var_decl_")+second);
+        string custom_meth_type = current_symbol_table->globalClassLookup(root->_children_assgn[0]->getValType(), string("method_decl_")+second);
 
-        if (custom_decl_type == "")
+        if (custom_decl_type == "" && custom_meth_type == "")
         {
-          cout << string("ERR: no variable <") + second + "> found in class <" + target_class + ">" << endl;
+          errors.push_back(string("ERR: ") +
+                           to_string(root->getLine()) + ":" +
+                           to_string(root->getColumn()) +
+                           " --> no variable <" + second + "> found in class <"+
+                           target_class + ">");
         }
         else
         {
           cout << string("Setting the type for <") + custom_decl_type + ">" << endl;
-          root->setValType(custom_decl_type);
+          root->setValType(custom_decl_type == "" ? custom_meth_type : custom_decl_type);
+          root->setValId(second);
         }
       }
     }
   }
   else if (current_node_structure == "name_dotid") // non-terminating
   {
-    cout << "Processing <name_dotid>" << endl;
     auto first = root->_children_assgn[0];
     auto second = root->_children_assgn[1]->getValId();
 
     if (first->getValId() == "")
     {
-      checkTypeTree(root->_children_assgn[0]);
+      checkTypeTree(root->_children_assgn[0], errors);
     }
 
     if (first->getValId() == "this")
     {
-      auto class_st = root->symbol_table->getCurrentClass();
+      auto class_st = current_symbol_table->getCurrentClass();
+      first->setValType(class_st->getScopeName());
       auto second_exists = class_st->lookup(string("var_decl_") + second);
 
       if (second_exists == "")
       {
-        cout << string("ERR: no class member <") + second + "> exists" << endl;
+        errors.push_back(string("ERR: ") +
+                         to_string(root->getLine()) + ":" +
+                         to_string(root->getColumn()) +
+                         " --> no class member <" + second + "> exists");
       }
     }
 
     if (first->getValType() == "int" || first->getValType() == "void")
     {
-      cout << "ERR: must be of type <class>, not <" << first->getValType() << ">" << endl;
+      errors.push_back(string("ERR: ") +
+                       to_string(root->getLine()) + ":" +
+                       to_string(root->getColumn()) +
+                       " --> must be of type <class>, not <" + first->getValType() + "> exists");
     }
     else
     {
       string custom_decl_type = current_symbol_table->globalClassLookup(first->getValType(), string("var_decl_")+second);
+      string custom_meth_type = current_symbol_table->globalClassLookup(first->getValType(), string("method_decl_")+second);
 
-      if (custom_decl_type == "")
+      if (custom_decl_type == "" && custom_meth_type == "")
       {
-        cout << string("ERR: no variable <") + second + "> found in class <" + first->getValType() + ">" << endl;
+        errors.push_back(string("ERR: ") +
+                         to_string(root->getLine()) + ":" +
+                         to_string(root->getColumn()) +
+                         " --> no variable <" + second + "> found in class <" +
+                         first->getValType() + ">");
       }
       else
       {
-        cout << string("Setting the type for <") + custom_decl_type + ">" << endl;
-        root->setValType(custom_decl_type);
+        root->setValType(custom_decl_type == "" ? custom_meth_type : custom_decl_type);
+        root->setValId(second);
       }
     }
   }
   else if (current_node_structure == "name_lsexprs_other")
   {
-    cout << "Processing <name_lsexprs_other>" << endl;
     int numb_of_brackets = static_cast<int>(root->_children_assgn.size());
 
-    auto type_of_id  = root->symbol_table->deepLookup(string("local_var_decl_") + root->getValId());
-    auto type_of_id2 = root->symbol_table->deepLookup(string("var_decl_") + root->getValId());
+    auto type_of_id  = current_symbol_table->deepLookup(string("local_var_decl_") + root->getValId());
+    auto type_of_id2 = current_symbol_table->deepLookup(string("var_decl_") + root->getValId());
 
     string target_type   = type_of_id == "" ? type_of_id2 : type_of_id;
     int target_type_size = static_cast<int>(target_type.size());
 
     if (target_type.substr(0, 3) != "int")
     {
-      cout << string("ERR: type of <") + root->getValId() + "> is not of <int array>" << endl;
+      errors.push_back(string("ERR: ") +
+                       to_string(root->getLine()) + ":" +
+                       to_string(root->getColumn()) +
+                       " --> type of <" + root->getValId() + "> is not of <int array>");
     }
     else if (((target_type_size - 4) / 2) < numb_of_brackets)
     {
-      cout << string("ERR: type of <") + root->getValId() + "> is invalid" << endl;
+      errors.push_back(string("ERR: ") +
+                       to_string(root->getLine()) + ":" +
+                       to_string(root->getColumn()) +
+                       " --> type of <" + root->getValId() + "> is invalid");
     }
     else
     {
@@ -286,11 +451,15 @@ void checkTypeTree(Node *root)
         if (child->getStructureType() != "expression_number" &&
             child->getStructureType() != "expression_null")
         {
-          checkTypeTree(child);
+          checkTypeTree(child, errors);
 
           if (child->getValType() != "int")
           {
-            cout << string("ERR: must have <int> when accessing array <") + root->getValId() + ">" << endl;
+            errors.push_back(string("ERR: ") +
+                             to_string(root->getLine()) + ":" +
+                             to_string(root->getColumn()) +
+                             " --> must have <int> when accessing array <" +
+                             root->getValId() + ">");
           }
         }
       }
@@ -311,43 +480,50 @@ void checkTypeTree(Node *root)
   // Here comes expressions
   else if (current_node_structure == "expression_name")
   {
-    cout << "Processing <expression_name>" << endl;
-    checkTypeTree(root->_children_assgn[0]);
+    checkTypeTree(root->_children_assgn[0], errors);
     root->setValType(root->_children_assgn[0]->getValType());
   }
   else if (current_node_structure == "expression_number")
   {
-    cout << "Processing <expression_number>" << endl;
     // Nothing to be done here ....
   }
   else if (current_node_structure == "expression_null")
   {
-    cout << "Processing <expression_null>" << endl;
     // Nothing to be done here ....
   }
   else if (current_node_structure == "expression_methodcall")
   {
-    cout << "Processing <expression_methodcall>" << endl;
-
     auto name_of_method = root->_children_assgn[0]->getValId();
     auto arguments_list = root->_children_assgn[1]->_children_assgn;
 
-    string fun_def_type = root->symbol_table->deepLookup(string("method_decl_") + name_of_method);
+    //string fun_def_type = current_symbol_table->deepLookup(string("method_decl_") + name_of_method);
     string function_arglist_type;
     string function_return_type;
 
-    if (fun_def_type == "")
+    if (name_of_method == "")
     {
-      cout << string("ERR: function <") + name_of_method + "> not declared" << endl;
+      checkTypeTree(root->_children_assgn[0], errors);
+      name_of_method = root->_children_assgn[0]->getValId();
+      cout << "type  " << root->_children_assgn[0]->getValType() << endl;
+    }
+
+    if (name_of_method == "")
+    {
+      errors.push_back(string("ERR: ") +
+                       to_string(root->getLine()) + ":" +
+                       to_string(root->getColumn()) +
+                       " --> function <" + name_of_method + "> not declared");
       return;
     }
 
-    for (int i = 0; i < static_cast<int>(fun_def_type.size()-1); ++i)
+    string function_type = root->_children_assgn[0]->getValType();
+
+    for (int i = 0; i < static_cast<int>(function_type.size()-1); ++i)
     {
-      if (fun_def_type[i] == '-')
+      if (function_type[i] == '-')
       {
-        function_arglist_type = fun_def_type.substr(i+2, fun_def_type.size()-i+1);
-        function_return_type  = fun_def_type.substr(0, i-2);
+        function_arglist_type = function_type.substr(i+2, function_type.size()-i+1);
+        function_return_type  = function_type.substr(0, i-2);
         break;
       }
     }
@@ -358,7 +534,7 @@ void checkTypeTree(Node *root)
     {
       if (argument->getStructureType() != "expression_number")
       {
-        checkTypeTree(argument);
+        checkTypeTree(argument, errors);
       }
       arguments_type_rvalue.append(string(argument->getValType()) + " x ");
     }
@@ -368,7 +544,10 @@ void checkTypeTree(Node *root)
 
     if (function_arglist_type != arguments_type_rvalue)
     {
-      cout << string("ERR: not enough arguments for function <") + name_of_method + ">" << endl;
+      errors.push_back(string("ERR: ") +
+                       to_string(root->getLine()) + ":" +
+                       to_string(root->getColumn()) +
+                       " --> not enough arguments for <" + name_of_method + ">");
     }
     else
     {
@@ -377,51 +556,107 @@ void checkTypeTree(Node *root)
   }
   else if (current_node_structure == "expression_read")
   {
-    cout << "Processing <expression_read>" << endl;
+    // Nothing to be done here ...
   }
   else if (current_node_structure == "expression_newexpression")
   {
-    cout << "Processing <expression_newexpression>" << endl;
-    checkTypeTree(root->_children_assgn[0]);
+    checkTypeTree(root->_children_assgn[0], errors);
     root->setValType(root->_children_assgn[0]->getValType());
   }
   else if (current_node_structure == "expression_unary")
   {
-    cout << "Processing <expression_unary>" << endl;
+    if (root->_children_assgn[0]->getStructureType() != "expression_number")
+    {
+      checkTypeTree(root->_children_assgn[0], errors);
+    }
+
+    root->setValType(root->_children_assgn[0]->getValType());
+
+    if (root->getValType() != "int")
+    {
+      errors.push_back(string("ERR: ") +
+                       to_string(root->getLine()) + ":" +
+                       to_string(root->getColumn()) +
+                       " --> operand must be <int> in unary \"+/-\" expression");
+    }
   }
   else if (current_node_structure == "expression_unary_rel")
   {
-    cout << "Processing <expression_unary_rel>" << endl;
+    if (root->_children_assgn[0]->getStructureType() != "expression_number")
+    {
+      checkTypeTree(root->_children_assgn[0], errors);
+    }
+
+    root->setValType(root->_children_assgn[0]->getValType());
+
+    if (root->getValType() != "int")
+    {
+      errors.push_back(string("ERR: ") +
+                       to_string(root->getLine()) + ":" +
+                       to_string(root->getColumn()) +
+                       " --> operand must be <int> in unary \"+/-\" expression");
+    }
   }
-  else if (current_node_structure == "expression_binary_rel")
+  else if (current_node_structure == "expression_binary")
   {
-    cout << "Processing <expression_binary_rel>" << endl;
-  }
-  else if (current_node_structure == "expression_binary_a")
-  {
-    cout << "Processing <expression_binary_a>" << endl;
-  }
-  else if (current_node_structure == "expression_binary_log")
-  {
-    cout << "Processing <expression_binary_log>" << endl;
+    auto first  = root->_children_assgn[0];
+    auto second = root->_children_assgn[1];
+
+    if (first->getStructureType() != "expression_number")
+    {
+      checkTypeTree(first, errors);
+    }
+    if (second->getStructureType() != "expression_number")
+    {
+      checkTypeTree(second, errors);
+    }
+
+    if (first->getValType() != "int")
+    {
+      errors.push_back(string("ERR: ") +
+                       to_string(root->getLine()) + ":" +
+                       to_string(root->getColumn()) +
+                       " --> in binary expression 1st operand is not <int>");
+    }
+    else if (second->getValType() != "int")
+    {
+      errors.push_back(string("ERR: ") +
+                       to_string(root->getLine()) + ":" +
+                       to_string(root->getColumn()) +
+                       " --> in binary expression 2nd operand is not <int>");
+    }
+    else
+    {
+      root->setValType("int");
+    }
   }
   else if (current_node_structure == "expression_leftrightpar")
   {
-    cout << "Processing <expression_leftrightpar>" << endl;
+    if (root->_children_assgn[0]->getStructureType() != "expression_number")
+    {
+      checkTypeTree(root->_children_assgn[0], errors);
+    }
+
+    if (root->_children_assgn[0]->getValType() != "int")
+    {
+      errors.push_back(string("ERR: ") +
+                       to_string(root->getLine()) + ":" +
+                       to_string(root->getColumn()) +
+                       " --> <int> required in brackets expression");
+    }
+    else
+    {
+      root->setValType(root->_children_assgn[0]->getValType());
+    }
   }
   else if (current_node_structure == "new_expression_constructor")
   {
-    cout << "Processing <new_expression_constructor>" << endl;
-
     auto id   = root->getValId();
     auto call_args = root->getValType();
 
-    auto constructor_type = root->symbol_table->globalClassLookup(id, string("constructor_decl_") + id);
+    auto constructor_type = current_symbol_table->globalClassLookup(id, string("constructor_decl_") + id);
     string constructor_args;
     string constructor_class;
-
-    cout << "ID " << id << endl;
-    cout << "ARGS " << call_args << endl;
 
     for (int i = 0; i < static_cast<int>(constructor_type.size()-1); ++i)
     {
@@ -435,7 +670,11 @@ void checkTypeTree(Node *root)
 
     if (constructor_args != call_args)
     {
-      cout << string("ERR: invalid constructor call of class <") +constructor_class+">" << endl;
+      errors.push_back(string("ERR: ") +
+                       to_string(root->getLine()) + ":" +
+                       to_string(root->getColumn()) +
+                       " --> invalid constructor call of class <" +
+                       constructor_class + ">");
     }
     else
     {
@@ -445,8 +684,6 @@ void checkTypeTree(Node *root)
   }
   else if (current_node_structure == "new_expression_twobrackets")
   {
-    cout << "Processing <new_expression_twobrackets>" << endl;
-
     auto exprs_in_brackets = root->_children_assgn[0]->_children_assgn;
     int number_of_brackets = static_cast<int>(exprs_in_brackets.size());
 
@@ -458,19 +695,22 @@ void checkTypeTree(Node *root)
       if (child->getStructureType() != "expression_number" &&
           child->getStructureType() != "expression_null")
       {
-        checkTypeTree(child);
+        checkTypeTree(child, errors);
 
         if (child->getValType() != "int")
         {
-          cout << string("ERR: must have <int> when accessing array") << endl;
+          errors.push_back(string("ERR: ") +
+                           to_string(root->getLine()) + ":" +
+                           to_string(root->getColumn()) +
+                           " --> must have <int> when accessing array");
         }
       }
     }
 
     if (current_node_type != "int")
     {
-      auto type_of_id  = root->symbol_table->deepLookup(string("local_var_decl_") + root->getValType());
-      auto type_of_id2 = root->symbol_table->deepLookup(string("var_decl_") + root->getValType());
+      auto type_of_id  = current_symbol_table->deepLookup(string("local_var_decl_") + root->getValType());
+      auto type_of_id2 = current_symbol_table->deepLookup(string("var_decl_") + root->getValType());
       current_node_type= type_of_id == "" ? type_of_id2 : type_of_id;
 
       root->setValType(current_node_type);
@@ -499,8 +739,6 @@ void checkTypeTree(Node *root)
   }
   else if (current_node_structure == "new_expression_brackets")
   {
-    cout << "Processing <new_expression_brackets>" << endl;
-
     auto exprs_in_brackets = root->_children_assgn[0]->_children_assgn;
     int number_of_brackets = static_cast<int>(exprs_in_brackets.size());
 
@@ -511,19 +749,22 @@ void checkTypeTree(Node *root)
       if (child->getStructureType() != "expression_number" &&
           child->getStructureType() != "expression_null")
       {
-        checkTypeTree(child);
+        checkTypeTree(child, errors);
 
         if (child->getValType() != "int")
         {
-          cout << string("ERR: must have <int> when accessing array") << endl;
+          errors.push_back(string("ERR: ") +
+                           to_string(root->getLine()) + ":" +
+                           to_string(root->getColumn()) +
+                           " --> must have <int> when accessing array");
         }
       }
     }
 
     if (current_node_type != "int")
     {
-      auto type_of_id  = root->symbol_table->deepLookup(string("local_var_decl_") + root->getValType());
-      auto type_of_id2 = root->symbol_table->deepLookup(string("var_decl_") + root->getValType());
+      auto type_of_id  = current_symbol_table->deepLookup(string("local_var_decl_") + root->getValType());
+      auto type_of_id2 = current_symbol_table->deepLookup(string("var_decl_") + root->getValType());
       current_node_type= type_of_id == "" ? type_of_id2 : type_of_id;
 
       root->setValType(current_node_type);
@@ -548,13 +789,9 @@ void checkTypeTree(Node *root)
 
 }
 
-// building type tree
-// INFO  : SHITTIES ALGORITHM I COULD COME UP WITH.
-// REFACTOR AND THINK OF BETTER THINGS
+// SECOND STATE
 void buildTypeTree(Node *root, vector <string> &errors)
 {
-  //FIXME: think about this algorithm
-
   if ((root->getStructureType()) == "program")
   {
     root->symbol_table = new SymbolTable();
@@ -571,7 +808,6 @@ void buildTypeTree(Node *root, vector <string> &errors)
 
     if (current_node_structure == "class_decl")
     {
-      cout << "Processing class declaration ..." << (*it)->getValId() << endl;
       (*it)->symbol_table = new SymbolTable(root->symbol_table);
       (*it)->symbol_table->setScopeDefinition((*it)->getValId(), current_node_structure);
       (*it)->setNodeScopeType();
@@ -595,7 +831,6 @@ void buildTypeTree(Node *root, vector <string> &errors)
     }
     else if (current_node_structure == "method_decl")
     {
-      cout << "Processing method declaration ..." << endl;
       (*it)->symbol_table = new SymbolTable(root->symbol_table);
       (*it)->symbol_table->setScopeDefinition((*it)->getValId(), "method_decl");
       (*it)->setNodeScopeType();
@@ -623,8 +858,6 @@ void buildTypeTree(Node *root, vector <string> &errors)
     }
     else if (current_node_structure == "constructor_decl")
     {
-      cout << "Processing constructor declaration ..." << endl;
-
       if ((*it)->getValId() != (root->symbol_table->getScopeName()))
       {
         errors.push_back(string("ERR: Invalid constructor name for class <" + root->symbol_table->getScopeName() + ">"));
@@ -647,7 +880,6 @@ void buildTypeTree(Node *root, vector <string> &errors)
     }
     else if (current_node_structure == "statement_block") // statement -> block
     {
-      cout << "Processing statement block ..." << endl;
       (*it)->symbol_table = new SymbolTable(root->symbol_table);
       (*it)->symbol_table->setScopeDefinition("", current_node_structure);
       (*it)->setNodeScopeType();
@@ -680,22 +912,19 @@ void buildTypeTree(Node *root, vector <string> &errors)
 
       for (auto &parameter : parameters)
       {
-        (*it)->symbol_table->insert(parameter->getValId(), parameter->getValType());
+        (*it)->symbol_table->insert(string("local_var_decl_" + parameter->getValId()), parameter->getValType());
       }
     }
     else if (current_node_structure == "class_body")
     {
-      cout << "Processing class body ..." << endl;
       (*it)->symbol_table = root->symbol_table;
     }
     else if (current_node_structure == "block")
     {
-      cout << "Processing block ..." << endl;
       (*it)->symbol_table = root->symbol_table;
     }
     else if (current_node_structure == "var_decl")
     {
-      cout << "Processing variable declaration ..." << endl;
       (*it)->symbol_table = root->symbol_table;
 
       // Checking if the custom ID type exists
@@ -725,7 +954,6 @@ void buildTypeTree(Node *root, vector <string> &errors)
     }
     else if (current_node_structure == "local_var_decl")
     {
-      cout << "Processing local variable declaration ..." << endl;
       (*it)->symbol_table = root->symbol_table;
 
       // Checking if the custom ID type exists. Take substring, because there may be something else.
@@ -753,8 +981,8 @@ void buildTypeTree(Node *root, vector <string> &errors)
         (*it)->symbol_table->insert("local_var_decl_" + (*it)->getValId(), (*it)->getValType());
       }
     }
-    else {
-      cout << "Processing other : " << (*it)->getStructureType() << endl;
+    else
+    {
       (*it)->symbol_table = root->symbol_table;
     }
     //(*it)->setSymbolTableAddress(scope_sym_table);
@@ -765,7 +993,7 @@ void buildTypeTree(Node *root, vector <string> &errors)
     }
     else
     {
-      cout << "DONE ..." << endl;
+      // Nothing to be done here ...
     }
   }
 }
@@ -779,159 +1007,16 @@ void dumpTable(Node *root)
   }
   else
   {
-    string node_strct = root->getStructureType();
+    root->symbol_table->dumpSymbolTable();
 
-    // if (node_strct == "class_decl"
-    //     || node_strct == "method_decl"
-    //     || node_strct == "constructor_decl"
-    //     || node_strct == "statement_block"
-    //     || node_strct == "block"
-    //     || node_strct == "program")
-    //{
-
-    // cout << endl << " -- INFO ABOUT NODE -- " << endl;
-    // cout << "structure type: " << root->getStructureType() << endl;
-    // cout << "id " << root->getValId() << endl;
-    // cout << "its children =>  ";
-    //
-    // for (auto x = root->_children_assgn.begin(); x != root->_children_assgn.end(); ++x)
-    // {
-    //   cout << "id " << (*x)->getValId() << " <> structure " << (*x)->getStructureType() << " ;;; ";
-    // }
-    // cout << endl << " -- END INFO -- " << endl;
-
-    if (root->isItScope()) {
-      root->symbol_table->dumpSymbolTable();
-    }
-
-    if (root->_children_assgn.size() >= 1)
+    auto children = root->_children_assgn;
+    for (auto child : children)
     {
-      auto it = root->_children_assgn.begin();
-      for (; it != root->_children_assgn.end(); ++it)
-      {
-        dumpTable(*it);
-      }
+      dumpTable(child);
     }
-    //}
-    //else {
-//      return;
-    //s}
   }
 }
 
 
-int main() {
-  yyparse();
 
-  // to be done ...
-  if (tree == NULL)
-  {
-    cout << endl;
-    cout << "--  :( SRY Cannot print the tree        --" << endl;
-    cout << "--    Possible reasons:                 --" << endl;
-    cout << "-- 1) Errors in bison/flex              --" << endl;
-    cout << "-- 2) Lex could not recognize character --" << endl;
-    cout << "-- 3) Empty input                       --" << endl;
-  }
-  else {
-    cout << endl << "-- PRINTING THE TREE --" << endl;
-    //cout << "tree strucure: " << tree->getValProd();
-    tree->print(&cout);
-
-    cout << endl << "-- -- -- -- -- -- -- --" << endl;
-    cout << "-- Checking the type --" << endl;
-
-
-    // TEST TEST TEST TEST CAUTION WARNING
-    Node *BIG_ROOT     = new Node;
-    Node *CLASS_DECL_1 = new Node;
-    Node *CLASS_BODY_1 = new Node;
-    Node *CLASS_DECL_2 = new Node;
-    Node *CLASS_BODY_2 = new Node;
-    Node *VAR_DECLR_1  = new Node;
-    Node *VAR_DECLR_2  = new Node;
-    Node *VAR_DECLR_3  = new Node;
-
-    Node *METHOD_DECL_1       = new Node;
-    Node *METHOD_1_BLOCK      = new Node;
-    Node *METHOD_1_STMT_BLOCK = new Node;
-    Node *LOCAL_VAR_DECL_1    = new Node;
-
-    METHOD_DECL_1->setValId("fooMethod");
-    METHOD_DECL_1->setValType("void");
-    METHOD_DECL_1->setStructureType("method_decl");
-
-    METHOD_1_BLOCK->setStructureType("block");
-    METHOD_1_STMT_BLOCK->setStructureType("statement_block");
-
-    LOCAL_VAR_DECL_1->setStructureType("local_var_decl");
-    LOCAL_VAR_DECL_1->setValId("localMethod1Decl");
-    LOCAL_VAR_DECL_1->setValType("int");
-
-    BIG_ROOT->setStructureType("program");
-
-    CLASS_DECL_1->setStructureType("class_decl");
-    CLASS_DECL_2->setStructureType("class_decl");
-
-    CLASS_DECL_1->setValId("Foo");
-    CLASS_DECL_2->setValId("Bar");
-
-    CLASS_BODY_1->setStructureType("class_body");
-    CLASS_BODY_2->setStructureType("class_body");
-
-    VAR_DECLR_1->setStructureType("var_decl");
-    VAR_DECLR_2->setStructureType("var_decl");
-    VAR_DECLR_3->setStructureType("var_decl");
-
-    VAR_DECLR_1->setValType("int");
-    VAR_DECLR_2->setValType("int");
-    VAR_DECLR_3->setValType("string");
-
-    VAR_DECLR_1->setValId("foovar");
-    VAR_DECLR_2->setValId("barvar");
-    VAR_DECLR_3->setValId("dervar");
-
-    BIG_ROOT->pushNonTerminal(CLASS_DECL_1);
-    BIG_ROOT->pushNonTerminal(CLASS_DECL_2);
-
-    CLASS_DECL_1->pushNonTerminal(CLASS_BODY_1);
-    CLASS_DECL_2->pushNonTerminal(CLASS_BODY_2);
-
-    CLASS_BODY_1->pushNonTerminal(VAR_DECLR_1);
-    CLASS_BODY_1->pushNonTerminal(VAR_DECLR_2);
-    CLASS_BODY_1->pushNonTerminal(VAR_DECLR_3);
-
-    CLASS_BODY_2->pushNonTerminal(METHOD_DECL_1);
-    METHOD_DECL_1->pushNonTerminal(METHOD_1_BLOCK);
-    METHOD_1_BLOCK->pushNonTerminal(METHOD_1_STMT_BLOCK);
-    METHOD_1_STMT_BLOCK->pushNonTerminal(LOCAL_VAR_DECL_1);
-
-
-    vector <string> first_phase_errors;
-
-    buildTypeTree(tree, first_phase_errors);
-
-    if (first_phase_errors.size() >= 1)
-    {
-      for (const auto &error : first_phase_errors)
-      {
-        cout << error << endl;
-      }
-    }
-    else {
-      cout << endl;
-      cout << " -- -- STARTING SECOND PHASE => Type Checking -- -- ";
-      cout << endl;
-      checkTypeTree(tree);
-
-      cout << endl;
-      cout << " -- -- Dumping the symbol tables -- -- ";
-      cout << endl;
-      dumpTable(tree);
-    }
-
-
-  }
-
-  return 0;
-}
+#endif

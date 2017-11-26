@@ -4,11 +4,11 @@
 //class test3 { rt a; rt init(test2 a, test2 b, rt c) { return 1+4; }}
 //class ohboi { int b; int d; ohboi mah_method() { return 1; }}
 class A { B b; A() { } }
-class B { E g; }
+class B { E g; int funky(int a) { } }
 class E { int e; E() { } }
-//class C { int d; int [][][] x; A f; C() { d = x[1][2][func(d)]; } int func(int a) {  } }
+class C { int d; int [][][] x; A f; C() { this = this; } }
 //class C { int d; int [][][] x; A f; C() { d = f.b.g.e; } }
-class D { int d; A [][] x; int [][] y; A f; D() { y = new int[1][2]; } }
+//class D { int d; A [][] x; int [][] y; A f; D() { A d; d = (1 + 2) + 3; } }
 //class abc { some1 [] ab; john doe; abc() { int c; { ab = new int[1][2][3][]; { abcd(this,this); } } } }
 //5555
 //class foo { abc() { ohmygod = 1 + 2; } }
@@ -50,7 +50,3 @@ class goo {
   }
 }
 */
-/* 3 + 4 * s / h */
-/* read() */
-/* new int [3][4][g][][] */
-/* int M; */

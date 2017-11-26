@@ -1,9 +1,9 @@
 /**
-  Program 4, program4.hpp
+  Program 5, program5.hpp
   Purpose: tree and error reports class definitions
 
   @author Batyr Nuryyev
-  @date   11/01/2017
+  @date   11/26/2017
 */
 
 
@@ -26,7 +26,7 @@ class SymbolTable {
     unordered_map <string, string> in_symbol_table;
     string scope_type;
     string scope_name;
-    bool if_printed = 0;
+    bool if_printed = false;
     SymbolTable *prev;
     vector < SymbolTable* > classes_sts;
     int num_of_statement_blocks = 0;
@@ -49,8 +49,6 @@ class SymbolTable {
 
       in_symbol_table.insert({name, type});
 
-      cout << "Insertion successful!" << endl;
-
       return 1;
     }
 
@@ -60,11 +58,8 @@ class SymbolTable {
     {
       auto value = in_symbol_table.find(key);
 
-      cout << "Processing lookup ..." << endl;
-
       if (value != in_symbol_table.end())
       {
-        cout << "Found: " << value->second << endl;
         return value->second;
       }
       else
@@ -77,11 +72,8 @@ class SymbolTable {
     {
       auto value = in_symbol_table.find(key);
 
-      cout << "Processing deep lookup ..." << endl;
-
       if (value != in_symbol_table.end())
       {
-        cout << "Found: " << value->second << endl;
         return value->second;
       }
       else
@@ -92,7 +84,6 @@ class SymbolTable {
         }
         else
         {
-          cout << prev << endl;
           return "";
         }
       }
@@ -122,7 +113,6 @@ class SymbolTable {
       }
       else if (prev == NULL)
       {
-        cout << "Something went wrong with finding a class ..." << endl;
         return NULL;
       }
       else
@@ -131,12 +121,26 @@ class SymbolTable {
       }
     }
 
+    string getCurrentMethodType()
+    {
+      if (scope_type != "method_decl")
+      {
+        return "";
+      }
+      else
+      {
+        // We will always have prev, i.e. !NULL
+        auto method = prev->lookup("method_decl_" + scope_name);
+
+        return method;
+      }
+    }
+
 
     string globalClassLookup(string class_id, string target_entry)
     {
       if (scope_name == "global" && scope_type == "program")
       {
-        cout << "<<<<<<<<<<< PIZDEC >>>>>>>>>>>>>" << endl;
         string x = "";
         for (auto c : classes_sts)
         {
@@ -157,14 +161,27 @@ class SymbolTable {
     // FIXME: DOES NOT PRESERVE THE ORDER IN WHICH ELEMENTS ARE INSERTED
     void dumpSymbolTable()
     {
-      auto it = this->in_symbol_table.begin();
-
-      for (; it != this->in_symbol_table.end(); ++it)
+      if (!if_printed)
       {
-        cout << it->first << " " << it->second << endl;
-      }
+        auto it = this->in_symbol_table.begin();
 
-      if_printed = 1;
+        if (scope_name == "")
+        {
+          cout << scope_type << endl;
+        }
+        else
+        {
+          cout << scope_name << " " << scope_type << endl;
+        }
+
+        for (; it != this->in_symbol_table.end(); ++it)
+        {
+          cout << "   " << it->first << " " << it->second << endl;
+        }
+        cout << endl;
+        if_printed = true;
+      }
+      else return;
     }
 
     // other custom function
@@ -257,6 +274,7 @@ class Node {
     string _type = "";
     string _structure_type = "";
     string _return_type = "";
+    int _line, _column;
     SymbolTable *symbol_table;
     // Vector for several expressions in NewExpression pattern
     vector <Node*> _children_assgn;
@@ -335,6 +353,12 @@ class Node {
       symbol_table = st;
     }
 
+    void setLocation(int line, int col)
+    {
+      _line = line;
+      _column = col;
+    }
+
     void setError()
     {
       _error = true;
@@ -348,6 +372,16 @@ class Node {
     string getUnaryOperator()
     {
       return _unary_op;
+    }
+
+    int getLine()
+    {
+      return _line;
+    }
+
+    int getColumn()
+    {
+      return _column;
     }
 
     string getStructureType()

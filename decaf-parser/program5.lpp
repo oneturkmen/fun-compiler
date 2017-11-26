@@ -1,12 +1,12 @@
 /**
-  Program 4, program4.lpp
+  Program 5, program5.lpp
   Purpose: lexical analyzer file
 
   @author Batyr Nuryyev
-  @date   11/01/2017
+  @date   11/26/2017
 */
 
-%option outfile="program4_lex.cpp"
+%option outfile="program5_lex.cpp"
 %option noyywrap
 %option yylineno
 %option c++
@@ -16,8 +16,8 @@
   #include <iomanip>
   #include <vector>
   #include <string>
-  #include "program4.hpp"
-  #include "program4.tab.h"
+  #include "program5.hpp"
+  #include "program5.tab.h"
 
   int yycolumn = 1;
 

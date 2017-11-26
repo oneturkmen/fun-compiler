@@ -62,14 +62,14 @@
 
 
 /* Copy the first part of user declarations.  */
-#line 11 "program4.y" /* yacc.c:339  */
+#line 11 "program5.y" /* yacc.c:339  */
 
 
 #include <iostream>
 #include <vector>
 #include <typeinfo>
 #include <FlexLexer.h>
-#include "program4.hpp"
+#include "program5.hpp"
 
 using namespace std;
 
@@ -95,7 +95,7 @@ void yyerror(const char *, int, int);
 void yyerror(const char *);
 
 
-#line 99 "program4.tab.c" /* yacc.c:339  */
+#line 99 "program5.tab.c" /* yacc.c:339  */
 
 # ifndef YY_NULLPTR
 #  if defined __cplusplus && 201103L <= __cplusplus
@@ -114,9 +114,9 @@ void yyerror(const char *);
 #endif
 
 /* In a future release of Bison, this section will be replaced
-   by #include "program4.tab.h".  */
-#ifndef YY_YY_PROGRAM4_TAB_H_INCLUDED
-# define YY_YY_PROGRAM4_TAB_H_INCLUDED
+   by #include "program5.tab.h".  */
+#ifndef YY_YY_PROGRAM5_TAB_H_INCLUDED
+# define YY_YY_PROGRAM5_TAB_H_INCLUDED
 /* Debug traces.  */
 #ifndef YYDEBUG
 # define YYDEBUG 0
@@ -176,11 +176,11 @@ extern int yydebug;
 
 union YYSTYPE
 {
-#line 58 "program4.y" /* yacc.c:355  */
+#line 58 "program5.y" /* yacc.c:355  */
 
   Node *ttype;
 
-#line 184 "program4.tab.c" /* yacc.c:355  */
+#line 184 "program5.tab.c" /* yacc.c:355  */
 };
 
 typedef union YYSTYPE YYSTYPE;
@@ -207,17 +207,17 @@ extern YYSTYPE yylval;
 extern YYLTYPE yylloc;
 int yyparse (void);
 
-#endif /* !YY_YY_PROGRAM4_TAB_H_INCLUDED  */
+#endif /* !YY_YY_PROGRAM5_TAB_H_INCLUDED  */
 
 /* Copy the second part of user declarations.  */
 
-#line 215 "program4.tab.c" /* yacc.c:358  */
+#line 215 "program5.tab.c" /* yacc.c:358  */
 /* Unqualified %code blocks.  */
-#line 54 "program4.y" /* yacc.c:359  */
+#line 54 "program5.y" /* yacc.c:359  */
 
   #define YYLTYPE YYLTYPE
 
-#line 221 "program4.tab.c" /* yacc.c:359  */
+#line 221 "program5.tab.c" /* yacc.c:359  */
 
 #ifdef short
 # undef short
@@ -526,12 +526,12 @@ static const yytype_uint16 yyrline[] =
      301,   307,   314,   318,   326,   339,   343,   352,   363,   373,
      383,   393,   407,   413,   424,   428,   437,   444,   451,   459,
      471,   478,   484,   490,   499,   500,   509,   521,   526,   534,
-     539,   546,   553,   559,   565,   572,   578,   588,   595,   607,
-     614,   621,   627,   634,   644,   650,   657,   661,   670,   675,
-     686,   691,   701,   707,   713,   719,   726,   732,   738,   745,
-     752,   759,   767,   775,   783,   791,   799,   807,   815,   823,
-     831,   839,   847,   855,   863,   873,   882,   890,   898,   905,
-     916,   917
+     539,   547,   555,   562,   569,   577,   584,   594,   601,   613,
+     620,   628,   635,   643,   654,   661,   668,   672,   681,   686,
+     698,   703,   713,   720,   726,   732,   740,   747,   754,   762,
+     770,   778,   787,   796,   805,   814,   823,   832,   841,   850,
+     859,   868,   877,   886,   895,   906,   916,   925,   934,   942,
+     954,   955
 };
 #endif
 
@@ -1581,35 +1581,35 @@ yyreduce:
   switch (yyn)
     {
         case 3:
-#line 119 "program4.y" /* yacc.c:1646  */
+#line 119 "program5.y" /* yacc.c:1646  */
     {
               tree = (yyvsp[0].ttype);
             }
-#line 1589 "program4.tab.c" /* yacc.c:1646  */
+#line 1589 "program5.tab.c" /* yacc.c:1646  */
     break;
 
   case 4:
-#line 125 "program4.y" /* yacc.c:1646  */
+#line 125 "program5.y" /* yacc.c:1646  */
     {
                (yyval.ttype) = new Node;
                (yyval.ttype)->pushNonTerminal((yyvsp[0].ttype));
                (yyval.ttype)->setStructureType("program");
                (yyval.ttype)->setValProd("<Program> --> <ClassDeclaration>+");
              }
-#line 1600 "program4.tab.c" /* yacc.c:1646  */
+#line 1600 "program5.tab.c" /* yacc.c:1646  */
     break;
 
   case 5:
-#line 131 "program4.y" /* yacc.c:1646  */
+#line 131 "program5.y" /* yacc.c:1646  */
     {
                          (yyval.ttype) = (yyvsp[-1].ttype);
                          (yyval.ttype)->pushNonTerminal((yyvsp[0].ttype));
                        }
-#line 1609 "program4.tab.c" /* yacc.c:1646  */
+#line 1609 "program5.tab.c" /* yacc.c:1646  */
     break;
 
   case 6:
-#line 137 "program4.y" /* yacc.c:1646  */
+#line 137 "program5.y" /* yacc.c:1646  */
     {
     (yyval.ttype) = new Node;
     (yyval.ttype)->pushNonTerminal((yyvsp[-1].ttype));
@@ -1617,51 +1617,51 @@ yyreduce:
     (yyval.ttype)->setValProd("\n<ClassDeclaration> --> class identifier <ClassBody>");
     (yyval.ttype)->setStructureType("class_decl");
   }
-#line 1621 "program4.tab.c" /* yacc.c:1646  */
+#line 1621 "program5.tab.c" /* yacc.c:1646  */
     break;
 
   case 7:
-#line 144 "program4.y" /* yacc.c:1646  */
+#line 144 "program5.y" /* yacc.c:1646  */
     {
     yyerrok;
     yyerror("Parse error on class", (yylsp[-4]).first_line, (yylsp[-4]).first_column);
     yyclearin;
   }
-#line 1631 "program4.tab.c" /* yacc.c:1646  */
+#line 1631 "program5.tab.c" /* yacc.c:1646  */
     break;
 
   case 8:
-#line 149 "program4.y" /* yacc.c:1646  */
+#line 149 "program5.y" /* yacc.c:1646  */
     {
     yyerrok;
     yyerror("Parse error on identifier", (yylsp[-3]).first_line, (yylsp[-3]).first_column);
     yyclearin;
   }
-#line 1641 "program4.tab.c" /* yacc.c:1646  */
+#line 1641 "program5.tab.c" /* yacc.c:1646  */
     break;
 
   case 9:
-#line 154 "program4.y" /* yacc.c:1646  */
+#line 154 "program5.y" /* yacc.c:1646  */
     {
     yyerrok;
     yyerror("Parse error on [", (yylsp[-2]).first_line, (yylsp[-2]).first_column);
     yyclearin;
   }
-#line 1651 "program4.tab.c" /* yacc.c:1646  */
+#line 1651 "program5.tab.c" /* yacc.c:1646  */
     break;
 
   case 10:
-#line 159 "program4.y" /* yacc.c:1646  */
+#line 159 "program5.y" /* yacc.c:1646  */
     {
     yyerrok;
     yyerror("Parse error on ]", (yylsp[0]).first_line, (yylsp[0]).first_column);
     yyclearin;
   }
-#line 1661 "program4.tab.c" /* yacc.c:1646  */
+#line 1661 "program5.tab.c" /* yacc.c:1646  */
     break;
 
   case 11:
-#line 167 "program4.y" /* yacc.c:1646  */
+#line 167 "program5.y" /* yacc.c:1646  */
     {
     (yyval.ttype) = new Node;
     (yyval.ttype)->pushNonTerminal((yyvsp[-2].ttype));
@@ -1670,11 +1670,11 @@ yyreduce:
     (yyval.ttype)->setValProd("<ClassBody> --> { <VarDeclaration>+ <ConstructorDeclaration>+ <MethodDeclaration>+ }");
     (yyval.ttype)->setStructureType("class_body");
   }
-#line 1674 "program4.tab.c" /* yacc.c:1646  */
+#line 1674 "program5.tab.c" /* yacc.c:1646  */
     break;
 
   case 12:
-#line 175 "program4.y" /* yacc.c:1646  */
+#line 175 "program5.y" /* yacc.c:1646  */
     {
     (yyval.ttype) = new Node;
     (yyval.ttype)->pushNonTerminal((yyvsp[-1].ttype));
@@ -1682,11 +1682,11 @@ yyreduce:
     (yyval.ttype)->setValProd("<ClassBody> --> { <VarDeclaration>+ <ConstructorDeclaration>+ }");
     (yyval.ttype)->setStructureType("class_body");
   }
-#line 1686 "program4.tab.c" /* yacc.c:1646  */
+#line 1686 "program5.tab.c" /* yacc.c:1646  */
     break;
 
   case 13:
-#line 182 "program4.y" /* yacc.c:1646  */
+#line 182 "program5.y" /* yacc.c:1646  */
     {
     (yyval.ttype) = new Node;
     (yyval.ttype)->pushNonTerminal((yyvsp[-1].ttype));
@@ -1694,11 +1694,11 @@ yyreduce:
     (yyval.ttype)->setValProd("<ClassBody> --> { <VarDeclaration>+ <MethodDeclaration>+ }");
     (yyval.ttype)->setStructureType("class_body");
   }
-#line 1698 "program4.tab.c" /* yacc.c:1646  */
+#line 1698 "program5.tab.c" /* yacc.c:1646  */
     break;
 
   case 14:
-#line 189 "program4.y" /* yacc.c:1646  */
+#line 189 "program5.y" /* yacc.c:1646  */
     {
     (yyval.ttype) = new Node;
     (yyval.ttype)->pushNonTerminal((yyvsp[-1].ttype));
@@ -1706,89 +1706,89 @@ yyreduce:
     (yyval.ttype)->setValProd("<ClassBody> --> { <ConstructorDeclaration>+ <MethodDeclaration>+ }");
     (yyval.ttype)->setStructureType("class_body");
   }
-#line 1710 "program4.tab.c" /* yacc.c:1646  */
+#line 1710 "program5.tab.c" /* yacc.c:1646  */
     break;
 
   case 15:
-#line 196 "program4.y" /* yacc.c:1646  */
+#line 196 "program5.y" /* yacc.c:1646  */
     {
     (yyval.ttype) = new Node;
     (yyval.ttype)->pushNonTerminal((yyvsp[0].ttype));
     (yyval.ttype)->setValProd("<ClassBody> --> { <MethodDeclaration>+ }");
     (yyval.ttype)->setStructureType("class_body");
   }
-#line 1721 "program4.tab.c" /* yacc.c:1646  */
+#line 1721 "program5.tab.c" /* yacc.c:1646  */
     break;
 
   case 16:
-#line 202 "program4.y" /* yacc.c:1646  */
+#line 202 "program5.y" /* yacc.c:1646  */
     {
     (yyval.ttype) = new Node;
     (yyval.ttype)->pushNonTerminal((yyvsp[0].ttype));
     (yyval.ttype)->setValProd("<ClassBody> --> { <VarDeclaration>+ }");
     (yyval.ttype)->setStructureType("class_body");
   }
-#line 1732 "program4.tab.c" /* yacc.c:1646  */
+#line 1732 "program5.tab.c" /* yacc.c:1646  */
     break;
 
   case 17:
-#line 208 "program4.y" /* yacc.c:1646  */
+#line 208 "program5.y" /* yacc.c:1646  */
     {
     (yyval.ttype) = new Node;
     (yyval.ttype)->pushNonTerminal((yyvsp[0].ttype));
     (yyval.ttype)->setValProd("<ClassBody> --> { <ConstructorDeclaration>+ }");
     (yyval.ttype)->setStructureType("class_body");
   }
-#line 1743 "program4.tab.c" /* yacc.c:1646  */
+#line 1743 "program5.tab.c" /* yacc.c:1646  */
     break;
 
   case 18:
-#line 214 "program4.y" /* yacc.c:1646  */
+#line 214 "program5.y" /* yacc.c:1646  */
     { (yyval.ttype) = new Node; }
-#line 1749 "program4.tab.c" /* yacc.c:1646  */
+#line 1749 "program5.tab.c" /* yacc.c:1646  */
     break;
 
   case 19:
-#line 219 "program4.y" /* yacc.c:1646  */
+#line 219 "program5.y" /* yacc.c:1646  */
     {
     (yyval.ttype) = (yyvsp[-1].ttype);
     (yyval.ttype)->pushNonTerminal((yyvsp[0].ttype));
   }
-#line 1758 "program4.tab.c" /* yacc.c:1646  */
+#line 1758 "program5.tab.c" /* yacc.c:1646  */
     break;
 
   case 20:
-#line 223 "program4.y" /* yacc.c:1646  */
+#line 223 "program5.y" /* yacc.c:1646  */
     {
     (yyval.ttype) = new Node;
     (yyval.ttype)->pushNonTerminal((yyvsp[0].ttype));
     (yyval.ttype)->setStructureType("var_declmore");
   }
-#line 1768 "program4.tab.c" /* yacc.c:1646  */
+#line 1768 "program5.tab.c" /* yacc.c:1646  */
     break;
 
   case 21:
-#line 232 "program4.y" /* yacc.c:1646  */
+#line 232 "program5.y" /* yacc.c:1646  */
     {
     (yyval.ttype) = new Node;
     (yyval.ttype)->setValProd("<[]>* --> []");
     (yyval.ttype)->setValType("[]");
   }
-#line 1778 "program4.tab.c" /* yacc.c:1646  */
+#line 1778 "program5.tab.c" /* yacc.c:1646  */
     break;
 
   case 22:
-#line 237 "program4.y" /* yacc.c:1646  */
+#line 237 "program5.y" /* yacc.c:1646  */
     {
     (yyval.ttype) = (yyvsp[-2].ttype);
     (yyval.ttype)->setValProd("<[]>* --> []");
     (yyval.ttype)->_type.append("[]");
   }
-#line 1788 "program4.tab.c" /* yacc.c:1646  */
+#line 1788 "program5.tab.c" /* yacc.c:1646  */
     break;
 
   case 23:
-#line 245 "program4.y" /* yacc.c:1646  */
+#line 245 "program5.y" /* yacc.c:1646  */
     {
     (yyval.ttype) = new Node;
     (yyval.ttype)->setValType((yyvsp[-2].ttype)->getValId());
@@ -1796,11 +1796,11 @@ yyreduce:
     (yyval.ttype)->setValProd("<VarDeclaration> --> identifier identifier ;");
     (yyval.ttype)->setStructureType("var_decl");
   }
-#line 1800 "program4.tab.c" /* yacc.c:1646  */
+#line 1800 "program5.tab.c" /* yacc.c:1646  */
     break;
 
   case 24:
-#line 252 "program4.y" /* yacc.c:1646  */
+#line 252 "program5.y" /* yacc.c:1646  */
     {
     (yyval.ttype) = new Node;
     (yyval.ttype)->setValProd("<VarDeclaration> --> int identifier ;");
@@ -1808,11 +1808,11 @@ yyreduce:
     (yyval.ttype)->setValId((yyvsp[-1].ttype)->getValId());
     (yyval.ttype)->setStructureType("var_decl");
   }
-#line 1812 "program4.tab.c" /* yacc.c:1646  */
+#line 1812 "program5.tab.c" /* yacc.c:1646  */
     break;
 
   case 25:
-#line 259 "program4.y" /* yacc.c:1646  */
+#line 259 "program5.y" /* yacc.c:1646  */
     {
     (yyval.ttype) = new Node;
     (yyval.ttype)->setValProd("<VarDeclaration> --> identifier <[]>* identifier ;");
@@ -1821,11 +1821,11 @@ yyreduce:
     (yyval.ttype)->setValId((yyvsp[-1].ttype)->getValId());
     (yyval.ttype)->pushNonTerminal((yyvsp[-2].ttype));
   }
-#line 1825 "program4.tab.c" /* yacc.c:1646  */
+#line 1825 "program5.tab.c" /* yacc.c:1646  */
     break;
 
   case 26:
-#line 267 "program4.y" /* yacc.c:1646  */
+#line 267 "program5.y" /* yacc.c:1646  */
     {
     (yyval.ttype)->setValProd("<VarDeclaration> --> int <[]>* identifier ;");
     (yyval.ttype)->setStructureType("var_decl");
@@ -1833,33 +1833,33 @@ yyreduce:
     (yyval.ttype)->setValId((yyvsp[-1].ttype)->getValId());
     (yyval.ttype)->pushNonTerminal((yyvsp[-2].ttype));
   }
-#line 1837 "program4.tab.c" /* yacc.c:1646  */
+#line 1837 "program5.tab.c" /* yacc.c:1646  */
     break;
 
   case 27:
-#line 278 "program4.y" /* yacc.c:1646  */
+#line 278 "program5.y" /* yacc.c:1646  */
     {
     (yyval.ttype) = new Node;
     (yyval.ttype)->setValProd("<Type> --> int");
     (yyval.ttype)->setValType("int ");
     (yyval.ttype)->setStructureType("type");
   }
-#line 1848 "program4.tab.c" /* yacc.c:1646  */
+#line 1848 "program5.tab.c" /* yacc.c:1646  */
     break;
 
   case 28:
-#line 284 "program4.y" /* yacc.c:1646  */
+#line 284 "program5.y" /* yacc.c:1646  */
     {
     (yyval.ttype) = new Node;
     (yyval.ttype)->setValProd("<Type> --> identifier []");
     (yyval.ttype)->setValType((yyvsp[-2].ttype)->getValId() + " []");
     (yyval.ttype)->setStructureType("type");
   }
-#line 1859 "program4.tab.c" /* yacc.c:1646  */
+#line 1859 "program5.tab.c" /* yacc.c:1646  */
     break;
 
   case 29:
-#line 290 "program4.y" /* yacc.c:1646  */
+#line 290 "program5.y" /* yacc.c:1646  */
     {
     (yyval.ttype) = new Node;
     (yyval.ttype)->pushNonTerminal((yyvsp[-2].ttype));
@@ -1867,49 +1867,49 @@ yyreduce:
     (yyval.ttype)->setStructureType("type_multi_brackets");
     (yyval.ttype)->setValType((yyvsp[-2].ttype)->getValType() + "[]");
   }
-#line 1871 "program4.tab.c" /* yacc.c:1646  */
+#line 1871 "program5.tab.c" /* yacc.c:1646  */
     break;
 
   case 30:
-#line 301 "program4.y" /* yacc.c:1646  */
+#line 301 "program5.y" /* yacc.c:1646  */
     {
     (yyval.ttype) = new Node;
     (yyval.ttype)->setValProd("<Type> --> identifier");
     (yyval.ttype)->setValType((yyvsp[0].ttype)->getValId());
     (yyval.ttype)->setStructureType("type");
   }
-#line 1882 "program4.tab.c" /* yacc.c:1646  */
+#line 1882 "program5.tab.c" /* yacc.c:1646  */
     break;
 
   case 31:
-#line 307 "program4.y" /* yacc.c:1646  */
+#line 307 "program5.y" /* yacc.c:1646  */
     {
     (yyval.ttype) = (yyvsp[0].ttype);
   }
-#line 1890 "program4.tab.c" /* yacc.c:1646  */
+#line 1890 "program5.tab.c" /* yacc.c:1646  */
     break;
 
   case 32:
-#line 314 "program4.y" /* yacc.c:1646  */
+#line 314 "program5.y" /* yacc.c:1646  */
     {
     (yyval.ttype) = (yyvsp[-1].ttype);
     (yyval.ttype)->pushNonTerminal((yyvsp[0].ttype));
   }
-#line 1899 "program4.tab.c" /* yacc.c:1646  */
+#line 1899 "program5.tab.c" /* yacc.c:1646  */
     break;
 
   case 33:
-#line 318 "program4.y" /* yacc.c:1646  */
+#line 318 "program5.y" /* yacc.c:1646  */
     {
     (yyval.ttype) = new Node;
     (yyval.ttype)->pushNonTerminal((yyvsp[0].ttype));
     (yyval.ttype)->setStructureType("constructor_declmore");
   }
-#line 1909 "program4.tab.c" /* yacc.c:1646  */
+#line 1909 "program5.tab.c" /* yacc.c:1646  */
     break;
 
   case 34:
-#line 326 "program4.y" /* yacc.c:1646  */
+#line 326 "program5.y" /* yacc.c:1646  */
     {
     (yyval.ttype) = new Node;
     (yyval.ttype)->setValProd("<ConstructorDeclaration> --> identifier ( <ParameterList> ) <Block>");
@@ -1919,30 +1919,30 @@ yyreduce:
     (yyval.ttype)->pushNonTerminal((yyvsp[-2].ttype));
     (yyval.ttype)->pushNonTerminal((yyvsp[0].ttype));
   }
-#line 1923 "program4.tab.c" /* yacc.c:1646  */
+#line 1923 "program5.tab.c" /* yacc.c:1646  */
     break;
 
   case 35:
-#line 339 "program4.y" /* yacc.c:1646  */
+#line 339 "program5.y" /* yacc.c:1646  */
     {
     (yyval.ttype) = (yyvsp[-1].ttype);
     (yyval.ttype)->pushNonTerminal((yyvsp[0].ttype));
   }
-#line 1932 "program4.tab.c" /* yacc.c:1646  */
+#line 1932 "program5.tab.c" /* yacc.c:1646  */
     break;
 
   case 36:
-#line 343 "program4.y" /* yacc.c:1646  */
+#line 343 "program5.y" /* yacc.c:1646  */
     {
     (yyval.ttype) = new Node;
     (yyval.ttype)->pushNonTerminal((yyvsp[0].ttype));
     (yyval.ttype)->setStructureType("method_declmore");
   }
-#line 1942 "program4.tab.c" /* yacc.c:1646  */
+#line 1942 "program5.tab.c" /* yacc.c:1646  */
     break;
 
   case 37:
-#line 352 "program4.y" /* yacc.c:1646  */
+#line 352 "program5.y" /* yacc.c:1646  */
     {
     (yyval.ttype) = new Node;
     (yyval.ttype)->setValProd("<MethodDeclaration> --> int identifier ( <ParameterList> ) <Block>");
@@ -1954,11 +1954,11 @@ yyreduce:
     (yyval.ttype)->pushNonTerminal((yyvsp[-2].ttype));
     (yyval.ttype)->pushNonTerminal((yyvsp[0].ttype));
   }
-#line 1958 "program4.tab.c" /* yacc.c:1646  */
+#line 1958 "program5.tab.c" /* yacc.c:1646  */
     break;
 
   case 38:
-#line 363 "program4.y" /* yacc.c:1646  */
+#line 363 "program5.y" /* yacc.c:1646  */
     {
     (yyval.ttype) = new Node;
     (yyval.ttype)->setValProd("<MethodDeclaration> --> identifier identifier ( <ParameterList> ) <Block>");
@@ -1969,11 +1969,11 @@ yyreduce:
     (yyval.ttype)->pushNonTerminal((yyvsp[-2].ttype));
     (yyval.ttype)->pushNonTerminal((yyvsp[0].ttype));
   }
-#line 1973 "program4.tab.c" /* yacc.c:1646  */
+#line 1973 "program5.tab.c" /* yacc.c:1646  */
     break;
 
   case 39:
-#line 373 "program4.y" /* yacc.c:1646  */
+#line 373 "program5.y" /* yacc.c:1646  */
     {
     (yyval.ttype) = new Node;
     (yyval.ttype)->setValProd("<MethodDeclaration> --> void identifier ( <ParameterList> ) <Block>");
@@ -1984,11 +1984,11 @@ yyreduce:
     (yyval.ttype)->pushNonTerminal((yyvsp[-2].ttype));
     (yyval.ttype)->pushNonTerminal((yyvsp[0].ttype));
   }
-#line 1988 "program4.tab.c" /* yacc.c:1646  */
+#line 1988 "program5.tab.c" /* yacc.c:1646  */
     break;
 
   case 40:
-#line 383 "program4.y" /* yacc.c:1646  */
+#line 383 "program5.y" /* yacc.c:1646  */
     {
     (yyval.ttype) = new Node;
     (yyval.ttype)->setValProd("<MethodDeclaration> --> int <[]>* identifier ( <ParameterList> ) <Block>");
@@ -1999,11 +1999,11 @@ yyreduce:
     (yyval.ttype)->pushNonTerminal((yyvsp[-2].ttype));
     (yyval.ttype)->pushNonTerminal((yyvsp[0].ttype));
   }
-#line 2003 "program4.tab.c" /* yacc.c:1646  */
+#line 2003 "program5.tab.c" /* yacc.c:1646  */
     break;
 
   case 41:
-#line 393 "program4.y" /* yacc.c:1646  */
+#line 393 "program5.y" /* yacc.c:1646  */
     {
     (yyval.ttype) = new Node;
     (yyval.ttype)->setValProd("<MethodDeclaration> --> identifier <[]>* identifier ( <ParameterList> ) <Block>");
@@ -2014,22 +2014,22 @@ yyreduce:
     (yyval.ttype)->pushNonTerminal((yyvsp[-2].ttype));
     (yyval.ttype)->pushNonTerminal((yyvsp[0].ttype));
   }
-#line 2018 "program4.tab.c" /* yacc.c:1646  */
+#line 2018 "program5.tab.c" /* yacc.c:1646  */
     break;
 
   case 42:
-#line 407 "program4.y" /* yacc.c:1646  */
+#line 407 "program5.y" /* yacc.c:1646  */
     {
     (yyval.ttype) = new Node;
     (yyval.ttype)->setValProd("<ParameterList> --> e");
     (yyval.ttype)->setStructureType("parameter_list");
     (yyval.ttype)->setValType("void");
   }
-#line 2029 "program4.tab.c" /* yacc.c:1646  */
+#line 2029 "program5.tab.c" /* yacc.c:1646  */
     break;
 
   case 43:
-#line 413 "program4.y" /* yacc.c:1646  */
+#line 413 "program5.y" /* yacc.c:1646  */
     {
     (yyval.ttype) = (yyvsp[0].ttype);
     (yyval.ttype)->setValProd("<ParameterList> --> <Parameter> <, <Parameter> >*");
@@ -2037,30 +2037,30 @@ yyreduce:
     (yyval.ttype)->setStructureType("parameter_list");
     (yyval.ttype)->setValType(string((yyvsp[-1].ttype)->getValType()) + (yyvsp[0].ttype)->getValType());
   }
-#line 2041 "program4.tab.c" /* yacc.c:1646  */
+#line 2041 "program5.tab.c" /* yacc.c:1646  */
     break;
 
   case 44:
-#line 424 "program4.y" /* yacc.c:1646  */
+#line 424 "program5.y" /* yacc.c:1646  */
     {
     (yyval.ttype) = new Node;
     (yyval.ttype)->setStructureType("mult_parameters");
   }
-#line 2050 "program4.tab.c" /* yacc.c:1646  */
+#line 2050 "program5.tab.c" /* yacc.c:1646  */
     break;
 
   case 45:
-#line 428 "program4.y" /* yacc.c:1646  */
+#line 428 "program5.y" /* yacc.c:1646  */
     {
     (yyval.ttype) = (yyvsp[-2].ttype);
     (yyval.ttype)->pushNonTerminal((yyvsp[0].ttype));
     (yyval.ttype)->_type.append( string(" x ") + (yyvsp[0].ttype)->getValType());
   }
-#line 2060 "program4.tab.c" /* yacc.c:1646  */
+#line 2060 "program5.tab.c" /* yacc.c:1646  */
     break;
 
   case 46:
-#line 437 "program4.y" /* yacc.c:1646  */
+#line 437 "program5.y" /* yacc.c:1646  */
     {
     (yyval.ttype) = new Node;
     (yyval.ttype)->setValProd("<Parameter> --> identifier identifier");
@@ -2068,11 +2068,11 @@ yyreduce:
     (yyval.ttype)->setValType((yyvsp[-1].ttype)->getValId());
     (yyval.ttype)->setValId((yyvsp[0].ttype)->getValId());
   }
-#line 2072 "program4.tab.c" /* yacc.c:1646  */
+#line 2072 "program5.tab.c" /* yacc.c:1646  */
     break;
 
   case 47:
-#line 444 "program4.y" /* yacc.c:1646  */
+#line 444 "program5.y" /* yacc.c:1646  */
     {
     (yyval.ttype) = new Node;
     (yyval.ttype)->setValProd("<Parameter> --> int identifier");
@@ -2080,11 +2080,11 @@ yyreduce:
     (yyval.ttype)->setValType("int");
     (yyval.ttype)->setValId((yyvsp[0].ttype)->getValId());
   }
-#line 2084 "program4.tab.c" /* yacc.c:1646  */
+#line 2084 "program5.tab.c" /* yacc.c:1646  */
     break;
 
   case 48:
-#line 451 "program4.y" /* yacc.c:1646  */
+#line 451 "program5.y" /* yacc.c:1646  */
     {
     (yyval.ttype) = new Node;
     (yyval.ttype)->setValProd("<Parameter> --> identifier <[]>* identifier");
@@ -2093,11 +2093,11 @@ yyreduce:
     (yyval.ttype)->setValId((yyvsp[0].ttype)->getValId());
     (yyval.ttype)->pushNonTerminal((yyvsp[-1].ttype));
   }
-#line 2097 "program4.tab.c" /* yacc.c:1646  */
+#line 2097 "program5.tab.c" /* yacc.c:1646  */
     break;
 
   case 49:
-#line 459 "program4.y" /* yacc.c:1646  */
+#line 459 "program5.y" /* yacc.c:1646  */
     {
     (yyval.ttype) = new Node;
     (yyval.ttype)->setValProd("<Parameter> --> int <[]>* identifier");
@@ -2106,11 +2106,11 @@ yyreduce:
     (yyval.ttype)->setValId((yyvsp[0].ttype)->getValId());
     (yyval.ttype)->pushNonTerminal((yyvsp[-1].ttype));
   }
-#line 2110 "program4.tab.c" /* yacc.c:1646  */
+#line 2110 "program5.tab.c" /* yacc.c:1646  */
     break;
 
   case 50:
-#line 471 "program4.y" /* yacc.c:1646  */
+#line 471 "program5.y" /* yacc.c:1646  */
     {
     (yyval.ttype) = new Node;
     (yyval.ttype)->setValProd("<Block> --> { <LocalVarDeclaration>* <Statement>* }");
@@ -2118,59 +2118,59 @@ yyreduce:
     (yyval.ttype)->pushNonTerminal((yyvsp[-2].ttype));
     (yyval.ttype)->pushNonTerminal((yyvsp[-1].ttype));
   }
-#line 2122 "program4.tab.c" /* yacc.c:1646  */
+#line 2122 "program5.tab.c" /* yacc.c:1646  */
     break;
 
   case 51:
-#line 478 "program4.y" /* yacc.c:1646  */
+#line 478 "program5.y" /* yacc.c:1646  */
     {
     (yyval.ttype) = new Node;
     (yyval.ttype)->setValProd("<Block> --> { <LocalVarDeclaration>* <Statement>* }");
     (yyval.ttype)->setStructureType("block");
     (yyval.ttype)->pushNonTerminal((yyvsp[-1].ttype));
   }
-#line 2133 "program4.tab.c" /* yacc.c:1646  */
+#line 2133 "program5.tab.c" /* yacc.c:1646  */
     break;
 
   case 52:
-#line 484 "program4.y" /* yacc.c:1646  */
+#line 484 "program5.y" /* yacc.c:1646  */
     {
     (yyval.ttype) = new Node;
     (yyval.ttype)->setValProd("<Block> --> { <LocalVarDeclaration>* <Statement>* }");
     (yyval.ttype)->setStructureType("block");
     (yyval.ttype)->pushNonTerminal((yyvsp[-1].ttype));
   }
-#line 2144 "program4.tab.c" /* yacc.c:1646  */
+#line 2144 "program5.tab.c" /* yacc.c:1646  */
     break;
 
   case 53:
-#line 490 "program4.y" /* yacc.c:1646  */
+#line 490 "program5.y" /* yacc.c:1646  */
     {
     (yyval.ttype) = new Node;
     (yyval.ttype)->setValProd("<Block> --> { <LocalVarDeclaration>* <Statement>* }");
     (yyval.ttype)->setStructureType("block");
   }
-#line 2154 "program4.tab.c" /* yacc.c:1646  */
+#line 2154 "program5.tab.c" /* yacc.c:1646  */
     break;
 
   case 54:
-#line 499 "program4.y" /* yacc.c:1646  */
+#line 499 "program5.y" /* yacc.c:1646  */
     { (yyval.ttype) = new Node; (yyval.ttype)->pushNonTerminal((yyvsp[0].ttype)); }
-#line 2160 "program4.tab.c" /* yacc.c:1646  */
+#line 2160 "program5.tab.c" /* yacc.c:1646  */
     break;
 
   case 55:
-#line 500 "program4.y" /* yacc.c:1646  */
+#line 500 "program5.y" /* yacc.c:1646  */
     {
     (yyval.ttype) = (yyvsp[-1].ttype);
     (yyval.ttype)->pushNonTerminal((yyvsp[0].ttype));
     (yyval.ttype)->setStructureType("local_var_declmore");
   }
-#line 2170 "program4.tab.c" /* yacc.c:1646  */
+#line 2170 "program5.tab.c" /* yacc.c:1646  */
     break;
 
   case 56:
-#line 509 "program4.y" /* yacc.c:1646  */
+#line 509 "program5.y" /* yacc.c:1646  */
     {
     (yyval.ttype) = new Node;
     (yyval.ttype)->setValProd("<LocalVarDeclaration> --> <Type> identifier ;");
@@ -2179,120 +2179,126 @@ yyreduce:
     (yyval.ttype)->setValId((yyvsp[-1].ttype)->getValId());
     (yyval.ttype)->pushNonTerminal((yyvsp[-2].ttype));
   }
-#line 2183 "program4.tab.c" /* yacc.c:1646  */
+#line 2183 "program5.tab.c" /* yacc.c:1646  */
     break;
 
   case 57:
-#line 521 "program4.y" /* yacc.c:1646  */
+#line 521 "program5.y" /* yacc.c:1646  */
     {
     (yyval.ttype) = new Node;
     (yyval.ttype)->setStructureType("statements");
     (yyval.ttype)->pushNonTerminal((yyvsp[0].ttype));
   }
-#line 2193 "program4.tab.c" /* yacc.c:1646  */
+#line 2193 "program5.tab.c" /* yacc.c:1646  */
     break;
 
   case 58:
-#line 526 "program4.y" /* yacc.c:1646  */
+#line 526 "program5.y" /* yacc.c:1646  */
     {
     (yyval.ttype) = (yyvsp[-1].ttype);
     (yyval.ttype)->pushNonTerminal((yyvsp[0].ttype));
   }
-#line 2202 "program4.tab.c" /* yacc.c:1646  */
+#line 2202 "program5.tab.c" /* yacc.c:1646  */
     break;
 
   case 59:
-#line 534 "program4.y" /* yacc.c:1646  */
+#line 534 "program5.y" /* yacc.c:1646  */
     {
     (yyval.ttype) = new Node;
     (yyval.ttype)->setValProd("<Statement> --> ;");
     (yyval.ttype)->setStructureType("statement_semicolon");
   }
-#line 2212 "program4.tab.c" /* yacc.c:1646  */
+#line 2212 "program5.tab.c" /* yacc.c:1646  */
     break;
 
   case 60:
-#line 539 "program4.y" /* yacc.c:1646  */
+#line 539 "program5.y" /* yacc.c:1646  */
     {
     (yyval.ttype) = new Node;
     (yyval.ttype)->setValProd("<Statement> --> <Name> = <Expression> ;");
     (yyval.ttype)->setStructureType("statement_assignment");
+    (yyval.ttype)->setLocation((yylsp[-3]).first_line, (yylsp[-3]).first_column);
     (yyval.ttype)->pushNonTerminal((yyvsp[-3].ttype));
     (yyval.ttype)->pushNonTerminal((yyvsp[-1].ttype));
   }
-#line 2224 "program4.tab.c" /* yacc.c:1646  */
+#line 2225 "program5.tab.c" /* yacc.c:1646  */
     break;
 
   case 61:
-#line 546 "program4.y" /* yacc.c:1646  */
+#line 547 "program5.y" /* yacc.c:1646  */
     {
     (yyval.ttype) = new Node;
     (yyval.ttype)->setValProd("<Statement> --> <Name> ( <ArgList> ) ;");
     (yyval.ttype)->setStructureType("statement_methodcall");
+    (yyval.ttype)->setLocation((yylsp[-4]).first_line, (yylsp[-4]).first_column);
     (yyval.ttype)->pushNonTerminal((yyvsp[-4].ttype));
     (yyval.ttype)->pushNonTerminal((yyvsp[-2].ttype));
   }
-#line 2236 "program4.tab.c" /* yacc.c:1646  */
+#line 2238 "program5.tab.c" /* yacc.c:1646  */
     break;
 
   case 62:
-#line 553 "program4.y" /* yacc.c:1646  */
+#line 555 "program5.y" /* yacc.c:1646  */
     {
     (yyval.ttype) = new Node;
     (yyval.ttype)->setValProd("<Statement> --> <ConditionalStatement>");
     (yyval.ttype)->setStructureType("statement_conditionalstmt");
+    (yyval.ttype)->setLocation((yylsp[0]).first_line, (yylsp[0]).first_column);
     (yyval.ttype)->pushNonTerminal((yyvsp[0].ttype));
   }
-#line 2247 "program4.tab.c" /* yacc.c:1646  */
+#line 2250 "program5.tab.c" /* yacc.c:1646  */
     break;
 
   case 63:
-#line 559 "program4.y" /* yacc.c:1646  */
+#line 562 "program5.y" /* yacc.c:1646  */
     {
     (yyval.ttype) = new Node;
     (yyval.ttype)->setValProd("<Statement> --> print ( <ArgList> ) ;");
     (yyval.ttype)->setStructureType("statement_print");
+    (yyval.ttype)->setLocation((yylsp[-4]).first_line, (yylsp[-4]).first_column);
     (yyval.ttype)->pushNonTerminal((yyvsp[-2].ttype));
   }
-#line 2258 "program4.tab.c" /* yacc.c:1646  */
+#line 2262 "program5.tab.c" /* yacc.c:1646  */
     break;
 
   case 64:
-#line 565 "program4.y" /* yacc.c:1646  */
+#line 569 "program5.y" /* yacc.c:1646  */
     {
     (yyval.ttype) = new Node;
     (yyval.ttype)->setValProd("<Statement> --> while ( <Expression> ) <Statement>");
     (yyval.ttype)->setStructureType("statement_while");
+    (yyval.ttype)->setLocation((yylsp[-4]).first_line, (yylsp[-4]).first_column);
     (yyval.ttype)->pushNonTerminal((yyvsp[-2].ttype));
     (yyval.ttype)->pushNonTerminal((yyvsp[0].ttype));
   }
-#line 2270 "program4.tab.c" /* yacc.c:1646  */
+#line 2275 "program5.tab.c" /* yacc.c:1646  */
     break;
 
   case 65:
-#line 572 "program4.y" /* yacc.c:1646  */
+#line 577 "program5.y" /* yacc.c:1646  */
     {
     (yyval.ttype) = new Node;
     (yyval.ttype)->setValProd("<Statement> --> return <OptionalExpression> ;");
     (yyval.ttype)->setStructureType("statement_return");
+    (yyval.ttype)->setLocation((yylsp[-2]).first_line, (yylsp[-2]).first_column);
     (yyval.ttype)->pushNonTerminal((yyvsp[-1].ttype));
   }
-#line 2281 "program4.tab.c" /* yacc.c:1646  */
+#line 2287 "program5.tab.c" /* yacc.c:1646  */
     break;
 
   case 66:
-#line 578 "program4.y" /* yacc.c:1646  */
+#line 584 "program5.y" /* yacc.c:1646  */
     {
     (yyval.ttype) = new Node;
     (yyval.ttype)->setValProd("<Statement> --> <Block>");
     (yyval.ttype)->setStructureType("statement_block");
     (yyval.ttype)->pushNonTerminal((yyvsp[0].ttype));
   }
-#line 2292 "program4.tab.c" /* yacc.c:1646  */
+#line 2298 "program5.tab.c" /* yacc.c:1646  */
     break;
 
   case 67:
-#line 588 "program4.y" /* yacc.c:1646  */
+#line 594 "program5.y" /* yacc.c:1646  */
     {
     (yyval.ttype) = new Node;
     (yyval.ttype)->setValProd("<ConditionalStatement> --> if ( <Expression> ) <Statement>");
@@ -2300,11 +2306,11 @@ yyreduce:
     (yyval.ttype)->pushNonTerminal((yyvsp[-2].ttype));
     (yyval.ttype)->pushNonTerminal((yyvsp[0].ttype));
   }
-#line 2304 "program4.tab.c" /* yacc.c:1646  */
+#line 2310 "program5.tab.c" /* yacc.c:1646  */
     break;
 
   case 68:
-#line 595 "program4.y" /* yacc.c:1646  */
+#line 601 "program5.y" /* yacc.c:1646  */
     {
     (yyval.ttype) = new Node;
     (yyval.ttype)->setValProd("<ConditionalStatement> --> if ( <Expression> ) <Statement> else <Statement>");
@@ -2313,11 +2319,11 @@ yyreduce:
     (yyval.ttype)->pushNonTerminal((yyvsp[-2].ttype));
     (yyval.ttype)->pushNonTerminal((yyvsp[0].ttype));
   }
-#line 2317 "program4.tab.c" /* yacc.c:1646  */
+#line 2323 "program5.tab.c" /* yacc.c:1646  */
     break;
 
   case 69:
-#line 607 "program4.y" /* yacc.c:1646  */
+#line 613 "program5.y" /* yacc.c:1646  */
     {
     (yyval.ttype) = new Node;
     (yyval.ttype)->setValKeyw("this");
@@ -2325,421 +2331,448 @@ yyreduce:
     (yyval.ttype)->setValProd("<Name> --> this");
     (yyval.ttype)->setStructureType("name_this");
   }
-#line 2329 "program4.tab.c" /* yacc.c:1646  */
+#line 2335 "program5.tab.c" /* yacc.c:1646  */
     break;
 
   case 70:
-#line 614 "program4.y" /* yacc.c:1646  */
+#line 620 "program5.y" /* yacc.c:1646  */
     {
     (yyval.ttype) = new Node;
     (yyval.ttype)->setValProd("<Name> --> identifier [ <Expression> ]");
     (yyval.ttype)->pushNonTerminal((yyvsp[-1].ttype));
     (yyval.ttype)->setValId((yyvsp[-3].ttype)->getValId());
+    (yyval.ttype)->setLocation((yylsp[-1]).first_line, (yylsp[-1]).first_column);
     (yyval.ttype)->setStructureType("name_lsexprs_other");
   }
-#line 2341 "program4.tab.c" /* yacc.c:1646  */
+#line 2348 "program5.tab.c" /* yacc.c:1646  */
     break;
 
   case 71:
-#line 621 "program4.y" /* yacc.c:1646  */
+#line 628 "program5.y" /* yacc.c:1646  */
     {
     (yyval.ttype) = new Node;
     (yyval.ttype)->pushNonTerminal((yyvsp[-2].ttype));
     (yyval.ttype)->pushNonTerminal((yyvsp[0].ttype));
+    (yyval.ttype)->setLocation((yylsp[-2]).first_line, (yylsp[-2]).first_column);
     (yyval.ttype)->setStructureType("name_iddotid");
   }
-#line 2352 "program4.tab.c" /* yacc.c:1646  */
+#line 2360 "program5.tab.c" /* yacc.c:1646  */
     break;
 
   case 72:
-#line 627 "program4.y" /* yacc.c:1646  */
+#line 635 "program5.y" /* yacc.c:1646  */
     {
     (yyval.ttype) = new Node;
     (yyval.ttype)->pushNonTerminal((yyvsp[-2].ttype));
     (yyval.ttype)->pushNonTerminal((yyvsp[0].ttype));
     (yyval.ttype)->setValProd("<Name> --> <Name> . identifier");
+    (yyval.ttype)->setLocation((yylsp[-2]).first_line, (yylsp[-2]).first_column);
     (yyval.ttype)->setStructureType("name_dotid");
   }
-#line 2364 "program4.tab.c" /* yacc.c:1646  */
+#line 2373 "program5.tab.c" /* yacc.c:1646  */
     break;
 
   case 73:
-#line 634 "program4.y" /* yacc.c:1646  */
+#line 643 "program5.y" /* yacc.c:1646  */
     {
     (yyval.ttype) = (yyvsp[-3].ttype);
     (yyval.ttype)->pushNonTerminal((yyvsp[-1].ttype));
     (yyval.ttype)->setValProd("<Name> --> <Name> [ <Expression> ]");
+    (yyval.ttype)->setLocation((yylsp[-3]).first_line, (yylsp[-3]).first_column);
     (yyval.ttype)->setStructureType("name_lsexprs_other");
   }
-#line 2375 "program4.tab.c" /* yacc.c:1646  */
+#line 2385 "program5.tab.c" /* yacc.c:1646  */
     break;
 
   case 74:
-#line 644 "program4.y" /* yacc.c:1646  */
+#line 654 "program5.y" /* yacc.c:1646  */
     {
     (yyval.ttype) = new Node;
     (yyval.ttype)->setValProd("<Name> --> identifier");
     (yyval.ttype)->setValId((yyvsp[0].ttype)->getValId());
+    (yyval.ttype)->setLocation((yylsp[0]).first_line, (yylsp[0]).first_column);
     (yyval.ttype)->setStructureType("name_id");
   }
-#line 2386 "program4.tab.c" /* yacc.c:1646  */
+#line 2397 "program5.tab.c" /* yacc.c:1646  */
     break;
 
   case 75:
-#line 650 "program4.y" /* yacc.c:1646  */
+#line 661 "program5.y" /* yacc.c:1646  */
     {
     (yyval.ttype) = (yyvsp[0].ttype);
   }
-#line 2394 "program4.tab.c" /* yacc.c:1646  */
+#line 2405 "program5.tab.c" /* yacc.c:1646  */
     break;
 
   case 76:
-#line 657 "program4.y" /* yacc.c:1646  */
+#line 668 "program5.y" /* yacc.c:1646  */
     {
     (yyval.ttype) = new Node;
     (yyval.ttype)->setStructureType("arg_lists");
   }
-#line 2403 "program4.tab.c" /* yacc.c:1646  */
+#line 2414 "program5.tab.c" /* yacc.c:1646  */
     break;
 
   case 77:
-#line 661 "program4.y" /* yacc.c:1646  */
+#line 672 "program5.y" /* yacc.c:1646  */
     {
     (yyval.ttype) = (yyvsp[-2].ttype);
     (yyval.ttype)->_type.append(" x " + (yyvsp[0].ttype)->getValType());
     (yyval.ttype)->pushNonTerminal((yyvsp[0].ttype));
   }
-#line 2413 "program4.tab.c" /* yacc.c:1646  */
+#line 2424 "program5.tab.c" /* yacc.c:1646  */
     break;
 
   case 78:
-#line 670 "program4.y" /* yacc.c:1646  */
+#line 681 "program5.y" /* yacc.c:1646  */
     {
     (yyval.ttype) = new Node;
     (yyval.ttype)->setValType("void");
     (yyval.ttype)->setStructureType("arg_list");
   }
-#line 2423 "program4.tab.c" /* yacc.c:1646  */
+#line 2434 "program5.tab.c" /* yacc.c:1646  */
     break;
 
   case 79:
-#line 675 "program4.y" /* yacc.c:1646  */
+#line 686 "program5.y" /* yacc.c:1646  */
     {
     (yyval.ttype) = (yyvsp[0].ttype);
     (yyval.ttype)->setValProd("<ArgList> --> <Expression> <,<Expression> >*");
     (yyval.ttype)->setStructureType("arg_list");
     (yyval.ttype)->setValType(string((yyvsp[-1].ttype)->getValType()) + (yyvsp[0].ttype)->getValType());
+    (yyval.ttype)->setLocation((yylsp[-1]).first_line, (yylsp[-1]).first_column);
     (yyval.ttype)->pushNonTerminal((yyvsp[-1].ttype));
   }
-#line 2435 "program4.tab.c" /* yacc.c:1646  */
+#line 2447 "program5.tab.c" /* yacc.c:1646  */
     break;
 
   case 80:
-#line 686 "program4.y" /* yacc.c:1646  */
+#line 698 "program5.y" /* yacc.c:1646  */
     {
     (yyval.ttype) = new Node;
     (yyval.ttype)->setValProd("<OptionalExpression> --> epsilon");
     (yyval.ttype)->setStructureType("optional_expression");
   }
-#line 2445 "program4.tab.c" /* yacc.c:1646  */
+#line 2457 "program5.tab.c" /* yacc.c:1646  */
     break;
 
   case 81:
-#line 691 "program4.y" /* yacc.c:1646  */
+#line 703 "program5.y" /* yacc.c:1646  */
     {
     (yyval.ttype) = new Node;
     (yyval.ttype)->pushNonTerminal((yyvsp[0].ttype));
     (yyval.ttype)->setValProd("<OptionalExpression> --> <Expression>");
     (yyval.ttype)->setStructureType("optional_expression");
   }
-#line 2456 "program4.tab.c" /* yacc.c:1646  */
+#line 2468 "program5.tab.c" /* yacc.c:1646  */
     break;
 
   case 82:
-#line 701 "program4.y" /* yacc.c:1646  */
+#line 713 "program5.y" /* yacc.c:1646  */
     {
     (yyval.ttype) = new Node;
     (yyval.ttype)->pushNonTerminal((yyvsp[0].ttype));
     (yyval.ttype)->setValProd("<Expression> --> <Name>");
+    (yyval.ttype)->setLocation((yylsp[0]).first_line, (yylsp[0]).first_column);
     (yyval.ttype)->setStructureType("expression_name");
   }
-#line 2467 "program4.tab.c" /* yacc.c:1646  */
+#line 2480 "program5.tab.c" /* yacc.c:1646  */
     break;
 
   case 83:
-#line 707 "program4.y" /* yacc.c:1646  */
+#line 720 "program5.y" /* yacc.c:1646  */
     {
     (yyval.ttype) = new Node;
     (yyval.ttype)->setValProd("<Expression> --> number");
     (yyval.ttype)->setValType("int");
     (yyval.ttype)->setStructureType("expression_number");
   }
-#line 2478 "program4.tab.c" /* yacc.c:1646  */
+#line 2491 "program5.tab.c" /* yacc.c:1646  */
     break;
 
   case 84:
-#line 713 "program4.y" /* yacc.c:1646  */
+#line 726 "program5.y" /* yacc.c:1646  */
     {
     (yyval.ttype) = new Node;
     (yyval.ttype)->setValProd("<Expression> --> null");
     (yyval.ttype)->setValType("null"); // good with classes
     (yyval.ttype)->setStructureType("expression_null");
   }
-#line 2489 "program4.tab.c" /* yacc.c:1646  */
+#line 2502 "program5.tab.c" /* yacc.c:1646  */
     break;
 
   case 85:
-#line 719 "program4.y" /* yacc.c:1646  */
+#line 732 "program5.y" /* yacc.c:1646  */
     {
     (yyval.ttype) = new Node;
     (yyval.ttype)->setValProd("<Expression> --> <Name> ( <ArgList> )");
     (yyval.ttype)->pushNonTerminal((yyvsp[-3].ttype));
     (yyval.ttype)->pushNonTerminal((yyvsp[-1].ttype));
+    (yyval.ttype)->setLocation((yylsp[-3]).first_line, (yylsp[-3]).first_column);
     (yyval.ttype)->setStructureType("expression_methodcall");
   }
-#line 2501 "program4.tab.c" /* yacc.c:1646  */
+#line 2515 "program5.tab.c" /* yacc.c:1646  */
     break;
 
   case 86:
-#line 726 "program4.y" /* yacc.c:1646  */
+#line 740 "program5.y" /* yacc.c:1646  */
     {
     (yyval.ttype) = new Node;
     (yyval.ttype)->setValProd("<Expression> --> read ( )");
     (yyval.ttype)->setStructureType("expression_read");
+    (yyval.ttype)->setLocation((yylsp[-2]).first_line, (yylsp[-2]).first_column);
     (yyval.ttype)->setValType("read");
   }
-#line 2512 "program4.tab.c" /* yacc.c:1646  */
+#line 2527 "program5.tab.c" /* yacc.c:1646  */
     break;
 
   case 87:
-#line 732 "program4.y" /* yacc.c:1646  */
+#line 747 "program5.y" /* yacc.c:1646  */
     {
     (yyval.ttype) = new Node;
     (yyval.ttype)->pushNonTerminal((yyvsp[0].ttype));
     (yyval.ttype)->setValProd("<Expression> --> <NewExpression>");
+    (yyval.ttype)->setLocation((yylsp[0]).first_line, (yylsp[0]).first_column);
     (yyval.ttype)->setStructureType("expression_newexpression");
   }
-#line 2523 "program4.tab.c" /* yacc.c:1646  */
+#line 2539 "program5.tab.c" /* yacc.c:1646  */
     break;
 
   case 88:
-#line 738 "program4.y" /* yacc.c:1646  */
+#line 754 "program5.y" /* yacc.c:1646  */
     {
     (yyval.ttype) = new Node;
     (yyval.ttype)->pushNonTerminal((yyvsp[0].ttype));
     (yyval.ttype)->setValProd("<Expression> --> + <Expression>");
     (yyval.ttype)->setUnaryOperator("+");
+    (yyval.ttype)->setLocation((yylsp[-1]).first_line, (yylsp[-1]).first_column);
     (yyval.ttype)->setStructureType("expression_unary");
   }
-#line 2535 "program4.tab.c" /* yacc.c:1646  */
+#line 2552 "program5.tab.c" /* yacc.c:1646  */
     break;
 
   case 89:
-#line 745 "program4.y" /* yacc.c:1646  */
+#line 762 "program5.y" /* yacc.c:1646  */
     {
     (yyval.ttype) = new Node;
     (yyval.ttype)->pushNonTerminal((yyvsp[0].ttype));
     (yyval.ttype)->setValProd("<Expression> --> - <Expression>");
     (yyval.ttype)->setUnaryOperator("-");
+    (yyval.ttype)->setLocation((yylsp[-1]).first_line, (yylsp[-1]).first_column);
     (yyval.ttype)->setStructureType("expression_unary");
   }
-#line 2547 "program4.tab.c" /* yacc.c:1646  */
+#line 2565 "program5.tab.c" /* yacc.c:1646  */
     break;
 
   case 90:
-#line 752 "program4.y" /* yacc.c:1646  */
+#line 770 "program5.y" /* yacc.c:1646  */
     {
     (yyval.ttype) = new Node;
     (yyval.ttype)->pushNonTerminal((yyvsp[0].ttype));
     (yyval.ttype)->setValProd("<Expression> --> ! <Expression>");
+    (yyval.ttype)->setLocation((yylsp[-1]).first_line, (yylsp[-1]).first_column);
     (yyval.ttype)->setUnaryOperator("!");
     (yyval.ttype)->setStructureType("expression_unary_rel");
   }
-#line 2559 "program4.tab.c" /* yacc.c:1646  */
+#line 2578 "program5.tab.c" /* yacc.c:1646  */
     break;
 
   case 91:
-#line 759 "program4.y" /* yacc.c:1646  */
+#line 778 "program5.y" /* yacc.c:1646  */
     {
     (yyval.ttype) = new Node;
     (yyval.ttype)->pushNonTerminal((yyvsp[-2].ttype));
     (yyval.ttype)->pushNonTerminal((yyvsp[0].ttype));
     (yyval.ttype)->setValProd("<Expression> --> <Expression> == <Expression>");
     (yyval.ttype)->setValOp("==");
-    (yyval.ttype)->setStructureType("expression_binary_rel");
+    (yyval.ttype)->setLocation((yylsp[-2]).first_line, (yylsp[-2]).first_column);
+    (yyval.ttype)->setStructureType("expression_binary");
   }
-#line 2572 "program4.tab.c" /* yacc.c:1646  */
+#line 2592 "program5.tab.c" /* yacc.c:1646  */
     break;
 
   case 92:
-#line 767 "program4.y" /* yacc.c:1646  */
+#line 787 "program5.y" /* yacc.c:1646  */
     {
     (yyval.ttype) = new Node;
     (yyval.ttype)->pushNonTerminal((yyvsp[-2].ttype));
     (yyval.ttype)->pushNonTerminal((yyvsp[0].ttype));
     (yyval.ttype)->setValOp("!=");
     (yyval.ttype)->setValProd("<Expression> --> <Expression> != <Expression>");
-    (yyval.ttype)->setStructureType("expression_binary_rel");
+    (yyval.ttype)->setLocation((yylsp[-2]).first_line, (yylsp[-2]).first_column);
+    (yyval.ttype)->setStructureType("expression_binary");
   }
-#line 2585 "program4.tab.c" /* yacc.c:1646  */
+#line 2606 "program5.tab.c" /* yacc.c:1646  */
     break;
 
   case 93:
-#line 775 "program4.y" /* yacc.c:1646  */
+#line 796 "program5.y" /* yacc.c:1646  */
     {
     (yyval.ttype) = new Node;
     (yyval.ttype)->pushNonTerminal((yyvsp[-2].ttype));
     (yyval.ttype)->pushNonTerminal((yyvsp[0].ttype));
     (yyval.ttype)->setValOp("<=");
     (yyval.ttype)->setValProd("<Expression> --> <Expression> <= <Expression>");
-    (yyval.ttype)->setStructureType("expression_binary_rel");
+    (yyval.ttype)->setLocation((yylsp[-2]).first_line, (yylsp[-2]).first_column);
+    (yyval.ttype)->setStructureType("expression_binary");
   }
-#line 2598 "program4.tab.c" /* yacc.c:1646  */
+#line 2620 "program5.tab.c" /* yacc.c:1646  */
     break;
 
   case 94:
-#line 783 "program4.y" /* yacc.c:1646  */
+#line 805 "program5.y" /* yacc.c:1646  */
     {
     (yyval.ttype) = new Node;
     (yyval.ttype)->pushNonTerminal((yyvsp[-2].ttype));
     (yyval.ttype)->pushNonTerminal((yyvsp[0].ttype));
     (yyval.ttype)->setValOp(">=");
     (yyval.ttype)->setValProd("<Expression> --> <Expression> >= <Expression>");
-    (yyval.ttype)->setStructureType("expression_binary_rel");
+    (yyval.ttype)->setLocation((yylsp[-2]).first_line, (yylsp[-2]).first_column);
+    (yyval.ttype)->setStructureType("expression_binary");
   }
-#line 2611 "program4.tab.c" /* yacc.c:1646  */
+#line 2634 "program5.tab.c" /* yacc.c:1646  */
     break;
 
   case 95:
-#line 791 "program4.y" /* yacc.c:1646  */
+#line 814 "program5.y" /* yacc.c:1646  */
     {
     (yyval.ttype) = new Node;
     (yyval.ttype)->pushNonTerminal((yyvsp[-2].ttype));
     (yyval.ttype)->pushNonTerminal((yyvsp[0].ttype));
     (yyval.ttype)->setValOp(">");
     (yyval.ttype)->setValProd("<Expression> --> <Expression> > <Expression>");
-    (yyval.ttype)->setStructureType("expression_binary_rel");
+    (yyval.ttype)->setLocation((yylsp[-2]).first_line, (yylsp[-2]).first_column);
+    (yyval.ttype)->setStructureType("expression_binary");
   }
-#line 2624 "program4.tab.c" /* yacc.c:1646  */
+#line 2648 "program5.tab.c" /* yacc.c:1646  */
     break;
 
   case 96:
-#line 799 "program4.y" /* yacc.c:1646  */
+#line 823 "program5.y" /* yacc.c:1646  */
     {
     (yyval.ttype) = new Node;
     (yyval.ttype)->pushNonTerminal((yyvsp[-2].ttype));
     (yyval.ttype)->pushNonTerminal((yyvsp[0].ttype));
     (yyval.ttype)->setValOp("<");
     (yyval.ttype)->setValProd("<Expression> --> <Expression> < <Expression>");
-    (yyval.ttype)->setStructureType("expression_binary_rel");
+    (yyval.ttype)->setLocation((yylsp[-2]).first_line, (yylsp[-2]).first_column);
+    (yyval.ttype)->setStructureType("expression_binary");
   }
-#line 2637 "program4.tab.c" /* yacc.c:1646  */
+#line 2662 "program5.tab.c" /* yacc.c:1646  */
     break;
 
   case 97:
-#line 807 "program4.y" /* yacc.c:1646  */
+#line 832 "program5.y" /* yacc.c:1646  */
     {
     (yyval.ttype) = new Node;
     (yyval.ttype)->pushNonTerminal((yyvsp[-2].ttype));
     (yyval.ttype)->pushNonTerminal((yyvsp[0].ttype));
     (yyval.ttype)->setValOp("+");
     (yyval.ttype)->setValProd("<Expression> --> <Expression> + <Expression>");
-    (yyval.ttype)->setStructureType("expression_binary_a");
+    (yyval.ttype)->setStructureType("expression_binary");
+    (yyval.ttype)->setLocation((yylsp[-2]).first_line, (yylsp[-2]).first_column);
   }
-#line 2650 "program4.tab.c" /* yacc.c:1646  */
+#line 2676 "program5.tab.c" /* yacc.c:1646  */
     break;
 
   case 98:
-#line 815 "program4.y" /* yacc.c:1646  */
+#line 841 "program5.y" /* yacc.c:1646  */
     {
     (yyval.ttype) = new Node;
     (yyval.ttype)->pushNonTerminal((yyvsp[-2].ttype));
     (yyval.ttype)->pushNonTerminal((yyvsp[0].ttype));
     (yyval.ttype)->setValOp("-");
     (yyval.ttype)->setValProd("<Expression> --> <Expression> - <Expression>");
-    (yyval.ttype)->setStructureType("expression_binary_a");
+    (yyval.ttype)->setLocation((yylsp[-2]).first_line, (yylsp[-2]).first_column);
+    (yyval.ttype)->setStructureType("expression_binary");
   }
-#line 2663 "program4.tab.c" /* yacc.c:1646  */
+#line 2690 "program5.tab.c" /* yacc.c:1646  */
     break;
 
   case 99:
-#line 823 "program4.y" /* yacc.c:1646  */
+#line 850 "program5.y" /* yacc.c:1646  */
     {
     (yyval.ttype) = new Node;
     (yyval.ttype)->pushNonTerminal((yyvsp[-2].ttype));
     (yyval.ttype)->pushNonTerminal((yyvsp[0].ttype));
     (yyval.ttype)->setValOp("||");
     (yyval.ttype)->setValProd("<Expression> --> <Expression> || <Expression>");
-    (yyval.ttype)->setStructureType("expression_binary_log");
+    (yyval.ttype)->setLocation((yylsp[-2]).first_line, (yylsp[-2]).first_column);
+    (yyval.ttype)->setStructureType("expression_binary");
   }
-#line 2676 "program4.tab.c" /* yacc.c:1646  */
+#line 2704 "program5.tab.c" /* yacc.c:1646  */
     break;
 
   case 100:
-#line 831 "program4.y" /* yacc.c:1646  */
+#line 859 "program5.y" /* yacc.c:1646  */
     {
     (yyval.ttype) = new Node;
     (yyval.ttype)->pushNonTerminal((yyvsp[-2].ttype));
     (yyval.ttype)->pushNonTerminal((yyvsp[0].ttype));
     (yyval.ttype)->setValOp("*");
     (yyval.ttype)->setValProd("<Expression> --> <Expression> * <Expression>");
-    (yyval.ttype)->setStructureType("expression_binary_a");
+    (yyval.ttype)->setLocation((yylsp[-2]).first_line, (yylsp[-2]).first_column);
+    (yyval.ttype)->setStructureType("expression_binary");
   }
-#line 2689 "program4.tab.c" /* yacc.c:1646  */
+#line 2718 "program5.tab.c" /* yacc.c:1646  */
     break;
 
   case 101:
-#line 839 "program4.y" /* yacc.c:1646  */
+#line 868 "program5.y" /* yacc.c:1646  */
     {
     (yyval.ttype) = new Node;
     (yyval.ttype)->pushNonTerminal((yyvsp[-2].ttype));
     (yyval.ttype)->pushNonTerminal((yyvsp[0].ttype));
     (yyval.ttype)->setValOp("/");
     (yyval.ttype)->setValProd("<Expression> --> <Expression> / <Expression>");
-    (yyval.ttype)->setStructureType("expression_binary_a");
+    (yyval.ttype)->setLocation((yylsp[-2]).first_line, (yylsp[-2]).first_column);
+    (yyval.ttype)->setStructureType("expression_binary");
   }
-#line 2702 "program4.tab.c" /* yacc.c:1646  */
+#line 2732 "program5.tab.c" /* yacc.c:1646  */
     break;
 
   case 102:
-#line 847 "program4.y" /* yacc.c:1646  */
+#line 877 "program5.y" /* yacc.c:1646  */
     {
     (yyval.ttype) = new Node;
     (yyval.ttype)->pushNonTerminal((yyvsp[-2].ttype));
     (yyval.ttype)->pushNonTerminal((yyvsp[0].ttype));
     (yyval.ttype)->setValOp("%");
     (yyval.ttype)->setValProd("<Expression> --> <Expression> % <Expression>");
-    (yyval.ttype)->setStructureType("expression_binary_a");
+    (yyval.ttype)->setLocation((yylsp[-2]).first_line, (yylsp[-2]).first_column);
+    (yyval.ttype)->setStructureType("expression_binary");
   }
-#line 2715 "program4.tab.c" /* yacc.c:1646  */
+#line 2746 "program5.tab.c" /* yacc.c:1646  */
     break;
 
   case 103:
-#line 855 "program4.y" /* yacc.c:1646  */
+#line 886 "program5.y" /* yacc.c:1646  */
     {
     (yyval.ttype) = new Node;
     (yyval.ttype)->pushNonTerminal((yyvsp[-2].ttype));
     (yyval.ttype)->pushNonTerminal((yyvsp[0].ttype));
     (yyval.ttype)->setValOp("&&");
     (yyval.ttype)->setValProd("<Expression> --> <Expression> && <Expression>");
-    (yyval.ttype)->setStructureType("expression_binary_log");
+    (yyval.ttype)->setLocation((yylsp[-2]).first_line, (yylsp[-2]).first_column);
+    (yyval.ttype)->setStructureType("expression_binary");
   }
-#line 2728 "program4.tab.c" /* yacc.c:1646  */
+#line 2760 "program5.tab.c" /* yacc.c:1646  */
     break;
 
   case 104:
-#line 863 "program4.y" /* yacc.c:1646  */
+#line 895 "program5.y" /* yacc.c:1646  */
     {
     (yyval.ttype) = new Node;
     (yyval.ttype)->pushNonTerminal((yyvsp[-1].ttype));
     (yyval.ttype)->setValProd("<Expression> --> ( <Expression> )");
+    (yyval.ttype)->setLocation((yylsp[-2]).first_line, (yylsp[-2]).first_column);
     (yyval.ttype)->setStructureType("expression_leftrightpar");
   }
-#line 2739 "program4.tab.c" /* yacc.c:1646  */
+#line 2772 "program5.tab.c" /* yacc.c:1646  */
     break;
 
   case 105:
-#line 873 "program4.y" /* yacc.c:1646  */
+#line 906 "program5.y" /* yacc.c:1646  */
     {
     (yyval.ttype) = new Node;
     //$$->pushNonTerminal($2);
@@ -2747,78 +2780,83 @@ yyreduce:
     (yyval.ttype)->setValId((yyvsp[-3].ttype)->getValId());
     (yyval.ttype)->setValType((yyvsp[-1].ttype)->getValType());
     (yyval.ttype)->setValProd("<NewExpression> --> new identifier ( <ArgList> )");
+    (yyval.ttype)->setLocation((yylsp[-4]).first_line, (yylsp[-4]).first_column);
     (yyval.ttype)->setStructureType("new_expression_constructor");
   }
-#line 2753 "program4.tab.c" /* yacc.c:1646  */
+#line 2787 "program5.tab.c" /* yacc.c:1646  */
     break;
 
   case 106:
-#line 882 "program4.y" /* yacc.c:1646  */
+#line 916 "program5.y" /* yacc.c:1646  */
     { // FIXME: do something here as well
     (yyval.ttype) = new Node;
     (yyval.ttype)->pushNonTerminal((yyvsp[-1].ttype));
     (yyval.ttype)->pushNonTerminal((yyvsp[0].ttype));
     (yyval.ttype)->setValType("int");
     (yyval.ttype)->setValProd("<NewExpression> --> new int <[ Expression ]>* <[ ]>+");
+    (yyval.ttype)->setLocation((yylsp[-3]).first_line, (yylsp[-3]).first_column);
     (yyval.ttype)->setStructureType("new_expression_twobrackets");
   }
-#line 2766 "program4.tab.c" /* yacc.c:1646  */
+#line 2801 "program5.tab.c" /* yacc.c:1646  */
     break;
 
   case 107:
-#line 890 "program4.y" /* yacc.c:1646  */
+#line 925 "program5.y" /* yacc.c:1646  */
     {
     (yyval.ttype) = new Node;
     (yyval.ttype)->pushNonTerminal((yyvsp[-1].ttype));
     (yyval.ttype)->pushNonTerminal((yyvsp[0].ttype));
     (yyval.ttype)->setValType((yyvsp[-2].ttype)->getValId());
     (yyval.ttype)->setValProd("<NewExpression> --> new identifier <[ Expression ]>* <[ ]>*");
+    (yyval.ttype)->setLocation((yylsp[-3]).first_line, (yylsp[-3]).first_column);
     (yyval.ttype)->setStructureType("new_expression_twobrackets");
   }
-#line 2779 "program4.tab.c" /* yacc.c:1646  */
+#line 2815 "program5.tab.c" /* yacc.c:1646  */
     break;
 
   case 108:
-#line 898 "program4.y" /* yacc.c:1646  */
+#line 934 "program5.y" /* yacc.c:1646  */
     {
     (yyval.ttype) = new Node;
     (yyval.ttype)->pushNonTerminal((yyvsp[0].ttype));
     (yyval.ttype)->setValType("int");
     (yyval.ttype)->setValProd("<NewExpression> --> new int <[ Expression ]>*");
+    (yyval.ttype)->setLocation((yylsp[-2]).first_line, (yylsp[-2]).first_column);
     (yyval.ttype)->setStructureType("new_expression_brackets");
   }
-#line 2791 "program4.tab.c" /* yacc.c:1646  */
+#line 2828 "program5.tab.c" /* yacc.c:1646  */
     break;
 
   case 109:
-#line 905 "program4.y" /* yacc.c:1646  */
+#line 942 "program5.y" /* yacc.c:1646  */
     {
     (yyval.ttype) = new Node;
     (yyval.ttype)->pushNonTerminal((yyvsp[0].ttype));
     (yyval.ttype)->setValType((yyvsp[-1].ttype)->getValId());
     (yyval.ttype)->setValProd("<NewExpression> --> new identifier <[ Expression ]>*");
+    (yyval.ttype)->setLocation((yylsp[-2]).first_line, (yylsp[-2]).first_column);
     (yyval.ttype)->setStructureType("new_expression_brackets");
   }
-#line 2803 "program4.tab.c" /* yacc.c:1646  */
+#line 2841 "program5.tab.c" /* yacc.c:1646  */
     break;
 
   case 110:
-#line 916 "program4.y" /* yacc.c:1646  */
+#line 954 "program5.y" /* yacc.c:1646  */
     { (yyval.ttype) = new Node; }
-#line 2809 "program4.tab.c" /* yacc.c:1646  */
+#line 2847 "program5.tab.c" /* yacc.c:1646  */
     break;
 
   case 111:
-#line 917 "program4.y" /* yacc.c:1646  */
+#line 955 "program5.y" /* yacc.c:1646  */
     {
     (yyval.ttype) = (yyvsp[-3].ttype);
     (yyval.ttype)->pushNonTerminal((yyvsp[-1].ttype));
   }
-#line 2818 "program4.tab.c" /* yacc.c:1646  */
+#line 2856 "program5.tab.c" /* yacc.c:1646  */
     break;
 
 
-#line 2822 "program4.tab.c" /* yacc.c:1646  */
+#line 2860 "program5.tab.c" /* yacc.c:1646  */
       default: break;
     }
   /* User semantic actions sometimes alter yychar, and that requires
@@ -3053,5 +3091,5 @@ yyreturn:
 #endif
   return yyresult;
 }
-#line 923 "program4.y" /* yacc.c:1906  */
+#line 961 "program5.y" /* yacc.c:1906  */
 
