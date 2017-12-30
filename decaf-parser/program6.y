@@ -1,9 +1,9 @@
 /**
-  Program 5, program5.y
+  Program 6, program6.y
   Purpose: syntax analyzer (parser) file
 
   @author Batyr Nuryyev
-  @date   11/26/2017
+  @date   12/10/2017
 */
 
 
@@ -14,7 +14,7 @@
 #include <vector>
 #include <typeinfo>
 #include <FlexLexer.h>
-#include "program5.hpp"
+#include "program6.hpp"
 
 using namespace std;
 
@@ -564,6 +564,7 @@ statement:
     $$->setValProd("<Statement> --> print ( <ArgList> ) ;");
     $$->setStructureType("statement_print");
     $$->setLocation(@1.first_line, @1.first_column);
+    $$->setValType("void");
     $$->pushNonTerminal($3);
   }
   | WHILE LP expression RP statement {
@@ -742,7 +743,7 @@ expression:
     $$->setValProd("<Expression> --> read ( )");
     $$->setStructureType("expression_read");
     $$->setLocation(@1.first_line, @1.first_column);
-    $$->setValType("read");
+    $$->setValType("int");
   }
   | new_expression {
     $$ = new Node;
@@ -906,7 +907,7 @@ new_expression:
   NEW ID LP arg_list RP {
     $$ = new Node;
     //$$->pushNonTerminal($2);
-    //$$->pushNonTerminal($4);
+    $$->pushNonTerminal($4);
     $$->setValId($2->getValId());
     $$->setValType($4->getValType());
     $$->setValProd("<NewExpression> --> new identifier ( <ArgList> )");

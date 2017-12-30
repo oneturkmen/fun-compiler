@@ -1,9 +1,9 @@
 /**
-  Program 5, program5.hpp
+  Program 6, program6.hpp
   Purpose: tree and error reports class definitions
 
   @author Batyr Nuryyev
-  @date   11/26/2017
+  @date   12/10/2017
 */
 
 
@@ -30,6 +30,8 @@ class SymbolTable {
     SymbolTable *prev;
     vector < SymbolTable* > classes_sts;
     int num_of_statement_blocks = 0;
+    int num_of_constructors = 0;
+    int num_of_overriden_methods = 0;
 
 
     SymbolTable() { }
@@ -72,8 +74,12 @@ class SymbolTable {
     {
       auto value = in_symbol_table.find(key);
 
+      //cout << "DOING LOOKUP for key = " << key << endl;
+      //cout << scope_name << " " << scope_type << endl;
+
       if (value != in_symbol_table.end())
       {
+        //cout << value->second <<  "     FOUND   " << key << endl;
         return value->second;
       }
       else
@@ -123,7 +129,7 @@ class SymbolTable {
 
     string getCurrentMethodType()
     {
-      if (scope_type != "method_decl")
+      if (scope_type.substr(0, 11) != "method_decl")
       {
         return "";
       }
@@ -133,6 +139,46 @@ class SymbolTable {
         auto method = prev->lookup("method_decl_" + scope_name);
 
         return method;
+      }
+    }
+
+
+    string globalConstructorLookup(string class_id, string constructor_lookup)
+    {
+      if (scope_name == "global" && scope_type == "program")
+      {
+        string x = "";
+        for (auto c : classes_sts)
+        {
+          if (class_id == c->getScopeName())
+          {
+            // x = c->lookup(/* Something must go here ...*/);
+
+            int num_of_cons = c->getNumConstructors();
+            string target_constructor;
+
+            for (int i = 0 ; i <= num_of_cons; ++i)
+            {
+              target_constructor = c->lookup(string("constructor_decl_")+class_id+to_string(i));
+
+              if (target_constructor == (string(class_id+" <- ")+constructor_lookup))
+              {
+                return string(class_id+" <- ")+constructor_lookup;
+              }
+            }
+
+            if (target_constructor != constructor_lookup)
+            {
+              return "";
+            }
+          }
+          if (x != "") return x;
+        }
+        return "";
+      }
+      else
+      {
+        return prev->globalConstructorLookup(class_id, constructor_lookup);
       }
     }
 
@@ -201,14 +247,35 @@ class SymbolTable {
       scope_name = name;
     }
 
+    void incrementMethodOverride()
+    {
+      ++num_of_overriden_methods;
+    }
+
+    void incrementConstructorDecls()
+    {
+      ++num_of_constructors;
+    }
+
     string getScopeName()
     {
       return scope_name;
     }
 
+
     string getScopeType()
     {
       return scope_type;
+    }
+
+    int getNumMethodsOverriden()
+    {
+      return num_of_overriden_methods;
+    }
+
+    int getNumConstructors()
+    {
+      return num_of_constructors;
     }
 
     int getNumStmBlocks()

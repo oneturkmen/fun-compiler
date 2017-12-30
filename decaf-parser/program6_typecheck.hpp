@@ -1,19 +1,21 @@
 /**
-  Program 5, program5_typecheck.hpp
+  Program 6, program6_typecheck.hpp
   Purpose: two stages of type checking
 
   @author Batyr Nuryyev
-  @date   11/26/2017
+  @date   12/10/2017
 */
 
 
 #ifndef  TP_CHECK_CPP
 #define TP_CHECK_CPP
 
-#include "program5.hpp"
+#include "program6.hpp"
 #include <vector>
 #include <string>
 #include <map>
+
+extern bool main_exists;
 
 // SECOND STAGE
 void checkTypeTree(Node *root, vector <string> &errors)
@@ -92,7 +94,12 @@ void checkTypeTree(Node *root, vector <string> &errors)
     auto lvalue = root->_children_assgn[0]->getValType();
     auto rvalue = root->_children_assgn[1]->getValType();
 
-    if (lvalue.substr(0,3) != "int" && lvalue != "" && rvalue == "null")
+    if (lvalue.substr(0,3) == "int" && lvalue.size() <= 4)
+    {
+      lvalue = "int";
+    }
+
+    if (lvalue != "int" && lvalue != "" && rvalue == "null")
     {
       // do nothing ... I mean "null" can be assigned to any class type
     }
@@ -163,12 +170,21 @@ void checkTypeTree(Node *root, vector <string> &errors)
 
     if (function_arglist_type != arguments_type_rvalue)
     {
-      errors.push_back(string("ERR: ") +
-                       to_string(root->getLine()) + ":" +
-                       to_string(root->getColumn()) +
-                       " --> not enough arguments for <" + name_of_method + ">");
+      if (function_type == "")
+      {
+        errors.push_back(string("ERR: ") +
+                         to_string(root->getLine()) + ":" +
+                         to_string(root->getColumn()) +
+                         " --> method does not exist or call of constructor <" + name_of_method + ">");
+      }
+      else
+      {
+        errors.push_back(string("ERR: ") +
+                         to_string(root->getLine()) + ":" +
+                         to_string(root->getColumn()) +
+                         " --> not enough arguments for <" + name_of_method + ">");
+      }
     }
-
   }
   else if (current_node_structure == "statement_conditionalstmt")
   {
@@ -209,9 +225,10 @@ void checkTypeTree(Node *root, vector <string> &errors)
     // 1. get current method! scope
     // 2. get its type (e.g. int <- int x A x B)
     // 3. compare!
+
     checkTypeTree(root->_children_assgn[0], errors);
 
-    auto method_scope = root->symbol_table->getCurrentMethodType();
+    string method_scope = root->symbol_table->getCurrentMethodType();
 
     if (method_scope == "")
     {
@@ -235,10 +252,30 @@ void checkTypeTree(Node *root, vector <string> &errors)
 
       if (return_type != method_scope)
       {
-        errors.push_back(string("ERR: ") +
-                         to_string(root->getLine()) + ":" +
-                         to_string(root->getColumn()) +
-                         " --> <return> and <method> types differ");
+        for (int c = 0; c <= root->symbol_table->prev->getNumMethodsOverriden(); ++c)
+        {
+          method_scope = root->symbol_table->prev->lookup(string("method_decl_") + root->symbol_table->scope_name + "_" + to_string(c));
+          for (int i = 0; i < static_cast<int>(method_scope.size()); ++i)
+          {
+            if (method_scope[i] == '<')
+            {
+              method_scope = method_scope.substr(0, i-1);
+              break;
+            }
+          }
+
+          if (method_scope == return_type)
+          {
+            break;
+          }
+        }
+        if (method_scope != return_type)
+        {
+          errors.push_back(string("ERR: ") +
+                           to_string(root->getLine()) + ":" +
+                           to_string(root->getColumn()) +
+                           " --> <return> and <method> types differ");
+        }
       }
     }
   }
@@ -277,12 +314,12 @@ void checkTypeTree(Node *root, vector <string> &errors)
       checkTypeTree(condition, errors);
     }
 
-    if (condition->getValType() != "int")
+    if (condition->getValType() == "void" || condition->getValType() == "")
     {
       errors.push_back(string("ERR: ") +
-                       to_string(root->getLine()) + ":" +
-                       to_string(root->getColumn()) +
-                       " --> in conditional statement, expression must be of type <int>");
+                       to_string(condition->getLine()) + ":" +
+                       to_string(condition->getColumn()) +
+                       " --> in conditional statement, expression must be of reference type or <int>");
     }
 
     for (auto it = root->_children_assgn.begin() + 1;
@@ -347,8 +384,17 @@ void checkTypeTree(Node *root, vector <string> &errors)
       }
       else
       {
+        string method_type = root->_children_assgn[0]->getValType();
+
+        if (method_type == "")
+        {
+          method_type = current_symbol_table->deepLookup("var_decl_" + root->_children_assgn[0]->getValId()) == "" ?
+                        current_symbol_table->lookup("local_var_decl_" + root->_children_assgn[0]->getValId()) :
+                        current_symbol_table->deepLookup("var_decl_" + root->_children_assgn[0]->getValId());
+        }
+
         string custom_decl_type = current_symbol_table->globalClassLookup(target_class, string("var_decl_")+second);
-        string custom_meth_type = current_symbol_table->globalClassLookup(root->_children_assgn[0]->getValType(), string("method_decl_")+second);
+        string custom_meth_type = current_symbol_table->globalClassLookup(method_type, string("method_decl_")+second);
 
         if (custom_decl_type == "" && custom_meth_type == "")
         {
@@ -360,7 +406,6 @@ void checkTypeTree(Node *root, vector <string> &errors)
         }
         else
         {
-          cout << string("Setting the type for <") + custom_decl_type + ">" << endl;
           root->setValType(custom_decl_type == "" ? custom_meth_type : custom_decl_type);
           root->setValId(second);
         }
@@ -406,6 +451,7 @@ void checkTypeTree(Node *root, vector <string> &errors)
 
       if (custom_decl_type == "" && custom_meth_type == "")
       {
+        // cout << "SECOND " << second << endl;
         errors.push_back(string("ERR: ") +
                          to_string(root->getLine()) + ":" +
                          to_string(root->getColumn()) +
@@ -504,7 +550,6 @@ void checkTypeTree(Node *root, vector <string> &errors)
     {
       checkTypeTree(root->_children_assgn[0], errors);
       name_of_method = root->_children_assgn[0]->getValId();
-      cout << "type  " << root->_children_assgn[0]->getValType() << endl;
     }
 
     if (name_of_method == "")
@@ -517,6 +562,11 @@ void checkTypeTree(Node *root, vector <string> &errors)
     }
 
     string function_type = root->_children_assgn[0]->getValType();
+
+    if (function_type == "")
+    {
+      function_type = root->symbol_table->deepLookup(string("method_decl_") + root->_children_assgn[0]->getValId());
+    }
 
     for (int i = 0; i < static_cast<int>(function_type.size()-1); ++i)
     {
@@ -544,10 +594,32 @@ void checkTypeTree(Node *root, vector <string> &errors)
 
     if (function_arglist_type != arguments_type_rvalue)
     {
-      errors.push_back(string("ERR: ") +
-                       to_string(root->getLine()) + ":" +
-                       to_string(root->getColumn()) +
-                       " --> not enough arguments for <" + name_of_method + ">");
+      for (int c = 0; c <= root->symbol_table->getNumMethodsOverriden(); ++c)
+      {
+        string tt = root->symbol_table->deepLookup("method_decl_" + name_of_method + "_" + to_string(c));
+
+        for (int i = 0; i < static_cast<int>(tt.size()-1); ++i)
+        {
+          if (tt[i] == '-')
+          {
+            function_arglist_type = tt.substr(i+2, tt.size()-i+1);
+            function_return_type  = tt.substr(0, i-2);
+            break;
+          }
+        }
+
+        if (function_arglist_type == arguments_type_rvalue)
+        {
+          break;
+        }
+      }
+      if (function_arglist_type != arguments_type_rvalue)
+      {
+        errors.push_back(string("ERR: ") +
+                         to_string(root->getLine()) + ":" +
+                         to_string(root->getColumn()) +
+                         " --> not enough arguments for <" + name_of_method + ">");
+      }
     }
     else
     {
@@ -577,7 +649,7 @@ void checkTypeTree(Node *root, vector <string> &errors)
       errors.push_back(string("ERR: ") +
                        to_string(root->getLine()) + ":" +
                        to_string(root->getColumn()) +
-                       " --> operand must be <int> in unary \"+/-\" expression");
+                       " --> operand must be <int> in unary \"+/-/!\" expression");
     }
   }
   else if (current_node_structure == "expression_unary_rel")
@@ -594,7 +666,7 @@ void checkTypeTree(Node *root, vector <string> &errors)
       errors.push_back(string("ERR: ") +
                        to_string(root->getLine()) + ":" +
                        to_string(root->getColumn()) +
-                       " --> operand must be <int> in unary \"+/-\" expression");
+                       " --> operand must be <int> in unary \"+/-/!\" expression");
     }
   }
   else if (current_node_structure == "expression_binary")
@@ -610,6 +682,45 @@ void checkTypeTree(Node *root, vector <string> &errors)
     {
       checkTypeTree(second, errors);
     }
+
+
+    if (root->getValOp() == "==" || root->getValOp() == "!=")
+    {
+      if (first->getValType() == "void")
+      {
+        errors.push_back(string("ERR: ") +
+                         to_string(root->getLine()) + ":" +
+                         to_string(root->getColumn()) +
+                         " --> in binary expression 1st operand is not <int>");
+      }
+      else if (first->getValType() == "int" && second->getValType() != "int")
+      {
+        errors.push_back(string("ERR: ") +
+                         to_string(root->getLine()) + ":" +
+                         to_string(root->getColumn()) +
+                         " --> in binary expression 1st operand is <int>, 2nd is of reference type");
+      }
+      else if (first->getValType() != "int" && second->getValType() == "int")
+      {
+        errors.push_back(string("ERR: ") +
+                         to_string(root->getLine()) + ":" +
+                         to_string(root->getColumn()) +
+                         " --> in binary expression 1st operand is of reference type, 2nd is <int>");
+      }
+      else {
+        if (first->getValType() != "null")
+        {
+          root->setValType(first->getValType());
+          return;
+        }
+        else
+        {
+          root->setValType(second->getValType());
+          return;
+        }
+      }
+    }
+
 
     if (first->getValType() != "int")
     {
@@ -652,7 +763,26 @@ void checkTypeTree(Node *root, vector <string> &errors)
   else if (current_node_structure == "new_expression_constructor")
   {
     auto id   = root->getValId();
-    auto call_args = root->getValType();
+    auto call_arguments_list = root->_children_assgn[0]->_children_assgn;//->_children_assgn;;
+
+    string call_args = "";
+
+    for (int i = 0; i < static_cast<int>(call_arguments_list.size()); ++i)
+    {
+      if (call_arguments_list[i]->getStructureType() != "expression_number")
+      {
+        checkTypeTree(call_arguments_list[i], errors);
+      }
+      call_args.append(string(call_arguments_list[i]->getValType()) + " x ");
+    }
+
+    // first line is to eliminate extra " x "
+    // second line is to get args in a right order.
+    call_args = call_args.substr(0, call_args.size()-3);
+    if (call_args.size() >= 4)
+    {
+      call_args = call_args.substr(call_args.size()-1, 1)+" x "+call_args.substr(0, call_args.size()-4);
+    }
 
     auto constructor_type = current_symbol_table->globalClassLookup(id, string("constructor_decl_") + id);
     string constructor_args;
@@ -670,14 +800,28 @@ void checkTypeTree(Node *root, vector <string> &errors)
 
     if (constructor_args != call_args)
     {
-      errors.push_back(string("ERR: ") +
-                       to_string(root->getLine()) + ":" +
-                       to_string(root->getColumn()) +
-                       " --> invalid constructor call of class <" +
-                       constructor_class + ">");
+      string what_up_with_cons = current_symbol_table->globalConstructorLookup(id, call_args);
+
+      if (what_up_with_cons == "")
+      {
+        errors.push_back(string("ERR: ") +
+                         to_string(root->getLine()) + ":" +
+                         to_string(root->getColumn()) +
+                         " --> invalid constructor call of class <" +
+                         id + ">");
+      }
+      else
+      {
+        root->setValType(id);
+      }
+
     }
     else
     {
+      cout << "So?" << endl;
+      cout << "constructor_args " << constructor_args << endl;
+      cout << "call_args " << call_args << endl;
+      cout << "root type " << root->getValType() << endl;
       root->setValType(constructor_class);
     }
 
@@ -689,6 +833,15 @@ void checkTypeTree(Node *root, vector <string> &errors)
 
     auto multi_brackets    = root->_children_assgn[1]->getValType();
     auto current_node_type = root->getValType();
+
+    if (number_of_brackets >= 1 && multi_brackets.size() > 2)
+    {
+        errors.push_back(string("ERR: ") +
+                         to_string(root->getLine()) + ":" +
+                         to_string(root->getColumn()) +
+                         " --> must have at most one empty [] in <new expression>");
+    }
+
 
     for (auto child : exprs_in_brackets)
     {
@@ -709,11 +862,35 @@ void checkTypeTree(Node *root, vector <string> &errors)
 
     if (current_node_type != "int")
     {
-      auto type_of_id  = current_symbol_table->deepLookup(string("local_var_decl_") + root->getValType());
-      auto type_of_id2 = current_symbol_table->deepLookup(string("var_decl_") + root->getValType());
-      current_node_type= type_of_id == "" ? type_of_id2 : type_of_id;
+      auto type_of_id   = current_symbol_table->deepLookup(string("class_") + root->getValType());
+      current_node_type = type_of_id;
 
-      root->setValType(current_node_type);
+      if (current_node_type == "")
+      {
+        errors.push_back(string("ERR: ") +
+                         to_string(root->getLine()) + ":" +
+                         to_string(root->getColumn()) +
+                         " --> custom class in <new expression> does not exist");
+      }
+      else
+      {
+        string final_type = "";
+        final_type = root->getValType();
+
+        if (number_of_brackets >= 1 || multi_brackets != "")
+        {
+          final_type.append(" ");
+
+          for (int i = 0; i < number_of_brackets; ++i)
+          {
+            final_type.append("[]");
+          }
+
+          final_type.append(multi_brackets);
+        }
+
+        root->setValType(final_type);
+      }
     }
     else
     {
@@ -731,7 +908,6 @@ void checkTypeTree(Node *root, vector <string> &errors)
 
         final_type.append(multi_brackets);
       }
-
 
       root->setValType(final_type);
     }
@@ -832,8 +1008,42 @@ void buildTypeTree(Node *root, vector <string> &errors)
     else if (current_node_structure == "method_decl")
     {
       (*it)->symbol_table = new SymbolTable(root->symbol_table);
-      (*it)->symbol_table->setScopeDefinition((*it)->getValId(), "method_decl");
-      (*it)->setNodeScopeType();
+
+
+      if ((*it)->getValId() == root->symbol_table->getScopeName())
+      {
+        errors.push_back(string("ERR: Constructor <")+(*it)->getValId()+"> cannot have any return type ...");
+      }
+
+
+      if ((*it)->getValId() == "main")
+      {
+        if ((*it)->getValType() != "void <- void" && (*it)->getValType() != "int <- void")
+        {
+          errors.push_back(string("ERR: Main method is of wrong type (neither <int> nor <void>)"));
+        }
+
+        if (main_exists == true)
+        {
+          errors.push_back(string("ERR: Main method already exists"));
+        }
+        else
+        {
+          main_exists = true;
+        }
+      }
+
+      if (root->symbol_table->deepLookup(string("method_decl_")+(*it)->getValId()) != "")
+      {
+        string node_type = "method_decl_"+(*it)->getValId()+"_"+to_string(root->symbol_table->getNumMethodsOverriden());
+        (*it)->symbol_table->setScopeDefinition((*it)->getValId(), node_type);
+        (*it)->setNodeScopeType();
+      }
+      else
+      {
+        (*it)->symbol_table->setScopeDefinition((*it)->getValId(), "method_decl");
+        (*it)->setNodeScopeType();
+      }
 
       // Checking if the custom ID type exists
       // if ((*it)->getValType() != "int" && (*it)->getValType() != "void")
@@ -849,7 +1059,11 @@ void buildTypeTree(Node *root, vector <string> &errors)
 
       if (found != "")
       {
-        errors.push_back(string("ERR: Method <") + (*it)->getValId() + "> declaration conflict");
+        if (found == (*it)->getValType()) errors.push_back(string("ERR: Method <") + (*it)->getValId() + "> declaration conflict");
+
+        string num_method_ovrds = to_string(root->symbol_table->getNumMethodsOverriden());
+        root->symbol_table->insert("method_decl_"+(*it)->getValId()+"_"+num_method_ovrds, (*it)->getValType());
+        root->symbol_table->incrementMethodOverride();
       }
       else
       {
@@ -864,18 +1078,27 @@ void buildTypeTree(Node *root, vector <string> &errors)
       }
 
       (*it)->symbol_table = new SymbolTable(root->symbol_table);
-      (*it)->symbol_table->setScopeDefinition((*it)->getValId(), current_node_structure);
+      auto node_scope_def = string(current_node_structure)+"_"+(*it)->getValId()+to_string(root->symbol_table->getNumConstructors());
+      (*it)->symbol_table->setScopeDefinition((*it)->getValId(), node_scope_def);
       (*it)->setNodeScopeType();
 
       auto found = root->symbol_table->lookup("constructor_decl_" + (*it)->getValId());
 
+      // if found, make sure they are not equal.
       if (found != "")
       {
-        errors.push_back(string("ERR: Constructor of <") + (*it)->getValId() + "> declaration conflict");
+        if ((*it)->getValType() == found)
+        {
+          errors.push_back(string("ERR: Constructor of <") + (*it)->getValId() + "> declaration conflict");
+        }
+        else { } // ok
       }
       else
       {
-        root->symbol_table->insert("constructor_decl_" + (*it)->getValId(), (*it)->getValType());
+        string numbers_of_cons = to_string(root->symbol_table->getNumConstructors());
+        root->symbol_table->insert(string("constructor_decl_") + (*it)->getValId() + numbers_of_cons,
+                                  (*it)->getValType());
+        root->symbol_table->incrementConstructorDecls();
       }
     }
     else if (current_node_structure == "statement_block") // statement -> block

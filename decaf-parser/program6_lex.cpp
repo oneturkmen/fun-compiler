@@ -1,10 +1,10 @@
-#line 2 "program5_lex.cpp"
+#line 2 "program6_lex.cpp"
   #include <iostream>
   #include <iomanip>
   #include <vector>
   #include <string>
-  #include "program5.hpp"
-  #include "program5.tab.h"
+  #include "program6.hpp"
+  #include "program6.tab.h"
 
   int yycolumn = 1;
 
@@ -27,7 +27,7 @@
     cerr << string << endl;
   }
 
-#line 31 "program5_lex.cpp"
+#line 31 "program6_lex.cpp"
 
 #define  YY_INT_ALIGNED short int
 
@@ -518,17 +518,17 @@ static yyconst flex_int32_t yy_rule_can_match_eol[48] =
 #define yymore() yymore_used_but_not_detected
 #define YY_MORE_ADJ 0
 #define YY_RESTORE_YY_MORE_OFFSET
-#line 1 "program5.lpp"
+#line 1 "program6.lpp"
 /**
-  Program 5, program5.lpp
+  Program 6, program6.lpp
   Purpose: lexical analyzer file
 
   @author Batyr Nuryyev
-  @date   11/26/2017
+  @date   12/10/2017
 */
 
 
-#line 532 "program5_lex.cpp"
+#line 532 "program6_lex.cpp"
 
 #define INITIAL 0
 #define COMMENTS_MULLINE 1
@@ -661,10 +661,10 @@ YY_DECL
 		}
 
 	{
-#line 57 "program5.lpp"
+#line 57 "program6.lpp"
 
 
-#line 668 "program5_lex.cpp"
+#line 668 "program6_lex.cpp"
 
 	while ( /*CONSTCOND*/1 )		/* loops until end-of-file is reached */
 		{
@@ -733,19 +733,19 @@ do_action:	/* This label is used only to access EOF actions. */
 
 case 1:
 YY_RULE_SETUP
-#line 59 "program5.lpp"
+#line 59 "program6.lpp"
 { }
 	YY_BREAK
 case 2:
 YY_RULE_SETUP
-#line 61 "program5.lpp"
+#line 61 "program6.lpp"
 {
   BEGIN(COMMENTS_MULLINE);
 }
 	YY_BREAK
 case 3:
 YY_RULE_SETUP
-#line 65 "program5.lpp"
+#line 65 "program6.lpp"
 {
   BEGIN(INITIAL);
 }
@@ -753,137 +753,137 @@ YY_RULE_SETUP
 case 4:
 /* rule 4 can match eol */
 YY_RULE_SETUP
-#line 69 "program5.lpp"
+#line 69 "program6.lpp"
 { yycolumn++; }
 	YY_BREAK
 case YY_STATE_EOF(COMMENTS_MULLINE):
-#line 71 "program5.lpp"
+#line 71 "program6.lpp"
 { }
 	YY_BREAK
 case 5:
 YY_RULE_SETUP
-#line 72 "program5.lpp"
+#line 72 "program6.lpp"
 { }
 	YY_BREAK
 case 6:
 /* rule 6 can match eol */
 YY_RULE_SETUP
-#line 74 "program5.lpp"
+#line 74 "program6.lpp"
 { yycolumn = yyleng; }
 	YY_BREAK
 case 7:
 YY_RULE_SETUP
-#line 76 "program5.lpp"
+#line 76 "program6.lpp"
 { /* eat whitespace */ }
 	YY_BREAK
 case 8:
 YY_RULE_SETUP
-#line 78 "program5.lpp"
+#line 78 "program6.lpp"
 { return DOT;       }
 	YY_BREAK
 case 9:
 YY_RULE_SETUP
-#line 79 "program5.lpp"
+#line 79 "program6.lpp"
 { return COMMA;     }
 	YY_BREAK
 case 10:
 YY_RULE_SETUP
-#line 80 "program5.lpp"
+#line 80 "program6.lpp"
 { return SEMICOLON; }
 	YY_BREAK
 case 11:
 YY_RULE_SETUP
-#line 81 "program5.lpp"
+#line 81 "program6.lpp"
 { return LC;        }
 	YY_BREAK
 case 12:
 YY_RULE_SETUP
-#line 82 "program5.lpp"
+#line 82 "program6.lpp"
 { return LP;        }
 	YY_BREAK
 case 13:
 YY_RULE_SETUP
-#line 83 "program5.lpp"
+#line 83 "program6.lpp"
 { return LS;        }
 	YY_BREAK
 case 14:
 YY_RULE_SETUP
-#line 84 "program5.lpp"
+#line 84 "program6.lpp"
 { return RS;        }
 	YY_BREAK
 case 15:
 YY_RULE_SETUP
-#line 85 "program5.lpp"
+#line 85 "program6.lpp"
 { return RP;        }
 	YY_BREAK
 case 16:
 YY_RULE_SETUP
-#line 86 "program5.lpp"
+#line 86 "program6.lpp"
 { return RC;        }
 	YY_BREAK
 case 17:
 YY_RULE_SETUP
-#line 88 "program5.lpp"
+#line 88 "program6.lpp"
 { return IF;     }
 	YY_BREAK
 case 18:
 YY_RULE_SETUP
-#line 89 "program5.lpp"
+#line 89 "program6.lpp"
 { return ELSE;   }
 	YY_BREAK
 case 19:
 YY_RULE_SETUP
-#line 90 "program5.lpp"
+#line 90 "program6.lpp"
 { return WHILE;  }
 	YY_BREAK
 case 20:
 YY_RULE_SETUP
-#line 91 "program5.lpp"
+#line 91 "program6.lpp"
 { return RETURN; }
 	YY_BREAK
 case 21:
 YY_RULE_SETUP
-#line 92 "program5.lpp"
+#line 92 "program6.lpp"
 { return CLASS;  }
 	YY_BREAK
 case 22:
 YY_RULE_SETUP
-#line 93 "program5.lpp"
+#line 93 "program6.lpp"
 { return VOID;   }
 	YY_BREAK
 case 23:
 YY_RULE_SETUP
-#line 94 "program5.lpp"
+#line 94 "program6.lpp"
 { return PRINT;  }
 	YY_BREAK
 case 24:
 YY_RULE_SETUP
-#line 95 "program5.lpp"
+#line 95 "program6.lpp"
 { return NEW;    }
 	YY_BREAK
 case 25:
 YY_RULE_SETUP
-#line 96 "program5.lpp"
+#line 96 "program6.lpp"
 { return THIS;   }
 	YY_BREAK
 case 26:
 YY_RULE_SETUP
-#line 97 "program5.lpp"
+#line 97 "program6.lpp"
 { return NLL;    }
 	YY_BREAK
 case 27:
 YY_RULE_SETUP
-#line 98 "program5.lpp"
+#line 98 "program6.lpp"
 { return READ;   }
 	YY_BREAK
 case 28:
 YY_RULE_SETUP
-#line 99 "program5.lpp"
+#line 99 "program6.lpp"
 { return INT;    }
 	YY_BREAK
 case 29:
 YY_RULE_SETUP
-#line 101 "program5.lpp"
+#line 101 "program6.lpp"
 {
   yylval.ttype = new Node;
   yylval.ttype->setValNum((string)yytext);
@@ -892,7 +892,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 30:
 YY_RULE_SETUP
-#line 107 "program5.lpp"
+#line 107 "program6.lpp"
 {
   yylval.ttype = new Node;
   yylval.ttype->setValId((string)yytext);
@@ -901,82 +901,82 @@ YY_RULE_SETUP
 	YY_BREAK
 case 31:
 YY_RULE_SETUP
-#line 113 "program5.lpp"
+#line 113 "program6.lpp"
 { return ASSIGN;    }
 	YY_BREAK
 case 32:
 YY_RULE_SETUP
-#line 114 "program5.lpp"
+#line 114 "program6.lpp"
 { return EQUALS;    }
 	YY_BREAK
 case 33:
 YY_RULE_SETUP
-#line 115 "program5.lpp"
+#line 115 "program6.lpp"
 { return NOTEQL;    }
 	YY_BREAK
 case 34:
 YY_RULE_SETUP
-#line 116 "program5.lpp"
+#line 116 "program6.lpp"
 { return LESSGRT;   }
 	YY_BREAK
 case 35:
 YY_RULE_SETUP
-#line 117 "program5.lpp"
+#line 117 "program6.lpp"
 { return MOREGRT;   }
 	YY_BREAK
 case 36:
 YY_RULE_SETUP
-#line 118 "program5.lpp"
+#line 118 "program6.lpp"
 { return GREATER;   }
 	YY_BREAK
 case 37:
 YY_RULE_SETUP
-#line 119 "program5.lpp"
+#line 119 "program6.lpp"
 { return LESS;      }
 	YY_BREAK
 case 38:
 YY_RULE_SETUP
-#line 120 "program5.lpp"
+#line 120 "program6.lpp"
 { return PLUS;      }
 	YY_BREAK
 case 39:
 YY_RULE_SETUP
-#line 121 "program5.lpp"
+#line 121 "program6.lpp"
 { return MINUS;     }
 	YY_BREAK
 case 40:
 YY_RULE_SETUP
-#line 122 "program5.lpp"
+#line 122 "program6.lpp"
 { return DIV;       }
 	YY_BREAK
 case 41:
 YY_RULE_SETUP
-#line 123 "program5.lpp"
+#line 123 "program6.lpp"
 { return MULT;      }
 	YY_BREAK
 case 42:
 YY_RULE_SETUP
-#line 124 "program5.lpp"
+#line 124 "program6.lpp"
 { return REMAINDER; }
 	YY_BREAK
 case 43:
 YY_RULE_SETUP
-#line 125 "program5.lpp"
+#line 125 "program6.lpp"
 { return ANDAND;    }
 	YY_BREAK
 case 44:
 YY_RULE_SETUP
-#line 126 "program5.lpp"
+#line 126 "program6.lpp"
 { return OROR;      }
 	YY_BREAK
 case 45:
 YY_RULE_SETUP
-#line 127 "program5.lpp"
+#line 127 "program6.lpp"
 { return NOT;       }
 	YY_BREAK
 case 46:
 YY_RULE_SETUP
-#line 129 "program5.lpp"
+#line 129 "program6.lpp"
 {
   cout << endl;
   cout << yylineno << "-" << yycolumn-1;
@@ -986,10 +986,10 @@ YY_RULE_SETUP
 	YY_BREAK
 case 47:
 YY_RULE_SETUP
-#line 136 "program5.lpp"
+#line 136 "program6.lpp"
 ECHO;
 	YY_BREAK
-#line 993 "program5_lex.cpp"
+#line 993 "program6_lex.cpp"
 case YY_STATE_EOF(INITIAL):
 	yyterminate();
 
@@ -1953,7 +1953,7 @@ void yyfree (void * ptr )
 
 #define YYTABLES_NAME "yytables"
 
-#line 136 "program5.lpp"
+#line 136 "program6.lpp"
 
 
 

@@ -1,22 +1,23 @@
 /**
-  Program 5, program5.cpp
+  Program 6, program6.cpp
   Purpose: driver (main) file
 
   @author Batyr Nuryyev
-  @date   11/26/2017
+  @date   12/10/2017
 */
 #include <iostream>
 #include <string>
 #include <iomanip>
-#include "program5.hpp"
-#include "program5.tab.h"
-#include "program5_typecheck.hpp"
+#include "program6.hpp"
+#include "program6.tab.h"
+#include "program6_typecheck.hpp"
 #include <FlexLexer.h>
 using namespace std;
 
 /* -- -- -- -- -- -- -- -- */
 yyFlexLexer scanner;
 Node *tree;
+bool main_exists;
 
 /* -- Custom functions -- */
 void errox()
@@ -58,31 +59,38 @@ int main() {
       {
         cout << error << endl;
       }
+      cout << endl;
+    }
+    else if (main_exists == false)
+    {
+      cout << "ERR: no MAIN method found" << endl << endl;
     }
     else
     {
-      cout << "CLEAR" << endl;
-      cout << " -- -- STARTING SECOND PHASE => Type Checking -- -- ";
-      cout << endl;
-      vector <string> second_phase_errors;
-      checkTypeTree(tree, second_phase_errors);
-
-      if (second_phase_errors.size() >= 1)
-      {
-        for (const auto &error_2 : second_phase_errors)
-        {
-          cout << error_2 << endl;
-        }
-      }
-      else
-      {
-        cout << "CLEAR" << endl;
-        cout << " -- -- Dumping the symbol tables -- -- ";
-        cout << endl;
-
-        dumpTable(tree);
-      }
+      cout << "CLEAR" << endl << endl;
     }
+
+    cout << " -- -- STARTING SECOND PHASE => Type Checking -- -- ";
+    cout << endl;
+    vector <string> second_phase_errors;
+    checkTypeTree(tree, second_phase_errors);
+
+    if (second_phase_errors.size() >= 1)
+    {
+      for (const auto &error_2 : second_phase_errors)
+      {
+        cout << error_2 << endl;
+      }
+      cout << endl;
+    }
+    else
+    {
+      cout << "CLEAR" << endl << endl;
+    }
+    cout << " -- -- Dumping the symbol tables -- -- ";
+    cout << endl;
+
+    dumpTable(tree);
   }
 
   return 0;

@@ -3,14 +3,12 @@
 //class test2 { test2 a; test2 b; test2() { }}
 //class test3 { rt a; rt init(test2 a, test2 b, rt c) { return 1+4; }}
 //class ohboi { int b; int d; ohboi mah_method() { return 1; }}
-class A { B b; A() { } }
-class B { E g; int funky(int a) { } }
-class E { int e; E() { } }
-class C { int d; int [][][] x; A f; C() { this = this; } }
-//class C { int d; int [][][] x; A f; C() { d = f.b.g.e; } }
+class A { B b; A() { } int main () { }}
+class B { E g; int [] funky(int a) { }  }
+class E { int e; E() { } E(int k) {} E(A z, B g) { return ; } }
+class C { int d; C x; int [] testify; B smallb; A f; C() { } }
 //class D { int d; A [][] x; int [][] y; A f; D() { A d; d = (1 + 2) + 3; } }
 //class abc { some1 [] ab; john doe; abc() { int c; { ab = new int[1][2][3][]; { abcd(this,this); } } } }
-//5555
 //class foo { abc() { ohmygod = 1 + 2; } }
 //class cll { randomtype foo(int arg1, int arg2, int arg4) { some2 var; some3 [][][] xerox; } }
 //class sup { sup(int s, int p) { hectic [] declared; } }
