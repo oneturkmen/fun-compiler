@@ -1,28 +1,21 @@
-# fun-compiler
-Repository for COSC 4785 Compiler Construction course at University of Wyoming
+# Compiler front-end for the Decaf Language
 
-List and purpose of each assignment (listed in order):
+Decaf is a strongly-typed, object-oriented language with support for inheritance and encapsulation. It has many similarities with C/C++/Java.
 
-1. Play and experiment with *flex* to introduce yourself with it.
-2. Implement the scanner for **Decaf**\* using **Flex**\*\*,
-3. Implement the grammar (only part of it) for **Decaf** using **Bison**\*\*\*.
+Built lexical analyzer, parser, type checker for the *Compiler Construction I* class at University of Wyoming.
 
-### Scanner
+### Check it out!
 
-Run in order:
-
-1. `flex++ --warn program1.lpp`
-2. `g++ --dbgg program1.cpp program1_lex.cpp`
-3. `./a.out`
-
-### Parser
-
-Run in order:
+Run in order, manually:
 
 1. `bison --report=state -W -d program3.y`
 2. `flex++ --warn program3.lpp`
 3. `g++ -ggdb -std=c++11 -Wall program3.cpp program3_lex.cpp program3.tab.c -o program3`
 4. `./program3`
+
+Or, with a Makefile
+
+`make`
 
 ### Notes
 
