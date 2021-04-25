@@ -1,5 +1,5 @@
 /**
-  Program 6, program6_typecheck.hpp
+  Type checker for Decaf (semantic analysis).
   Purpose: two stages of type checking
 
   @author Batyr Nuryyev
@@ -7,17 +7,22 @@
 */
 
 
-#ifndef  TP_CHECK_CPP
+#ifndef TP_CHECK_CPP
 #define TP_CHECK_CPP
 
-#include "program6.hpp"
+#include "main.hpp"
+
 #include <vector>
 #include <string>
 #include <map>
 
 extern bool main_exists;
 
-// SECOND STAGE
+/*
+ * Second stage.
+ *
+ * Unusual imitation of visitor pattern through numerous ifs and else-ifs.
+ */
 void checkTypeTree(Node *root, vector <string> &errors)
 {
   auto current_node_structure = root->getStructureType();

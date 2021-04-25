@@ -1,5 +1,5 @@
 /**
-  Program 6, program6.y
+  Syntax definition for Decaf, main.y
   Purpose: syntax analyzer (parser) file
 
   @author Batyr Nuryyev
@@ -14,7 +14,7 @@
 #include <vector>
 #include <typeinfo>
 #include <FlexLexer.h>
-#include "program6.hpp"
+#include "main.hpp"
 
 using namespace std;
 

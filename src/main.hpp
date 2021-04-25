@@ -1,5 +1,4 @@
 /**
-  Program 6, program6.hpp
   Purpose: tree and error reports class definitions
 
   @author Batyr Nuryyev
@@ -7,8 +6,8 @@
 */
 
 
-#ifndef OHMYLIFE
-#define OHMYLIFE
+#ifndef MAIN_HEADER
+#define MAIN_HEADER
 
 #include <iostream>
 #include <vector>
@@ -19,7 +18,6 @@ using namespace std;
 
 typedef unordered_map <string, string> map_s_to_s;
 
-// FIXME : just a draft - to be edited.
 class SymbolTable {
   public:
     // { Name -> Type } mapping
@@ -54,8 +52,7 @@ class SymbolTable {
       return 1;
     }
 
-    // FIXME
-    // lookup a value of a key in the table
+    // Lookup a value of a key in the current table
     string lookup(string key)
     {
       auto value = in_symbol_table.find(key);
@@ -70,6 +67,7 @@ class SymbolTable {
       }
     }
 
+    // Recursive lookup
     string deepLookup(string key)
     {
       auto value = in_symbol_table.find(key);

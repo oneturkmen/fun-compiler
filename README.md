@@ -1,14 +1,27 @@
 # Compiler front-end for the Decaf Language
 
-Decaf is a strongly-typed, object-oriented language with support for inheritance and encapsulation. It is very similar to Java, but less so (you can treat it as a language for learning-only purposes).
+Decaf is a strongly-typed, object-oriented language with support for
+inheritance and encapsulation. It is very similar to Java, but less so (you can
+treat it as a language for learning-only purposes).
 
-Built lexical analyzer, parser, type checker for the *Compiler Construction I* class at University of Wyoming.
+Built lexical analyzer, parser, type checker for the *Compiler Construction I*
+class at University of Wyoming.
 
 ### Check it out!
 
-Run:
+Requires `make`.
 
-`make`
+Build:
+
+```bash
+cd src && make
+```
+
+Run with the test code (make sure you are in `src` directory):
+
+```bash
+./main < test
+```
 
 Done!
 

@@ -1,5 +1,4 @@
 /**
-  Program 6, program6.cpp
   Purpose: driver (main) file
 
   @author Batyr Nuryyev
@@ -8,10 +7,12 @@
 #include <iostream>
 #include <string>
 #include <iomanip>
-#include "program6.hpp"
-#include "program6.tab.h"
-#include "program6_typecheck.hpp"
+#include "main.hpp"
+#include "main.tab.h"
+#include "typechecker.hpp"
+
 #include <FlexLexer.h>
+
 using namespace std;
 
 /* -- -- -- -- -- -- -- -- */
